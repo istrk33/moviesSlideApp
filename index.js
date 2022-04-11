@@ -1,15 +1,21 @@
 'use strict'
 // Widgets
 
-module.exports = async () => {
+module.exports = () => {
   return {
     widgets: {
-      helloWorld: require('./widgets/helloWorld'),
+      app: require('./widgets/app'),
+      menu: require('./widgets/menu')
+      // first entrance
+      // already entered into the app
     },
     listeners: {
-      InitData: require('./listeners/initData'),
-      changeValue: require('./listeners/changeValue')
+      InitData: require('./listeners/initData')
+      // resetTextfield: require('./listeners/resetTextfield')
     },
-    rootWidget: 'helloWorld'
+    resources:{
+      appState: require('./resources/appState.json')
+    },
+    rootWidget: 'app'
   }
 }

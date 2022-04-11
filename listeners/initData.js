@@ -1,7 +1,14 @@
 'use strict'
 
 module.exports = (data, props, event) => {
-  return {
-    value: "world"
+  console.log(__dirname);
+  console.log(__filename);
+  if (data) {
+    return
+    data
+  } else {
+    return {
+      totalDurationTime: 0
+    }
   }
 }
