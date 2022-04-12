@@ -1,30 +1,37 @@
 'use strict'
 
-module.exports = (data, props) => {
-  var fs = require('fs');
-  var obj = JSON.parse(fs.readFileSync('../resources/appState.json', 'utf8'));
-  data.totalDurationTime=obj[0];
-  return {
-    type: "flex",
-    direction: "vertical",
-    fillParent: true,
-    crossAxisAlignment: "stretch",
-    children: [
-      {
+function getCurrentPage(data) {
+  console.log("navigation", data.navigation);
+  switch (data.navigation) {
+    case "home":
+      return {
         type: "widget",
-        name: "menu",
-        props: {
-          page: "Hello World"
-        }
-      },
-      {
-        type: "flexible",
-        child: {
-          type: 'text',
-          value: String(data.totalDurationTime)
-        }
-      }
-    ]
+        name: "home"
+      };
+    case "userInterest":
+      return {
+        type: "widget",
+        name: "userInterest"
+      };
+    case "userViewed":
+      return {
+        type: "widget",
+        name: "userViewed"
+      };
+    case "movieInfo":
+      return {
+        type: "widget",
+        name: "movieInfo"
+      };
+    default:
+      return {
+        type: "text",
+        value: "Something went wrong"
+      };
   }
 }
 
+module.exports =
+  (data, _props) => {
+    return getCurrentPage(data);
+  }
