@@ -59,6 +59,101 @@ Par exemple je ne pensais pas que l'élément stack soit utilisé pour superpose
 7. Bouttons -> pas possible de changer le style ?
 
 8. icones sur les boutons -> pas possible de placer uniquement une icone
+
+9. Pour le 7 et le 8 faut utiliser des actionnables
+
+10. Style d'une image, mise en place d'un filtre d'opacité pour mon cas, lorsque l'image est grande et que l'on veut qu'elle prenne toute la place difficultés à la centrer.
+
+11. faire l'équivalent d'un fillParent sur un actionnable.
+
+12. minHeight sur la constraint du conteneur qui efface le contenu
+![-1](c3.png)
+
+![-1](c2.png)
+
+```js
+ type: "container",
+            constraints: {
+                minHeight: 5
+    },
+```
+
+<!-- 13. erreur commande 
+```
+Postgresql data directory not found: /var/lib/postgresql/data, creating it...
+Postgresql data directory is empty, initializing...
+The files belonging to this database system will be owned by user "app".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.utf8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgresql/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... UTC
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... sh: locale: not found
+2022-04-13 11:27:13.088 UTC [17] WARNING:  no usable system locales were found
+ok
+syncing data to disk ... ok
+
+initdb: warning: enabling "trust" authentication for local connections
+You can change this by editing pg_hba.conf or using the option -A, or
+--auth-local and --auth-host, the next time you run initdb.
+
+Success.
+
+Starting Postgresql...
+waiting for server to start....2022-04-13 11:27:15.995 GMT [28] LOG:  starting PostgreSQL 13.6 on x86_64-alpine-linux-musl, compiled by gcc (Alpine 10.3.1_git20211027) 10.3.1 20211027, 64-bit
+2022-04-13 11:27:15.995 GMT [28] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2022-04-13 11:27:15.995 GMT [28] LOG:  could not bind IPv6 address "::1": Address not available
+2022-04-13 11:27:15.995 GMT [28] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2022-04-13 11:27:16.001 GMT [28] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+2022-04-13 11:27:16.007 GMT [29] LOG:  database system was shut down at 2022-04-13 11:27:13 GMT
+2022-04-13 11:27:16.013 GMT [28] LOG:  database system is ready to accept connections
+ done
+server started
+Running init scripts...
+CREATE DATABASE
+Init done !
+2022/04/13 11:27:16 Version: 0.8.4      SHA: bbd2e96214264d6b87cc97745ee9f604776dd80f
+2022/04/13 11:27:16 Forking: npm, arguments: [start]
+2022/04/13 11:27:16 Started logging: stderr from function.
+2022/04/13 11:27:16 Started logging: stdout from function.
+2022/04/13 11:27:16 Watchdog mode: http
+2022/04/13 11:27:16 Timeouts: read: 15s, write: 15s hard: 10s.
+2022/04/13 11:27:16 Listening on port: 8080
+2022/04/13 11:27:16 Writing lock-file to: /tmp/.lock
+2022/04/13 11:27:16 Metrics listening on port: 8081
+
+> openfaas-node12@1.0.0 start /home/app
+> npm run dev:watch
+npm ERR!
+npm ERR! Failed at the openfaas-node12@1.0.0 dev:watch script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_735Z-debug.log
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! openfaas-node12@1.0.0 start: `npm run dev:watch`
+npm ERR! Exit status 1
+npm ERR!
+npm ERR! Failed at the openfaas-node12@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
+2022/04/13 11:27:18 Forked function has terminated: exit status 1
+``` -->
+ 14. gestion des évènement de type hover, pas suffisament de doc pour l'utilisation dans le listener
 ```js
 /*TODO
 * actionnable pour les boutons : gérer style

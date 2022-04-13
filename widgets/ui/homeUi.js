@@ -2,113 +2,110 @@
 
 module.exports = (data, props) => {
   return {
-    type: "flex",
-    direction: "vertical",
-    fillParent: true,
-    crossAxisAlignment: "center",
-    children: [
-      {
-        type: "widget",
-        name: "menu",
-        props: {
-          page: "Main Page"
-        }
-      },
-      {
-        type: "flexible",
-        child:
+    type: "container",
+    decoration: {
+      color: 0xFF686868
+    },
+    child: {
+      type: "flex",
+      direction: "vertical",
+      fillParent: true,
+      crossAxisAlignment: "center",
+      children: [
         {
-          type: "stack",
-          alignment: "topRight",
-          children: [
-            //image du film courant
-            {
-              type: "flex",
-              // crossAxisAlignment: "center",
-              // fillParent: true,
-              children: [
-                {
-                  type: "image",
-                  fit: "fitHeight",
-                  src: "https://imgsrc.cineserie.com/2022/02/doctor-strange-in-the-multiverse-of-madness-affiche-1418131.png?ver=1"
-                }]
-            },
-            {
-              type: "button",
-              text: "Voir les détails",
-              size: "small",
-              rightIcon:
-              {
-                type: "icon",
-                value: "details",
-                size: 20
-              },
-              onPressed: {
-                action: "switchMovieInfoUi"
-              }
-            }
-          ]
-        }
-      },
-      {
-        type: "flex",
-        mainAxisAlignment: "spaceBetween",
-        crossAxisAlignment: "center",
-        padding: {
-          left: 4,
-          right: 4,
-          top: 2,
-          bottom: 2
+          type: "widget",
+          name: "menu",
+          props: {
+            page: "Main Page"
+          }
         },
-        children: [
+        {
+          type: "flexible",
+          child:
           {
-            type: 'button',
-            text: "Pas vu",
-            size: "large",
-            mainStyle: "tertiary",
-            leftIcon:
-            {
-              type: "icon",
-              value: "close",
-              size: 20
-            },
-            onPressed: {
-              action: "NotViewed"
-            }
-          },
+            type: "stack",
+            alignment: "topRight",
+            children: [
+              //image du film courant
+              {
+                type: "image",
+                fit: "cover",
+                src: "https://imgsrc.cineserie.com/2022/02/doctor-strange-in-the-multiverse-of-madness-affiche-1418131.png?ver=1"
+              }, {
+                type: "actionable",
+                onPressed: {
+                  action: "switchMovieInfoUi"
+                },
+                child: {
+                  type: "container",
+                  child: {
+                    type: "flex",
+                    children: [
+                      {
+                        type: "icon",
+                        value: "info",
+                        size: 20
+                      },
+                      {
+                        type: "container",
+                        padding: {
+                          top: 1
+                        },
+                        child: {
+                          type: "text",
+                          value: "Voir les détails"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          type: "container",
+          child:
           {
-            type: 'button',
-            text: "Intéressé",
-            size: "large",
-            mainStyle: "tertiary",
-            leftIcon:
-            {
-              type: "icon",
-              value: "add",
-              size: 20
-            },
-            onPressed: {
-              action: "Interested"
-            }
-          },
-          {
-            type: 'button',
-            text: "Vu",
-            size: "large",
-            mainStyle: "tertiary",
-            leftIcon:
-            {
-              type: "icon",
-              value: "done",
-              size: 20
-            },
-            onPressed: {
-              action: "Viewed"
-            }
-          },
-        ]
-      }
-    ]
+            type: "flex",
+            mainAxisAlignment: "spaceBetween",
+            crossAxisAlignment: "center",
+            fillParent: true,
+            children: [
+              {
+                type: "widget",
+                name: "bottomButton",
+                props: {
+                  buttonIcon: "close",
+                  buttonStr: "Pas vu",
+                  color: data.bottomButton3Color[0],
+                  iconColor: data.bottomButton3Color[1]
+                }
+              },
+              {
+                type: "widget",
+                name: "bottomButton",
+                props: {
+                  buttonIcon: "add",
+                  buttonStr: "Intéressé",
+                  color: data.bottomButton2Color[0],
+                  iconColor: data.bottomButton2Color[1]
+                }
+              },
+              {
+                type: "widget",
+                name: "bottomButton",
+                props: {
+                  buttonIcon: "done",
+                  buttonStr: "Vu",
+                  color: data.bottomButton1Color[0],
+                  iconColor: data.bottomButton1Color[1]
+                }
+              },
+            ]
+          }
+        }
+      ]
+    }
   }
 }
-

@@ -6,11 +6,13 @@ module.exports = () => {
   return {
     widgets: {
       app: require('./widgets/app'),
-      menu: require('./widgets/menu'),
+      menu: require('./widgets/components/menu'),
+      bottomButton: require('./widgets/components/bottomButton'),
+      menuButton: require('./widgets/components/menuButton'),
       home: require('./widgets/ui/homeUi'),
       userInterest: require('./widgets/ui/userInterestUi'),
       userViewed: require('./widgets/ui/userViewedUi'),
-      movieInfo: require('./widgets/ui/movieInfoUi')
+      movieInfo: require('./widgets/ui/movieInfoUi'),
     },
     listeners: {
       InitData: require('./listeners/initData'),
@@ -21,6 +23,8 @@ module.exports = () => {
       switchInterestUi: require('./listeners/userInterestUiButton'),
       switchViewedUi: require('./listeners/userViewedUiButton'),
       switchMovieInfoUi: require('./listeners/movieInfoUiButton'),
+      bottomButtonHoverEvent:require('./listeners/bottomButtonHoverEvent'),
+      menuButtonHoverEvent:require('./listeners/menuButtonHoverEvent'),
       // resetTextfield: require('./listeners/resetTextfield')
     },
     // resources:{
