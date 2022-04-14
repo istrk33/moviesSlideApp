@@ -74,7 +74,7 @@ Par exemple je ne pensais pas que l'élément stack soit utilisé pour superpose
 ```js
  type: "container",
             constraints: {
-                minHeight: 5
+              minHeight: 5
     },
 ```
 
@@ -154,6 +154,21 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 2022/04/13 11:27:18 Forked function has terminated: exit status 1
 ``` -->
  14. gestion des évènement de type hover, pas suffisament de doc pour l'utilisation dans le listener
+
+ 15. Dans la doc il est indiqué que pour les padding on doit utiliser des number(int ?) mais on peut placer des flottant.
+
+ 16. On ne peut pas rendre invisible le background du actionnable lorsqu'on a une icone de forme ronde et qu'on fait un border radius.
+ ![alt](c4.png)
+
+ 17. On ne peut pas rendre un flex scrollable quand on est dans un autre flex, cas avec flex contenant un menu et un autre sous-flex contenant par exemple les éléments d'une liste.(problème réglé avec un flexible parent au 2ème flex avec la propriété tight ou loose)
+
+ 18. On ne sait pas quand on rentre et quitte un hover sur un actionnable, notre actionnable prend
+ la couleur du hover quand on clic sur l'actionnable et que dans la nouvelle vue, on ne hover plus le même actionnable (cas du menu qui est présente dans plusieurs vu).
+
+ 19. En prenant comme source d'image des urls provenant d'une d'une api, la source de l'image est bloqué.
+
+![-1](c5.png)
+
 ```js
 /*TODO
 * actionnable pour les boutons : gérer style

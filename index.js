@@ -13,6 +13,7 @@ module.exports = () => {
       userInterest: require('./widgets/ui/userInterestUi'),
       userViewed: require('./widgets/ui/userViewedUi'),
       movieInfo: require('./widgets/ui/movieInfoUi'),
+      movieButton: require('./widgets/components/movieButton'),
     },
     listeners: {
       InitData: require('./listeners/initData'),
@@ -25,10 +26,11 @@ module.exports = () => {
       switchMovieInfoUi: require('./listeners/movieInfoUiButton'),
       bottomButtonHoverEvent:require('./listeners/bottomButtonHoverEvent'),
       menuButtonHoverEvent:require('./listeners/menuButtonHoverEvent'),
+      movieInfoButtonHoverEvent:require('./listeners/movieInfoButtonHoverEvent'),
       // resetTextfield: require('./listeners/resetTextfield')
     },
     // resources:{
-    //   appState: require('./resources/appState.json')
+    //   functions: require('./resources/functions')
     // },
     rootWidget: 'app'
   }

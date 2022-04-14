@@ -32,7 +32,7 @@ module.exports = (data, props) => {
   return {
     type: "container",
     decoration: {
-      color: 0xFF494949,
+      color: data.black,
       boxShadow: {
         blurRadius: 8,
         color: 0x1AFFFFFF,

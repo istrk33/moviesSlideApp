@@ -13,7 +13,10 @@ module.exports = (data, props) => {
             {
                 type: "actionable",
                 onPressed: {
-                    action: "NotViewed"
+                    action: props.action,
+                    props:{
+                        movieDict:props.movieDict
+                    }
                 },
                 onHovered: {
                     action: "bottomButtonHoverEvent",
@@ -27,13 +30,13 @@ module.exports = (data, props) => {
                         color: props.color
                     },
                     constraints: {
-                        minHeight: 150,
-                        maxHeight: 150,
+                        minHeight: 100,
+                        maxHeight: 100,
                         minWidth: 0,
                         maxWidth: 600
                     },
                     padding: {
-                        top: 7
+                        top: 3.5
                     },
                     child: {
                         type: "flex",

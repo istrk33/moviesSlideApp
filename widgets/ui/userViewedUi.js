@@ -4,7 +4,6 @@ module.exports = (data, props) => {
   return {
     type: "flex",
     direction: "vertical",
-    fillParent: true,
     crossAxisAlignment: "center",
     children: [
       {
@@ -15,16 +14,26 @@ module.exports = (data, props) => {
         }
       },
       {
-        type: "flex",
-        direction: "vertical",
-        children: [
-          ...data.userViewed.map(element => {
-            return {
-              type: "button",
-              text: element
-            }
-          })
-        ]
+        type: "flexible",
+        fit:"tight",
+        child:
+        {
+          type: "flex",
+          direction: "vertical",
+          // fillParent: true,
+          scroll: true,
+          children: [
+            ...data.userViewed.map(element => {
+              return {
+                type: "widget",
+                name: "movieButton",
+                props: {
+                  buttonText: element
+                }
+              }
+            })
+          ]
+        }
       }
     ]
   }

@@ -5,7 +5,7 @@ module.exports = (data, props) => {
     type: "flex",
     direction: "vertical",
     fillParent: true,
-    crossAxisAlignment: "center",
+    scroll: true,
     children: [
       {
         type: "widget",
@@ -13,19 +13,17 @@ module.exports = (data, props) => {
         props: {
           page: "User Interest"
         }
-      },
-      {
-        type: "flex",
-        direction: "vertical",
-        children: [
-          ...data.userInterests.map(element => {
-            return {
-              type: "button",
-              text: element
-            }
-          })
-        ]
       }
+      ,
+      ...data.userInterests.map(element => {
+        return {
+          type: "widget",
+          name: "movieButton",
+          props: {
+            buttonText: element
+          }
+        }
+      })
     ]
   }
 }

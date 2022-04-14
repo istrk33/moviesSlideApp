@@ -1,14 +1,16 @@
 'use strict'
 
 module.exports = (data, props) => {
-    var buttonColor = data.menuHoverColor;
     return {
         type: "actionable",
         onPressed: {
             action: props.uiName
         },
         onHovered: {
-            action: menuButtonHoverEvent
+            action: "menuButtonHoverEvent",
+            props: {
+                order: props.order
+            }
         },
         child: {
             type: "container",
