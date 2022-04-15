@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = (data, props) => {
+  var arr = Object.values(data.userViewed);
   return {
     type: "flex",
     direction: "vertical",
@@ -15,7 +16,7 @@ module.exports = (data, props) => {
       },
       {
         type: "flexible",
-        fit:"tight",
+        fit: "tight",
         child:
         {
           type: "flex",
@@ -23,12 +24,14 @@ module.exports = (data, props) => {
           // fillParent: true,
           scroll: true,
           children: [
-            ...data.userViewed.map(element => {
+            ...arr.sort().map(element => {
               return {
                 type: "widget",
                 name: "movieButton",
                 props: {
-                  buttonText: element
+                  buttonText: element[1],
+                  from:"other",
+                  movieId: element[0]
                 }
               }
             })

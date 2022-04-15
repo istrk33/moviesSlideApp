@@ -15,7 +15,8 @@ module.exports = (data, props) => {
                 onPressed: {
                     action: props.action,
                     props:{
-                        movieDict:props.movieDict
+                        movieDict:props.movieDict,
+                        buttonName:props.buttonName
                     }
                 },
                 onHovered: {

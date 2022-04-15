@@ -17,9 +17,7 @@ module.exports = () => {
     },
     listeners: {
       InitData: require('./listeners/initData'),
-      Viewed: require('./listeners/viewedButton'),
-      Interested: require('./listeners/userInterestButton'),
-      NotViewed: require('./listeners/notViewedButton'),
+      bottomButtonClick: require('./listeners/bottomButtonClick'),
       switchHomeUi: require('./listeners/homeUiButton'),
       switchInterestUi: require('./listeners/userInterestUiButton'),
       switchViewedUi: require('./listeners/userViewedUiButton'),

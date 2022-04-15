@@ -29,6 +29,18 @@ module.exports = (data, props) => {
     icon1 = "home";
     icon2 = "done_all";
   }
+
+  var totalSec = data.totalWastedTime;
+  var d = Math.floor(totalSec / (3600 * 24));
+  var h = Math.floor(totalSec % (3600 * 24) / 3600);
+  var m = Math.floor(totalSec % 3600 / 60);
+
+  var dDisplay = d + "j ";
+  var hDisplay = h + "h ";
+  var mDisplay = m + "min ";
+  // var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+
+  var menudisp = totalSec == 0 ? "0j 0h 0min" : dDisplay + " " + hDisplay + " " + mDisplay /*+ " " + sDisplay*/;
   return {
     type: "container",
     decoration: {
@@ -67,7 +79,7 @@ module.exports = (data, props) => {
           children: [
             {
               type: 'text',
-              value: String(data.totalDurationTime),
+              value: String(menudisp),
               style: {
                 fontSize: 20,
                 fontWeight: "w700",

@@ -4,7 +4,11 @@ module.exports = (data, props) => {
     return {
         type: "actionable",
         onPressed: {
-            action: "NotViewed"
+            action: "switchMovieInfoUi",
+            props:{
+                movieId:props.movieId,
+                from:props.from
+            }
         },
         child: {
             type: "container",

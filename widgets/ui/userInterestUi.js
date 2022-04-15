@@ -1,29 +1,43 @@
 'use strict'
 
 module.exports = (data, props) => {
+  var arr = Object.values(data.userInterests);
   return {
     type: "flex",
     direction: "vertical",
-    fillParent: true,
-    scroll: true,
+    crossAxisAlignment: "center",
     children: [
       {
         type: "widget",
         name: "menu",
         props: {
-          page: "User Interest"
+          page: "User Viewed"
+        }
+      },
+      {
+        type: "flexible",
+        fit: "tight",
+        child:
+        {
+          type: "flex",
+          direction: "vertical",
+          // fillParent: true,
+          scroll: true,
+          children: [
+            ...arr.sort().map(element => {
+              return {
+                type: "widget",
+                name: "movieButton",
+                props: {
+                  buttonText: element[1],
+                  from:"other",
+                  movieId: element[0]
+                }
+              }
+            })
+          ]
         }
       }
-      ,
-      ...data.userInterests.map(element => {
-        return {
-          type: "widget",
-          name: "movieButton",
-          props: {
-            buttonText: element
-          }
-        }
-      })
     ]
   }
 }
