@@ -11,7 +11,6 @@ module.exports = async (data, props, event) => {
   var userViewed = {};
   var userNotViewed = {};
   var listOfUndiscoveredMovies = {};
-  // const menuButtonColor=0xFF494949;
   var menuHoverButton1Color = [black, white];
   var menuHoverButton2Color = [black, white];
   var movieInfoButtonColor = [0xF4212121, 0xFFFFFFFF];
@@ -19,10 +18,10 @@ module.exports = async (data, props, event) => {
   var bottomButton2Color = [bottomButtonsColors[1][0], white];
   var bottomButton3Color = [bottomButtonsColors[2][0], white];
   var start = 0;
+  var menuTimeLabel = "tempsPerdu";
   var movieInfoToSee;
   (await functions.queryPopularMovies(apiKey, start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title, element.production_year]);
   start += 20;
-  // console.log(listOfUndiscoveredFilms);
   var currentMovie = listOfUndiscoveredMovies[Object.keys(listOfUndiscoveredMovies)[0]];
   var currentMovieInfo=(await functions.getMovieDetails(apiKey, currentMovie[0]));
   if (typeof totalDurationTime !== 'undefined' && userInterests.length != 0 && userViewed.length != 0 && userNotViewed.length != 0) {
@@ -52,7 +51,8 @@ module.exports = async (data, props, event) => {
       start,
       apiKey,
       currentMovieInfo,
-      movieInfoToSee
+      movieInfoToSee,
+      menuTimeLabel
     }
   }
 }

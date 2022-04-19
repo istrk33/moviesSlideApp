@@ -1,5 +1,4 @@
 'use strict'
-const axios = require('axios')
 
 module.exports = async (data, props) => {
   var img = "https://api.betaseries.com/pictures/movies?key=941cc48f228b&id=" + data.currentMovie[0] + "&width=627&height=933";
@@ -64,7 +63,7 @@ module.exports = async (data, props) => {
                 onPressed: {
                   action: "switchMovieInfoUi",
                   props: {
-                    from:"home",
+                    from: "home",
                     movieData: data.currentMovieInfo.movie
                   }
                 },
@@ -140,8 +139,21 @@ module.exports = async (data, props) => {
             spacing: 1,
             children: [
               {
+                type: "wrap",
+                children: [
+                  {
+                    type: "text",
+                    value: String(data.currentMovie[1]),
+                    style: {
+                      color: 0xFFFFFFFF,
+                      fontSize: 30
+                    }
+                  }
+                ]
+              },
+              {
                 type: "text",
-                value: String(data.currentMovie[1]),
+                value: String(currentFilmDurationStr + " | " + data.currentMovie[2]),
                 style: {
                   color: 0xFFFFFFFF,
                   fontSize: 20
@@ -149,18 +161,10 @@ module.exports = async (data, props) => {
               },
               {
                 type: "text",
-                value: String(currentFilmDurationStr + " | " + data.currentMovie[2]),
+                value: String(data.currentMovieInfo.movie.director),
                 style: {
                   color: 0xFFFFFFFF,
-                  fontSize: 15
-                }
-              },
-              {
-                type: "text",
-                value: String( data.currentMovieInfo.movie.director),
-                style: {
-                  color: 0xFFFFFFFF,
-                  fontSize: 15
+                  fontSize: 20
                 }
               }
             ]

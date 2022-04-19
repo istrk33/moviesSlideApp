@@ -29,8 +29,18 @@ module.exports = (data, props) => {
     icon1 = "home";
     icon2 = "done_all";
   }
-
-  var totalSec = data.totalWastedTime;
+  var totalSec;
+  switch (data.menuTimeLabel) {
+    case "tempsPerdu":
+      totalSec = data.totalWastedTime;
+      break;
+    case "tempsAPerdre":
+      totalSec = data.potentialWasteTime;
+      break;
+    case "tempsEconomise":
+      totalSec = data.totalSavedTime;
+      break;
+  }
   var d = Math.floor(totalSec / (3600 * 24));
   var h = Math.floor(totalSec % (3600 * 24) / 3600);
   var m = Math.floor(totalSec % 3600 / 60);
@@ -70,22 +80,160 @@ module.exports = (data, props) => {
         {
           type: "flex",
           fillParent: true,
-          padding: {
-            left: 0,
-            right: 0,
-            top: 2,
-            bottom: 0
-          },
+          // padding: {
+          //   left: 0,
+          //   right: 0,
+          //   top: 0,
+          //   // top: 2,
+          //   bottom: 0
+          // },
           children: [
+            // {
+            //   type: 'text',
+            //   value: String(menudisp),
+            //   style: {
+            //     fontSize: 20,
+            //     fontWeight: "w700",
+            //     color: 0xFFFFFFFF
+            //   }
+            // },
             {
-              type: 'text',
-              value: String(menudisp),
-              style: {
-                fontSize: 20,
-                fontWeight: "w700",
-                color: 0xFFFFFFFF
+              type: "dropdownButton",
+              text: String(menudisp),
+              icon: {
+                type: "icon",
+                value: "movie",
+                color: 0xFFFFFFFF,
+                size: 25
+              },
+              mainStyle: "secondary",
+              child: {
+                type: "menu",
+                children: [
+                  {
+                    type: "flex",
+                    direction: "vertical",
+                    crossAxisAlignment: "stretch",
+                    children: [
+                      {
+                        type: "actionable",
+                        onPressed: {
+                          action: "changeMenuLabel",
+                          props: {
+                            srcButton: "tempsPerdu",
+                          }
+                        },
+                        child: {
+                          type: "container",
+                          constraints: {
+                            minHeight: 30,
+                            minWidth: 140,
+                            maxWidth: 140,
+                            maxHeight: 30,
+                          },
+                          child: {
+                            type: "flex",
+                            children: [{
+                              type: "icon",
+                              value: "remove_red_eye",
+                              size: 25
+                            },
+                            {
+                              type: "container",
+                              padding: {
+                                top: 1,
+                                left: 1,
+                              },
+                              child: {
+                                type: "text",
+                                value: "Temps Perdu"
+                              }
+                            },
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        type: "actionable",
+                        onPressed: {
+                          action: "changeMenuLabel",
+                          props: {
+                            srcButton: "tempsAPerdre",
+                          }
+                        },
+                        child: {
+                          type: "container",
+                          constraints: {
+                            minHeight: 30,
+                            minWidth: 140,
+                            maxWidth: 140,
+                            maxHeight: 30,
+                          },
+                          child: {
+                            type: "flex",
+                            children: [{
+                              type: "icon",
+                              value: "watch_later",
+                              size: 25
+                            },
+                            {
+                              type: "container",
+                              padding: {
+                                top: 1,
+                                left: 1,
+                              },
+                              child: {
+                                type: "text",
+                                value: "Temps à Perdre"
+                              }
+                            },
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        type: "actionable",
+                        onPressed: {
+                          action: "changeMenuLabel",
+                          props: {
+                            srcButton: "tempsEconomise",
+                          }
+                        },
+                        child: {
+                          type: "container",
+                          // constraints: {
+                          //   minHeight: 30,
+                          //   minWidth: 140,
+                          //   maxWidth: 140,
+                          //   maxHeight: 30,
+                          // },
+                          child: {
+                            type: "flex",
+                            children: [{
+                              type: "icon",
+                              value: "close",
+                              size: 25
+                            },
+                            {
+                              type: "container",
+                              padding: {
+                                top: 1,
+                                left: 1,
+                              },
+                              child: {
+                                type: "text",
+                                value: "Temps Economisé"
+                              }
+                            },
+                            ]
+                          }
+                        }
+                      },
+                    ]
+                  }
+                ]
               }
-            }
+            },
           ]
         },
         {

@@ -22,9 +22,10 @@ module.exports = () => {
       switchInterestUi: require('./listeners/userInterestUiButton'),
       switchViewedUi: require('./listeners/userViewedUiButton'),
       switchMovieInfoUi: require('./listeners/movieInfoUiButton'),
-      bottomButtonHoverEvent:require('./listeners/bottomButtonHoverEvent'),
-      menuButtonHoverEvent:require('./listeners/menuButtonHoverEvent'),
-      movieInfoButtonHoverEvent:require('./listeners/movieInfoButtonHoverEvent'),
+      bottomButtonHoverEvent: require('./listeners/bottomButtonHoverEvent'),
+      menuButtonHoverEvent: require('./listeners/menuButtonHoverEvent'),
+      movieInfoButtonHoverEvent: require('./listeners/movieInfoButtonHoverEvent'),
+      changeMenuLabel: require('./listeners/dropdownClick'),
       // resetTextfield: require('./listeners/resetTextfield')
     },
     // resources:{

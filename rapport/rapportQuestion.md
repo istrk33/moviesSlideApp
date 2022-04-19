@@ -169,10 +169,26 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 
 ![-1](c5.png)
 
-```js
-/*TODO
-* actionnable pour les boutons : gérer style
-* chercher une bonne api
-* requete API
+20. Centrer le texte lorsque que le texte est trop long :
+![-1](c6.png)
+![-1](c7.png)
+
+21. Gestion d'affichage conditionnel de widgets (if)
+
+22. Mise en place d'un padding sur un texte en fonction de la taille de l'écran
+
+23. Devtools bouton pour les paramètres par défauts
+
+24. dropdown permettre la personnalisation comme les actionnables
+
+25. latence lorsque l'on a beaucoup de films enregistrés dans l'un des tableaux
+
+26. lors du rechargement de la page apres un hover, l'affichage aléatoire de de quelques éléments d'un tableau s'actualise et on peut avoir cet évènement en boucle
+
+/*
+* actionnable dropdownmenu en brackground transparent -> effacer les espaces au dessus et en dessous
+* gérer le hover des actionnables
+* centrer les textes
+* clean le code -> fonctions, widgets, commentaires
+* personnaliser le dropdown
 */
-```
