@@ -5,9 +5,9 @@ module.exports = (data, props) => {
         type: "actionable",
         onPressed: {
             action: "switchMovieInfoUi",
-            props:{
-                movieId:props.movieId,
-                from:props.from
+            props: {
+                movieId: props.movieId,
+                from: props.from
             }
         },
         child: {
@@ -16,7 +16,7 @@ module.exports = (data, props) => {
                 minHeight: 50,
                 maxHeight: 50,
                 minWidth: 600,
-                maxWidth:600
+                maxWidth: 600
             },
             child: {
                 type: "flex",
@@ -25,9 +25,9 @@ module.exports = (data, props) => {
                     {
                         type: "container",
                         padding: {
-                            top:2.5,
-                            left:1,
-                            right:1
+                            top: 2.5,
+                            left: 1,
+                            right: 1
                         },
                         child: {
                             type: "text",

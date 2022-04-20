@@ -14,6 +14,7 @@ module.exports = () => {
       userViewed: require('./widgets/ui/userViewedUi'),
       movieInfo: require('./widgets/ui/movieInfoUi'),
       movieButton: require('./widgets/components/movieButton'),
+      dropdownMenuButton: require('./widgets/components/dropMenuButton'),
     },
     listeners: {
       InitData: require('./listeners/initData'),
@@ -26,7 +27,8 @@ module.exports = () => {
       menuButtonHoverEvent: require('./listeners/menuButtonHoverEvent'),
       movieInfoButtonHoverEvent: require('./listeners/movieInfoButtonHoverEvent'),
       changeMenuLabel: require('./listeners/dropdownClick'),
-      // resetTextfield: require('./listeners/resetTextfield')
+      dropdownButtonHoverEvent: require('./listeners/dropdownButtonHoverEvent'),
+      // actorButtonClick: require('./listeners/actorButtonPressedEvent'),
     },
     // resources:{
     //   functions: require('./resources/functions')

@@ -179,16 +179,24 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 
 23. Devtools bouton pour les paramètres par défauts
 
-24. dropdown permettre la personnalisation comme les actionnables
+24. dropdown permettre la personnalisation comme les actionables
 
 25. latence lorsque l'on a beaucoup de films enregistrés dans l'un des tableaux
 
 26. lors du rechargement de la page apres un hover, l'affichage aléatoire de de quelques éléments d'un tableau s'actualise et on peut avoir cet évènement en boucle
 
-/*
+27. le hover sur un actionable>menu>dropdown (actionable qui est dans un menu qui est dans une dropdown) ne premet pas de mettre à jour le style de l'actionnable
+
+28. gestion d'affichage de tableau difficile, lorsque l'on aveu afficher un tableau, de 2 colonnes par exemple, et que les éléments de ces colonne ont une taille variables en fonction du contenu, on a un problème quand l'élément de la colonne gauche et plus grand que l'élément de la colonne droite, ex(dans ce cas il y a un prblème d'affichage des lignes, qui se basent sur leur conteneur ) :
+![-1](c8.png)
+
+<!-- 
 * actionnable dropdownmenu en brackground transparent -> effacer les espaces au dessus et en dessous
 * gérer le hover des actionnables
 * centrer les textes
 * clean le code -> fonctions, widgets, commentaires
-* personnaliser le dropdown
-*/
+* personnaliser le dropdown*
+* ajouter la gestion des séries
+* pour les acteurs affichage sous forme de tableau 
+* ajouter les plateforme qui proposent le film
+-->

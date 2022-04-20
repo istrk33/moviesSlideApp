@@ -13,25 +13,12 @@ module.exports = async (data, props) => {
         arr.splice(arr.length, 0, "star_border_outlined");
     }
 
-    //pour la gestion d'affichage de la durée du film en fonction des secondes
-    var h = Math.floor(movie.length / 3600);
-    var m = Math.floor(movie.length % 3600 / 60);
-    var s = Math.floor(movie.length % 3600 % 60);
-    if (h.toString().length < 2) {
-        h = "0" + h;
-    }
-    if (s.toString().length < 2) {
-        s = "0" + s;
-    }
-    if (m.toString().length < 2) {
-        m = "0" + m;
-    }
-    var currentFilmDurationStr = h + ":" + m + ":" + s;
+    var currentFilmDurationStr = functions.computeMovieDuration(movie.length);
 
     var genresArray = movie.genres;
+    var genresArrayStr = genresArray.join('  ');
     var charactersArray = await functions.getCharacters(data.apiKey, movie.id);
-    var only5Chars = charactersArray.sort(() => Math.random() - Math.random()).slice(0, 5)
-    // console.log(charactersArray);
+    var only5Chars = charactersArray;//charactersArray.sort(() => Math.random() - Math.random()).slice(0, 5)
     return {
         type: "container",
         decoration: {
@@ -84,48 +71,84 @@ module.exports = async (data, props) => {
                             },
                             {
                                 type: "container",
-                                child: {
+                                padding: {
+                                    top: 1,
+                                    bottom: 1
+                                },
+                                child:
+                                {
                                     type: "flex",
                                     crossAxisAlignment: "center",
-                                    padding: {
-                                        top: 2,
-                                        bottom: 2
-                                    },
+                                    // padding: {
+                                    //     bottom: 1
+                                    // },
                                     children: [
                                         {
-                                            type: "text",
-                                            value: "Année de sortie " + movie.production_year,
-                                            style: {
-                                                color: 0xFFFFFFFF,
-                                                fontSize: 17
-                                            }
+                                            type: "icon",
+                                            value: "calendar_today",
+                                            color: 0xFFFFFFFF,
+                                            size: 25
                                         },
-                                        ...arr.map(element => {
-                                            return {
-                                                type: "icon",
-                                                value: element,
-                                                color: 0xFFE6B800,
-                                                size: 25
+                                        {
+                                            type: "container",
+                                            padding: {
+                                                top: 1,
+                                                left: 1
+                                            },
+                                            child: {
+                                                type: "text",
+                                                value: "" + movie.production_year,
+                                                style: {
+                                                    color: 0xFFFFFFFF,
+                                                    fontSize: 17
+                                                }
                                             }
-                                        })
+                                        }
                                     ]
-                                }
-                            }, {
+                                },
+                            },
+                            {
+                                type: "flex",
+                                crossAxisAlignment: "center",
+                                padding: {
+                                    bottom: 1
+                                },
+                                children: [
+                                    // {
+                                    //     type: "text",
+                                    //     value: "Note :",
+                                    //     style: {
+                                    //         color: 0xFFFFFFFF,
+                                    //         fontSize: 17
+                                    //     }
+                                    // },
+                                    ...arr.map(element => {
+                                        return {
+                                            type: "icon",
+                                            value: element,
+                                            color: 0xFFE6B800,
+                                            size: 25
+                                        }
+                                    })
+                                ]
+                            },
+                            {
                                 type: "container",
                                 constraints: {
                                     maxWidth: 500,
-                                    maxHeight:800,
-                                    minHeight:50,
-                                    minWidth:200
+                                    maxHeight: 800,
+                                    minHeight: 50,
+                                    minWidth: 200
+                                },
+                                padding: {
+                                    bottom: 1
                                 },
                                 child:
                                 {
                                     type: "flex",
                                     direction: "vertical",
                                     padding: {
-                                        bottom: 0.5,
                                         right: 0.5,
-                                        top: 0.5,
                                         left: 0.5,
                                     },
                                     children: [{
@@ -133,116 +156,389 @@ module.exports = async (data, props) => {
                                         value: movie.synopsis,
                                         style: {
                                             color: 0xFFFFFFFF,
-                                            fontSize: 17
+                                            fontSize: 15
                                         }
                                     }]
                                 }
-                            }, {
-                                type: "flex",
-                                spacing: 1,
-                                padding: {
-                                    top: 2,
-                                    bottom: 2
-                                },
-                                children: [
-                                    {
-                                        type: "text",
-                                        value: movie.director,
-                                        style: {
-                                            color: 0xFFFFFFFF,
-                                            fontSize: 17
-                                        }
-                                    },
-                                    {
-                                        type: "text",
-                                        value: currentFilmDurationStr,
-                                        style: {
-                                            color: 0xFFFFFFFF,
-                                            fontSize: 17
-                                        }
-                                    }
-                                ]
                             },
+                            // {
+                            //     type: "flex",
+                            //     spacing: 1,
+                            //     padding: {
+                            //         top: 2,
+                            //         bottom: 2
+                            //     },
+                            //     children: [
+                            //         {
+                            //             type: "text",
+                            //             value: movie.director,
+                            //             style: {
+                            //                 color: 0xFFFFFFFF,
+                            //                 fontSize: 17
+                            //             }
+                            //         },
+                            //         {
+                            //             type: "text",
+                            //             value: currentFilmDurationStr,
+                            //             style: {
+                            //                 color: 0xFFFFFFFF,
+                            //                 fontSize: 17
+                            //             }
+                            //         }
+                            //     ]
+                            // },
                             {
-                                type: "text",
-                                value: "Genres",
-                                style: {
-                                    color: 0xFFFFFFFF,
-                                    fontSize: 25
-                                }
-                            }
-                            , {
                                 type: "flex",
-                                direction: "horizontal",
-                                crossAxisAlignment: "center",
-                                spacing: 2,
                                 padding: {
-                                    top: 2,
-                                    bottom: 2
+                                    bottom: 1
                                 },
                                 children: [
-                                    ...genresArray.sort().map(element => {
-                                        return {
+                                    {
+                                        type: "icon",
+                                        value: "timer",
+                                        color: 0xFFFFFFFF,
+                                        size: 25
+                                    }, {
+                                        type: "container",
+                                        padding: {
+                                            top: 1,
+                                            left: 1
+                                        },
+                                        child: {
                                             type: "text",
-                                            value: element,
+                                            value: currentFilmDurationStr,
                                             style: {
                                                 color: 0xFFFFFFFF,
                                                 fontSize: 17
                                             }
                                         }
-                                    }
-                                    )]
-                            },
-                            {
-                                type: "text",
-                                value: "Acteurs",
-                                style: {
-                                    color: 0xFFFFFFFF,
-                                    fontSize: 17
-                                }
+                                    }]
                             },
                             {
                                 type: "flex",
-                                direction: "vertical",
-                                crossAxisAlignment: "center",
-                                spacing: 2,
-                                // padding: {
-                                //     top: 2,
-                                //     bottom: 2
-                                // },
-
-                                //filter pour les films n'ayant aps d'images
+                                padding: {
+                                    bottom: 1
+                                },
                                 children: [
-                                    ...only5Chars.sort().map(element => {
-                                        return {
-                                            type: "flex",
-                                            direction: "vertical",
-                                            spacing: 2,
-                                            children: [
-                                                {
-                                                    type: "image",
-                                                    src: "https://api.betaseries.com/pictures/characters?key=" + data.apiKey + "&id=" + element.id,
-                                                    loadingPlaceholder: {
-                                                        type: "image",
-                                                        fit: "cover",
-                                                        src: "https://www.burmunk.am/themes/burmunk/assets/no-product-image.png"
+                                    {
+                                        type: "icon",
+                                        value: "person",
+                                        color: 0xFFFFFFFF,
+                                        size: 25
+                                    },
+                                    {
+                                        type: "container",
+                                        padding: {
+                                            top: 1,
+                                            left: 1
+                                        },
+                                        child: {
+                                            type: "text",
+                                            value: movie.director,
+                                            style: {
+                                                color: 0xFFFFFFFF,
+                                                fontSize: 17
+                                            }
+                                        }
+                                    }]
+                            },
+                            {
+                                type: "flex",
+                                children: [
+                                    {
+                                        type: "icon",
+                                        value: "category",
+                                        color: 0xFFFFFFFF,
+                                        size: 25
+                                    },
+                                    {
+                                        type: "flex",
+                                        direction: "vertical",
+                                        crossAxisAlignment: "center",
+                                        padding: {
+                                            top: 1,
+                                            bottom: 1,
+                                            left: 1
+                                        },
+                                        children: [
+                                            {
+                                                type: "text",
+                                                value: genresArrayStr,
+                                                style: {
+                                                    color: 0xFFFFFFFF,
+                                                    fontSize: 17
+                                                }
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                type: "flex",
+                                padding: {
+                                    bottom: 1
+                                },
+                                children: [
+                                    {
+                                        type: "icon",
+                                        value: "people",
+                                        size: 25,
+                                        color: 0xFFFFFFFF,
+                                    }, {
+                                        type: "container",
+                                        padding: {
+                                            top: 1,
+                                            bottom: 1,
+                                            left: 1
+                                        },
+                                        child: {
+                                            type: "text",
+                                            value: "Acteurs",
+                                            style: {
+                                                color: 0xFFFFFFFF,
+                                                fontSize: 17
+                                            }
+                                        },
+                                    }
+                                ]
+                            },
+                            {
+                                type: "container",
+                                child: {
+                                    type: "flex",
+                                    fillParent: true,
+                                    crossAxisAlignment: "center",
+                                    mainAxisAlignment: "center",
+                                    children: [
+                                        {
+                                            type: "container",
+                                            // padding: {
+                                            //     bottom: 1,
+                                            //     left: 1
+                                            // },
+                                            constraints: {
+                                                maxHeight: 70,
+                                                maxWidth: 160,
+                                                minWidth: 160,
+                                                minHeight: 25,
+                                            },
+                                            border: {
+                                                top: {
+                                                    color: data.white,
+                                                    width: 1
+                                                },
+                                                bottom: {
+                                                    color: data.white,
+                                                    width: 1
+                                                },
+                                                left: {
+                                                    color: data.white,
+                                                    width: 1
+                                                },
+                                                right: {
+                                                    color: data.white,
+                                                    width: 1
+                                                }
+                                            },
+                                            child: {
+                                                type: "flex",
+                                                direction: "vertical",
+                                                fillParent: true,
+                                                crossAxisAlignment: "center",
+                                                mainAxisAlignment: "center",
+                                                children: [
+                                                    {
+                                                        type: "text",
+                                                        value: "Acteur",
+                                                        style: {
+                                                            color: 0xFFFFFFFF,
+                                                            fontSize: 17
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                        },
+                                        {
+                                            type: "container",
+                                            constraints: {
+                                                maxHeight: 70,
+                                                maxWidth: 160,
+                                                minWidth: 160,
+                                                minHeight: 25,
+                                            },
+                                            border: {
+                                                top: {
+                                                    color: data.white,
+                                                    width: 1
+                                                },
+                                                bottom: {
+                                                    color: data.white,
+                                                    width: 1
+                                                },
+                                                left: {
+                                                    color: data.white,
+                                                    width: 1
+                                                },
+                                                right: {
+                                                    color: data.white,
+                                                    width: 1
+                                                }
+                                            },
+                                            // padding: {
+                                            //     bottom: 1,
+                                            //     left: 1
+                                            // },
+                                            child: {
+                                                type: "flex",
+                                                direction: "vertical",
+                                                fillParent: true,
+                                                crossAxisAlignment: "center",
+                                                mainAxisAlignment: "center",
+                                                children: [
+                                                    {
+                                                        type: "text",
+                                                        value: "Rôle",
+                                                        style: {
+                                                            color: 0xFFFFFFFF,
+                                                            fontSize: 17
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                        }
+                                    ]
+                                }
+                            }
+                            , {
+                                type: "flex",
+                                children: [
+                                    {
+                                        type: "flex",
+                                        direction: "vertical",
+                                        fillParent: true,
+                                        children: [
+                                            ...only5Chars.sort().map(element => {
+                                                return {
+                                                    type: "container",
+                                                    border: {
+                                                        top: {
+                                                            color: data.white,
+                                                            width: 1
+                                                        },
+                                                        bottom: {
+                                                            color: data.white,
+                                                            width: 1
+                                                        },
+                                                        left: {
+                                                            color: data.white,
+                                                            width: 1
+                                                        },
+                                                        right: {
+                                                            color: data.white,
+                                                            width: 1
+                                                        }
                                                     },
-                                                    framePlaceholder: {
-                                                        type: "image",
-                                                        fit: "cover",
-                                                        src: "https://www.burmunk.am/themes/burmunk/assets/no-product-image.png"
-                                                    },
-                                                }, {
-                                                    type: "text",
-                                                    value: element.actor + " pour le rôle de " + element.name,
-                                                    style: {
-                                                        color: 0xFFFFFFFF,
-                                                        fontSize: 17
+                                                    child: {
+                                                        type: "flex",
+                                                        children: [
+                                                            {
+                                                                type: "container",
+                                                                constraints: {
+                                                                    maxHeight: 70,
+                                                                    maxWidth: 160,
+                                                                    minWidth: 160,
+                                                                    minHeight: 25,
+                                                                },
+                                                                border: {
+                                                                    left: {
+                                                                        color: data.white,
+                                                                        width: 1
+                                                                    },
+                                                                    right: {
+                                                                        color: data.white,
+                                                                        width: 1
+                                                                    }
+                                                                },
+                                                                child:
+                                                                {
+                                                                    type: "flex",
+                                                                    crossAxisAlignment: "center",
+                                                                    mainAxisAlignment: "center",
+                                                                    direction: "vertical",
+                                                                    children: [
+                                                                        {
+                                                                            type: "container",
+                                                                            padding: {
+                                                                                top: 1,
+                                                                                left: 1,
+                                                                                bottom: 1,
+                                                                                right: 1
+                                                                            },
+                                                                            child:
+                                                                            {
+                                                                                type: "text",
+                                                                                value: element.actor,
+                                                                                style: {
+                                                                                    color: 0xFFFFFFFF,
+                                                                                    fontSize: 17
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                type: "container",
+                                                                constraints: {
+                                                                    maxHeight: 70,
+                                                                    maxWidth: 160,
+                                                                    minWidth: 160,
+                                                                    minHeight: 25,
+                                                                },
+                                                                border: {
+                                                                    left: {
+                                                                        color: data.white,
+                                                                        width: 1
+                                                                    },
+                                                                    right: {
+                                                                        color: data.white,
+                                                                        width: 1
+                                                                    }
+                                                                },
+                                                                child:
+                                                                {
+                                                                    type: "flex",
+                                                                    direction: "vertical",
+                                                                    crossAxisAlignment: "center",
+                                                                    mainAxisAlignment: "center",
+                                                                    children: [
+                                                                        {
+                                                                            type: "container",
+                                                                            padding: {
+                                                                                top: 1,
+                                                                                left: 1,
+                                                                                bottom: 1,
+                                                                                right: 1
+                                                                            },
+                                                                            child:
+                                                                            {
+                                                                                type: "text",
+                                                                                value: element.name,
+                                                                                style: {
+                                                                                    color: 0xFFFFFFFF,
+                                                                                    fontSize: 17
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 }
-                                            ]
-                                        }
-                                    }),
+                                            })
+                                        ]
+                                    }
                                 ]
                             }
                         ]

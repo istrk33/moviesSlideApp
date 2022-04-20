@@ -1,22 +1,9 @@
 'use strict'
 
-module.exports = async (data, props) => {
+module.exports = (data, props) => {
+  const functions = require("../../resources/functions");
   var img = "https://api.betaseries.com/pictures/movies?key=941cc48f228b&id=" + data.currentMovie[0] + "&width=627&height=933";
-
-  var h = Math.floor(data.currentMovieInfo.movie.length / 3600);
-  var m = Math.floor(data.currentMovieInfo.movie.length % 3600 / 60);
-  var s = Math.floor(data.currentMovieInfo.movie.length % 3600 % 60);
-
-  if (h.toString().length < 2) {
-    h = "0" + h;
-  }
-  if (s.toString().length < 2) {
-    s = "0" + s;
-  }
-  if (m.toString().length < 2) {
-    m = "0" + m;
-  }
-  var currentFilmDurationStr = h + ":" + m + ":" + s;
+  var currentFilmDurationStr =functions.computeMovieDuration(data.currentMovieInfo.movie.length);
   return {
     type: "container",
     decoration: {
@@ -74,25 +61,6 @@ module.exports = async (data, props) => {
                   type: "container",
                   decoration: {
                     color: data.movieInfoButtonColor[0],
-                    // borderRadius: {
-                    //   bottomLeft:
-                    //   {
-                    //     x: 30,
-                    //     y: 30
-                    //   },
-                    //   bottomRight: {
-                    //     x: 30,
-                    //     y: 30
-                    //   },
-                    //   topLeft: {
-                    //     x: 30,
-                    //     y: 30
-                    //   },
-                    //   topRight: {
-                    //     x: 30,
-                    //     y: 30
-                    //   },
-                    // }
                   },
                   child: {
                     type: "flex",
@@ -102,17 +70,7 @@ module.exports = async (data, props) => {
                         value: "info",
                         color: data.movieInfoButtonColor[1],
                         size: 35
-                      },
-                      // {
-                      //   type: "container",
-                      //   padding: {
-                      //     top: 1
-                      //   },
-                      //   child: {
-                      //     type: "text",
-                      //     value: "Voir les détails"
-                      //   }
-                      // }
+                      }
                     ]
                   }
                 }
@@ -126,10 +84,6 @@ module.exports = async (data, props) => {
             bottom: 5,
             top: 5,
           },
-          // constraints:{
-          //   // minHeight:20,
-          //   maxWidth:2100,
-          // },
           child: {
             type: "flex",
             direction: "vertical",

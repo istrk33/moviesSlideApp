@@ -4,7 +4,6 @@ module.exports = (data, _props, event) => {
     switch (_props.order) {
         case "first":
             if (data.menuHoverButton1Color[0] == data.black) {
-                // console.log(event);
                 data.menuHoverButton1Color[0] = data.hoverMenuButtonColor;
                 data.menuHoverButton1Color[1] = data.black;
             } else {

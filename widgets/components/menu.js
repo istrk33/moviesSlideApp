@@ -1,56 +1,39 @@
 'use strict'
 
 module.exports = (data, props) => {
-  var buttonText1 = "";
+  const functions = require("../../resources/functions");
   var uiName1 = "";
   var icon1 = "";
-  var buttonText2 = "";
   var uiName2 = "";
   var icon2 = "";
   if (data.navigation == "home") {
-    // buttonText1 = "Mes intérêts";
-    // buttonText2 = "Mes films vu";
     uiName1 = "switchInterestUi";
     uiName2 = "switchViewedUi";
     icon1 = "featured_play_list";
     icon2 = "done_all";
   } else if (data.navigation == "userViewed") {
-    // buttonText1 = "Mes intérêts";
-    // buttonText2 = "Home";
     uiName1 = "switchInterestUi";
     uiName2 = "switchHomeUi";
     icon1 = "featured_play_list";
     icon2 = "home";
   } else {
-    // buttonText1 = "Home";
-    // buttonText2 = "Mes films vu";
     uiName1 = "switchHomeUi";
     uiName2 = "switchViewedUi";
     icon1 = "home";
     icon2 = "done_all";
   }
-  var totalSec;
+  var menudisp;
   switch (data.menuTimeLabel) {
     case "tempsPerdu":
-      totalSec = data.totalWastedTime;
+      menudisp = functions.computeMenuTime(data.totalWastedTime);
       break;
     case "tempsAPerdre":
-      totalSec = data.potentialWasteTime;
+      menudisp = functions.computeMenuTime(data.potentialWasteTime);
       break;
     case "tempsEconomise":
-      totalSec = data.totalSavedTime;
+      menudisp = functions.computeMenuTime(data.totalSavedTime);
       break;
   }
-  var d = Math.floor(totalSec / (3600 * 24));
-  var h = Math.floor(totalSec % (3600 * 24) / 3600);
-  var m = Math.floor(totalSec % 3600 / 60);
-
-  var dDisplay = d + "j ";
-  var hDisplay = h + "h ";
-  var mDisplay = m + "min ";
-  // var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-
-  var menudisp = totalSec == 0 ? "0j 0h 0min" : dDisplay + " " + hDisplay + " " + mDisplay /*+ " " + sDisplay*/;
   return {
     type: "container",
     decoration: {
@@ -80,23 +63,7 @@ module.exports = (data, props) => {
         {
           type: "flex",
           fillParent: true,
-          // padding: {
-          //   left: 0,
-          //   right: 0,
-          //   top: 0,
-          //   // top: 2,
-          //   bottom: 0
-          // },
           children: [
-            // {
-            //   type: 'text',
-            //   value: String(menudisp),
-            //   style: {
-            //     fontSize: 20,
-            //     fontWeight: "w700",
-            //     color: 0xFFFFFFFF
-            //   }
-            // },
             {
               type: "dropdownButton",
               text: String(menudisp),
@@ -116,119 +83,60 @@ module.exports = (data, props) => {
                     crossAxisAlignment: "stretch",
                     children: [
                       {
-                        type: "actionable",
-                        onPressed: {
-                          action: "changeMenuLabel",
-                          props: {
-                            srcButton: "tempsPerdu",
-                          }
-                        },
-                        child: {
-                          type: "container",
-                          constraints: {
-                            minHeight: 30,
-                            minWidth: 140,
-                            maxWidth: 140,
-                            maxHeight: 30,
-                          },
-                          child: {
-                            type: "flex",
-                            children: [{
-                              type: "icon",
-                              value: "remove_red_eye",
-                              size: 25
-                            },
-                            {
-                              type: "container",
-                              padding: {
-                                top: 1,
-                                left: 1,
-                              },
-                              child: {
-                                type: "text",
-                                value: "Temps Perdu"
-                              }
-                            },
-                            ]
-                          }
+                        type: "widget",
+                        name: "dropdownMenuButton",
+                        props: {
+                          srcButton: "tempsPerdu",
+                          icon: "remove_red_eye",
+                          buttonText: "Temps Perdu",
+                          color: data.dropDownButton1Color[0],
+                          iconColor: data.dropDownButton1Color[1]
                         }
                       },
                       {
-                        type: "actionable",
-                        onPressed: {
-                          action: "changeMenuLabel",
-                          props: {
-                            srcButton: "tempsAPerdre",
-                          }
-                        },
-                        child: {
-                          type: "container",
-                          constraints: {
-                            minHeight: 30,
-                            minWidth: 140,
-                            maxWidth: 140,
-                            maxHeight: 30,
-                          },
-                          child: {
-                            type: "flex",
-                            children: [{
-                              type: "icon",
-                              value: "watch_later",
-                              size: 25
-                            },
-                            {
-                              type: "container",
-                              padding: {
-                                top: 1,
-                                left: 1,
-                              },
-                              child: {
-                                type: "text",
-                                value: "Temps à Perdre"
-                              }
-                            },
-                            ]
-                          }
+                        type: "widget",
+                        name: "dropdownMenuButton",
+                        props: {
+                          srcButton: "tempsAPerdre",
+                          icon: "watch_later",
+                          buttonText: "Temps à Perdre",
+                          color: data.dropDownButton2Color[0],
+                          iconColor: data.dropDownButton2Color[1]
                         }
                       },
                       {
-                        type: "actionable",
-                        onPressed: {
-                          action: "changeMenuLabel",
-                          props: {
-                            srcButton: "tempsEconomise",
-                          }
-                        },
-                        child: {
-                          type: "container",
-                          // constraints: {
-                          //   minHeight: 30,
-                          //   minWidth: 140,
-                          //   maxWidth: 140,
-                          //   maxHeight: 30,
-                          // },
-                          child: {
-                            type: "flex",
-                            children: [{
-                              type: "icon",
-                              value: "close",
-                              size: 25
-                            },
-                            {
-                              type: "container",
-                              padding: {
-                                top: 1,
-                                left: 1,
-                              },
-                              child: {
-                                type: "text",
-                                value: "Temps Economisé"
-                              }
-                            },
-                            ]
-                          }
+                        type: "widget",
+                        name: "dropdownMenuButton",
+                        props: {
+                          srcButton: "tempsEconomise",
+                          icon: "close",
+                          buttonText: "Temps Economisé",
+                          color: data.dropDownButton3Color[0],
+                          iconColor: data.dropDownButton3Color[1]
                         }
                       },
+                      // {
+                      //   type: "widget",
+                      //   name: "menuButton",
+                      //   props: {
+                      //     buttonIcon: icon1,
+                      //     uiName: uiName1,
+                      //     order: "first",
+                      //     color: data.menuHoverButton1Color[0],
+                      //     iconColor: data.menuHoverButton1Color[1]
+                      //   }
+                      // },
+                      // {
+                      //   type: "widget",
+                      //   name: "menuButton",
+                      //   props: {
+                      //     buttonIcon: icon2,
+                      //     uiName: uiName2,
+                      //     order: "second",
+                      //     color: data.menuHoverButton2Color[0],
+                      //     iconColor: data.menuHoverButton2Color[1]
+                      //   }
+                      // }
                     ]
                   }
                 ]

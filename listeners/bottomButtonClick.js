@@ -6,7 +6,6 @@ module.exports = async (data, _props, event) => {
         case "viewed":
             data.userViewed[_props.movieDict[0]] = _props.movieDict;
             data.totalWastedTime += data.currentMovieInfo.movie.length;
-            // console.log(currentMovieInfo.movie.length);
             break;
         case "notviewed":
             data.userNotViewed[_props.movieDict[0]] = _props.movieDict;

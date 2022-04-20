@@ -39,3 +39,33 @@ module.exports.getCharacters = async function getCharacters(apiKey, id) {
   return movieCharacters.characters;
 }
 
+module.exports.computeMovieDuration = function computeMovieDuration(movieLength) {
+  var h = Math.floor(movieLength / 3600);
+  var m = Math.floor(movieLength % 3600 / 60);
+  var s = Math.floor(movieLength % 3600 % 60);
+
+  if (h.toString().length < 2) {
+    h = "0" + h;
+  }
+  if (s.toString().length < 2) {
+    s = "0" + s;
+  }
+  if (m.toString().length < 2) {
+    m = "0" + m;
+  }
+  return h + ":" + m + ":" + s;
+}
+module.exports.computeMenuTime = function computeMenuTime(totalSec) {
+  var d = Math.floor(totalSec / (3600 * 24));
+  var h = Math.floor(totalSec % (3600 * 24) / 3600);
+  var m = Math.floor(totalSec % 3600 / 60);
+
+  var dDisplay = d + "j ";
+  var hDisplay = h + "h ";
+  var mDisplay = m + "min ";
+  return  totalSec == 0 ? "0j 0h 0min" : dDisplay + " " + hDisplay + " " + mDisplay ;
+}
+
+module.exports.getActorState = function getActorState(actorSt) {
+  return actorSt;
+}
