@@ -28,6 +28,8 @@ module.exports = () => {
       movieInfoButtonHoverEvent: require('./listeners/movieInfoButtonHoverEvent'),
       changeMenuLabel: require('./listeners/dropdownClick'),
       dropdownButtonHoverEvent: require('./listeners/dropdownButtonHoverEvent'),
+      movieButtonHovered: require('./listeners/movieListItemHoverEvent'),
+      deleteViewedMovie: require('./listeners/deleteViewedClickEvent'),
       // actorButtonClick: require('./listeners/actorButtonPressedEvent'),
     },
     // resources:{

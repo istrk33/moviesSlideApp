@@ -1,4 +1,6 @@
 'use strict'
+
+// import urlExist from 'url-exist';
 module.exports = async (data, props) => {
     const functions = require("../../resources/functions");
     var movie = data.movieInfoToSee.movie;
@@ -12,9 +14,7 @@ module.exports = async (data, props) => {
     while (arr.length < 5) {
         arr.splice(arr.length, 0, "star_border_outlined");
     }
-
     var currentFilmDurationStr = functions.computeMovieDuration(movie.length);
-
     var genresArray = movie.genres;
     var genresArrayStr = genresArray.join('  ');
     var charactersArray = await functions.getCharacters(data.apiKey, movie.id);
@@ -79,9 +79,6 @@ module.exports = async (data, props) => {
                                 {
                                     type: "flex",
                                     crossAxisAlignment: "center",
-                                    // padding: {
-                                    //     bottom: 1
-                                    // },
                                     children: [
                                         {
                                             type: "icon",
@@ -95,17 +92,29 @@ module.exports = async (data, props) => {
                                                 top: 1,
                                                 left: 1
                                             },
-                                            child: {
+                                            child:
+                                            {
                                                 type: "text",
                                                 value: "" + movie.production_year,
                                                 style: {
                                                     color: 0xFFFFFFFF,
                                                     fontSize: 17
                                                 }
-                                            }
+                                            },
                                         }
                                     ]
                                 },
+                            },
+                            {
+                                type: "flex",
+                                children: [
+                                    ...movie.platform_links.map(x => {
+                                        return {
+                                            type: "image",
+                                            src: "https://api.betaseries.com/pictures/platforms?key=" + data.apiKey + "&id=" + x.id + "&height=40&width=40"
+                                        }
+                                    })
+                                ]
                             },
                             {
                                 type: "flex",
@@ -114,14 +123,6 @@ module.exports = async (data, props) => {
                                     bottom: 1
                                 },
                                 children: [
-                                    // {
-                                    //     type: "text",
-                                    //     value: "Note :",
-                                    //     style: {
-                                    //         color: 0xFFFFFFFF,
-                                    //         fontSize: 17
-                                    //     }
-                                    // },
                                     ...arr.map(element => {
                                         return {
                                             type: "icon",
@@ -240,7 +241,8 @@ module.exports = async (data, props) => {
                                                 fontSize: 17
                                             }
                                         }
-                                    }]
+                                    }
+                                ]
                             },
                             {
                                 type: "flex",
@@ -272,8 +274,8 @@ module.exports = async (data, props) => {
                                         ]
                                     },
                                 ]
-                            },
-                            {
+                            }
+                            , {
                                 type: "flex",
                                 padding: {
                                     bottom: 1

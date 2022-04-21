@@ -1,6 +1,8 @@
 'use strict'
 
 module.exports = (data, props) => {
+    var color=props.array[props.movieId][3];
+     var textcolor = (color == data.darkbg) ? data.hoverMenuButtonColor : data.darkbg;
     return {
         type: "actionable",
         onPressed: {
@@ -10,17 +12,27 @@ module.exports = (data, props) => {
                 from: props.from
             }
         },
+        onHovered: {
+            action: "movieButtonHovered",
+            props: {
+                movieId: props.movieId,
+                listName:props.src
+            }
+        },
         child: {
             type: "container",
             constraints: {
-                minHeight: 50,
-                maxHeight: 50,
-                minWidth: 600,
-                maxWidth: 600
+                minHeight: props.height,
+                maxHeight: props.height,
+                minWidth: props.width,
+                maxWidth: props.width
+            },
+            decoration: {
+                color: color
             },
             child: {
                 type: "flex",
-                mainAxisAlignment: "start",
+                mainAxisAlignment: "spaceBetween",
                 children: [
                     {
                         type: "container",
@@ -32,8 +44,17 @@ module.exports = (data, props) => {
                         child: {
                             type: "text",
                             value: props.buttonText,
+                            style: {
+                                color: textcolor
+                            }
                         }
-                    }
+                    },
+                    // ...props.viewWidget.map(element=>{
+                    //     return {
+                    //         element
+                    //     }
+                    // })
+                    ...props.viewWidget
                 ]
             }
         }

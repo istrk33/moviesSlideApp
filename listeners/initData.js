@@ -32,6 +32,7 @@ module.exports = async (data, props, event) => {
       dropDownButton2Color: [dropDownDefaultButtonColor, white],
       dropDownButton3Color: [dropDownDefaultButtonColor, white],
       hoverMenuButtonColor: 0xFFB5B5B5,
+      darkbg:0xFF212121,
       movieInfoButtonColor: [0xF4212121, white],
       dropDownDefaultButtonColor,
       white,
@@ -49,8 +50,7 @@ module.exports = async (data, props, event) => {
       userNotViewed,
       start,
       currentMovieInfo,
-      movieInfoToSee,
-      showActor: false
+      movieInfoToSee
     }
   }
 }

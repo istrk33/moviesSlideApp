@@ -190,13 +190,18 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 28. gestion d'affichage de tableau difficile, lorsque l'on aveu afficher un tableau, de 2 colonnes par exemple, et que les éléments de ces colonne ont une taille variables en fonction du contenu, on a un problème quand l'élément de la colonne gauche et plus grand que l'élément de la colonne droite, ex(dans ce cas il y a un prblème d'affichage des lignes, qui se basent sur leur conteneur ) :
 ![-1](c8.png)
 
+29. background d'une vue de scroll non disponible sans ajouter au moins un élément dans la liste à scroll
+
 <!-- 
 * actionnable dropdownmenu en brackground transparent -> effacer les espaces au dessus et en dessous
 * gérer le hover des actionnables
 * centrer les textes
 * clean le code -> fonctions, widgets, commentaires
 * personnaliser le dropdown*
-* ajouter la gestion des séries
 * pour les acteurs affichage sous forme de tableau 
 * ajouter les plateforme qui proposent le film
+*darkmode
+
+* ajouter la gestion des séries
+*gestion des suppressions daes listes
 -->

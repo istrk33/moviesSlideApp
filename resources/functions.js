@@ -26,8 +26,27 @@ module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
   return movieDetail;
 }
 
-module.exports.getCharacters = async function getCharacters(apiKey, id) {
+module.exports.urlExist = async function urlExist(apiKey, id) {
   //https://api.betaseries.com/movies/characters?key=941cc48f228b&id=
+  var url = "https://api.betaseries.com/pictures/platforms?key=" +apiKey + "&id=" +id;
+  ((await axios.get(url, { crossdomain: true },
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    }
+  ).catch(function (error) {
+    if (error.response) {
+      // console.log(error.response.data);
+      return error.response.status;
+      // console.log(error.response.headers);
+    }
+  })));
+  // console.log("RESPONSESSS "+responses);
+  return 202;
+}
+
+module.exports.getCharacters = async function getCharacters(apiKey, id) {
   var url = "https://api.betaseries.com/movies/characters?key=" + apiKey + "&id=" + id;
   var movieCharacters = ((await axios.get(url, { crossdomain: true },
     {
@@ -63,7 +82,7 @@ module.exports.computeMenuTime = function computeMenuTime(totalSec) {
   var dDisplay = d + "j ";
   var hDisplay = h + "h ";
   var mDisplay = m + "min ";
-  return  totalSec == 0 ? "0j 0h 0min" : dDisplay + " " + hDisplay + " " + mDisplay ;
+  return totalSec == 0 ? "0j 0h 0min" : dDisplay + " " + hDisplay + " " + mDisplay;
 }
 
 module.exports.getActorState = function getActorState(actorSt) {

@@ -7,7 +7,7 @@ module.exports = (data, props) => {
   return {
     type: "container",
     decoration: {
-      color: 0xFF212121
+      color: data.darkbg
     },
     child: {
       type: "flex",
