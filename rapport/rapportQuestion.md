@@ -201,7 +201,10 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 * pour les acteurs affichage sous forme de tableau 
 * ajouter les plateforme qui proposent le film
 *darkmode
-
-* ajouter la gestion des séries
 *gestion des suppressions daes listes
+
+* ajouter la gestion des séries :
+ avec overlay + mode + lors du clic sur ajouter
+ gestion du temps si l'utilisateur n'a spas tout vu, ajouter le temps restant dans le temps potentiel a perdre
+ * utiliser l'overlay pour les saisons des séries
 -->

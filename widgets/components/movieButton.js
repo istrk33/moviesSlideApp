@@ -1,8 +1,8 @@
 'use strict'
 
 module.exports = (data, props) => {
-    var color=props.array[props.movieId][3];
-     var textcolor = (color == data.darkbg) ? data.hoverMenuButtonColor : data.darkbg;
+    var color = props.array[props.movieId][3];
+    var textcolor = (color == data.darkbg) ? data.hoverMenuButtonColor : data.darkbg;
     return {
         type: "actionable",
         onPressed: {
@@ -16,16 +16,34 @@ module.exports = (data, props) => {
             action: "movieButtonHovered",
             props: {
                 movieId: props.movieId,
-                listName:props.src
+                listName: props.src
             }
         },
         child: {
             type: "container",
             constraints: {
                 minHeight: props.height,
-                maxHeight: props.height,
+                maxHeight: props.height * 3,
                 minWidth: props.width,
                 maxWidth: props.width
+            },
+            border: {
+                top: {
+                    width: 1,
+                    color: data.white
+                },
+                bottom: {
+                    width: 1,
+                    color: data.white
+                },
+                right: {
+                    width: 1,
+                    color: data.white
+                },
+                left: {
+                    width: 1,
+                    color: data.white
+                }
             },
             decoration: {
                 color: color
@@ -33,13 +51,15 @@ module.exports = (data, props) => {
             child: {
                 type: "flex",
                 mainAxisAlignment: "spaceBetween",
+                direction: "vertical",
                 children: [
                     {
                         type: "container",
                         padding: {
-                            top: 2.5,
+                            top: 2,
                             left: 1,
-                            right: 1
+                            right: 1,
+                            bottom: 2
                         },
                         child: {
                             type: "text",
@@ -49,12 +69,7 @@ module.exports = (data, props) => {
                             }
                         }
                     },
-                    // ...props.viewWidget.map(element=>{
-                    //     return {
-                    //         element
-                    //     }
-                    // })
-                    ...props.viewWidget
+                    // ...props.viewWidget
                 ]
             }
         }

@@ -2,8 +2,26 @@
 
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
-  var img = "https://api.betaseries.com/pictures/movies?key=941cc48f228b&id=" + data.currentMovie[0] + "&width=627&height=933";
-  var currentFilmDurationStr =functions.computeMovieDuration(data.currentMovieInfo.movie.length);
+  if (Object.keys(data.listOfUndiscoveredMovies)[0].includes("tvshows_")) {
+    var numberOfSeason = (data.currentMovie[3]).length;
+    var currentFilmDurationStr = (numberOfSeason = +1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
+    var img = "https://api.betaseries.com/pictures/shows?key=941cc48f228b&id=" + data.currentMovieInfo.show.id + "&width=627&height=933";
+    var director = data.currentMovieInfo.show.showrunner.name;
+    var videoType = "tvshow";
+    var title = data.currentMovieInfo.show.title;
+    var year = data.currentMovieInfo.show.creation;
+    var videoInfo = data.currentMovieInfo.show;
+  } else {
+    // console.log(data.currentMovieInfo);
+    var img = "https://api.betaseries.com/pictures/movies?key=941cc48f228b&id=" + data.currentMovieInfo.movie.id + "&width=627&height=933";
+    var currentFilmDurationStr = functions.computeMovieDuration(data.currentMovieInfo.movie.length);
+    var director = data.currentMovieInfo.movie.director;
+    var videoType = "movie";
+    var title = data.currentMovieInfo.movie.title;
+    var year = data.currentMovieInfo.movie.production_year;
+    var videoInfo = data.currentMovieInfo.movie;
+  }
+  // console.log("LE VRAI TYPEEEE"+video)
   return {
     type: "container",
     decoration: {
@@ -51,7 +69,8 @@ module.exports = (data, props) => {
                   action: "switchMovieInfoUi",
                   props: {
                     from: "home",
-                    movieData: data.currentMovieInfo.movie
+                    type: videoType,
+                    movieData: videoInfo
                   }
                 },
                 onHovered: {
@@ -97,7 +116,7 @@ module.exports = (data, props) => {
                 children: [
                   {
                     type: "text",
-                    value: String(data.currentMovie[1]),
+                    value: title,
                     style: {
                       color: 0xFFFFFFFF,
                       fontSize: 30
@@ -107,7 +126,7 @@ module.exports = (data, props) => {
               },
               {
                 type: "text",
-                value: String(currentFilmDurationStr + " | " + data.currentMovie[2]),
+                value: String(currentFilmDurationStr + " | " + year),
                 style: {
                   color: 0xFFFFFFFF,
                   fontSize: 20
@@ -115,7 +134,7 @@ module.exports = (data, props) => {
               },
               {
                 type: "text",
-                value: String(data.currentMovieInfo.movie.director),
+                value: String(director),
                 style: {
                   color: 0xFFFFFFFF,
                   fontSize: 20
@@ -137,6 +156,7 @@ module.exports = (data, props) => {
                 type: "widget",
                 name: "bottomButton",
                 props: {
+                  videoType: videoType,
                   buttonIcon: "close",
                   buttonStr: "Pas vu",
                   color: data.bottomButton3Color[0],
@@ -150,6 +170,7 @@ module.exports = (data, props) => {
                 type: "widget",
                 name: "bottomButton",
                 props: {
+                  videoType: videoType,
                   buttonIcon: "add",
                   buttonStr: "Intéressé",
                   color: data.bottomButton2Color[0],
@@ -163,12 +184,13 @@ module.exports = (data, props) => {
                 type: "widget",
                 name: "bottomButton",
                 props: {
+                  videoType: videoType,
                   buttonIcon: "done",
                   buttonStr: "Vu",
                   color: data.bottomButton1Color[0],
                   iconColor: data.bottomButton1Color[1],
                   action: "bottomButtonClick",
-                  movieDict: data.currentMovie,
+                  // movieDict: data.currentMovie,
                   buttonName: "viewed"
                 }
               },

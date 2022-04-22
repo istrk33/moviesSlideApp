@@ -14,9 +14,10 @@ module.exports = (data, props) => {
                 type: "actionable",
                 onPressed: {
                     action: props.action,
-                    props:{
-                        movieDict:props.movieDict,
-                        buttonName:props.buttonName
+                    props: {
+                        // movieDict:props.movieDict,
+                        buttonName: props.buttonName,
+                        videoType: props.videoType
                     }
                 },
                 onHovered: {
@@ -47,7 +48,7 @@ module.exports = (data, props) => {
                                 type: "icon",
                                 value: props.buttonIcon,
                                 size: 40,
-                                color:props.iconColor
+                                color: props.iconColor
                             },
                             // {
                             //     type: "container",

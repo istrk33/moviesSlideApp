@@ -3,22 +3,26 @@
 // import urlExist from 'url-exist';
 module.exports = async (data, props) => {
     const functions = require("../../resources/functions");
-    var movie = data.movieInfoToSee.movie;
-    var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + movie.id;
-    // get characters https://api.betaseries.com/movies/characters?key=941cc48f228b&id=
-    // characters pictures https://api.betaseries.com/pictures/characters?key=941cc48f228b&id=
-    // pour la gestion d'affichage des étoiles en fonctions de la note
-    var numberOfStar = parseInt(movie.notes.mean);
-    var arr = Array(numberOfStar).fill("star");
-    (movie.notes.mean % 1 != 0) ? arr.splice(arr.length, 0, "star_half") : "";
-    while (arr.length < 5) {
-        arr.splice(arr.length, 0, "star_border_outlined");
+    if (Object.keys(data.listOfUndiscoveredMovies)[0].includes("tvshows_")) {
+
+    } else {
+        var movie = data.movieInfoToSee.movie;
+        var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + movie.id;
+        // get characters https://api.betaseries.com/movies/characters?key=941cc48f228b&id=
+        // characters pictures https://api.betaseries.com/pictures/characters?key=941cc48f228b&id=
+        // pour la gestion d'affichage des étoiles en fonctions de la note
+        var numberOfStar = parseInt(movie.notes.mean);
+        var arr = Array(numberOfStar).fill("star");
+        (movie.notes.mean % 1 != 0) ? arr.splice(arr.length, 0, "star_half") : "";
+        while (arr.length < 5) {
+            arr.splice(arr.length, 0, "star_border_outlined");
+        }
+        var currentFilmDurationStr = functions.computeMovieDuration(movie.length);
+        var genresArray = movie.genres;
+        var genresArrayStr = genresArray.join('  ');
+        var charactersArray = await functions.getCharacters(data.apiKey, movie.id);
+        var only5Chars = charactersArray;//charactersArray.sort(() => Math.random() - Math.random()).slice(0, 5)
     }
-    var currentFilmDurationStr = functions.computeMovieDuration(movie.length);
-    var genresArray = movie.genres;
-    var genresArrayStr = genresArray.join('  ');
-    var charactersArray = await functions.getCharacters(data.apiKey, movie.id);
-    var only5Chars = charactersArray;//charactersArray.sort(() => Math.random() - Math.random()).slice(0, 5)
     return {
         type: "container",
         decoration: {

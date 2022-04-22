@@ -2,7 +2,7 @@
 const axios = require('axios')
 
 module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, start) {
-  var url = "https://api.betaseries.com/movies/discover?key=" + apiKey + "&type=popular&offset=" + start + "&limit=20";
+  var url = "https://api.betaseries.com/movies/discover?key=" + apiKey + "&type=popular&offset=" + start + "&limit=2";
   var listOfMovies = ((await axios.get(url, { crossdomain: true },
     {
       headers: {
@@ -11,6 +11,18 @@ module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, st
     }
   )).data).movies;
   return listOfMovies;
+}
+module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, start) {
+  //https://api.betaseries.com/shows/list?key=941cc48f228b&order=popularity&start=0&limit=20
+  var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=popularity&start=" + start + "&limit=2";
+  var listOfTvShows = ((await axios.get(url, { crossdomain: true },
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    }
+  )).data).shows;
+  return listOfTvShows;
 }
 
 module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
@@ -24,6 +36,18 @@ module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
     }
   )).data);
   return movieDetail;
+}
+module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
+  // https://api.betaseries.com/shows/display?key=941cc48f228b&id=22592
+  var url = "https://api.betaseries.com/shows/display?key=" + apiKey + "&id=" + id;
+  var tvShowDetail = ((await axios.get(url, { crossdomain: true },
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    }
+  )).data);
+  return tvShowDetail;
 }
 
 module.exports.urlExist = async function urlExist(apiKey, id) {
