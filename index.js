@@ -18,24 +18,20 @@ module.exports = () => {
     },
     listeners: {
       InitData: require('./listeners/initData'),
-      bottomButtonClick: require('./listeners/bottomButtonClick'),
-      switchHomeUi: require('./listeners/homeUiButton'),
-      switchInterestUi: require('./listeners/userInterestUiButton'),
-      switchViewedUi: require('./listeners/userViewedUiButton'),
-      switchMovieInfoUi: require('./listeners/movieInfoUiButton'),
-      bottomButtonHoverEvent: require('./listeners/bottomButtonHoverEvent'),
-      menuButtonHoverEvent: require('./listeners/menuButtonHoverEvent'),
-      movieInfoButtonHoverEvent: require('./listeners/movieInfoButtonHoverEvent'),
-      changeMenuLabel: require('./listeners/dropdownClick'),
-      dropdownButtonHoverEvent: require('./listeners/dropdownButtonHoverEvent'),
-      movieButtonHovered: require('./listeners/movieListItemHoverEvent'),
-      deleteViewedMovie: require('./listeners/deleteViewedClickEvent'),
-      viewedMovieButton: require('./listeners/addInterestToViewedEvent'),
-      // actorButtonClick: require('./listeners/actorButtonPressedEvent'),
+      bottomButtonClick: require('./listeners/clicks/bottomButtonClick'),
+      switchHomeUi: require('./listeners/clicks/homeUiButton'),
+      switchInterestUi: require('./listeners/clicks/userInterestUiButton'),
+      switchViewedUi: require('./listeners/clicks/userViewedUiButton'),
+      switchMovieInfoUi: require('./listeners/clicks/movieInfoUiButton'),
+      deleteViewedMovie: require('./listeners/clicks/deleteViewedClickEvent'),
+      changeMenuLabel: require('./listeners/clicks/dropdownClick'),
+      viewedMovieButton: require('./listeners/clicks/addInterestToViewedEvent'),
+      bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHoverEvent'),
+      menuButtonHoverEvent: require('./listeners/hovers/menuButtonHoverEvent'),
+      movieInfoButtonHoverEvent: require('./listeners/hovers/movieInfoButtonHoverEvent'),
+      dropdownButtonHoverEvent: require('./listeners/hovers/dropdownButtonHoverEvent'),
+      movieButtonHovered: require('./listeners/hovers/movieListItemHoverEvent'),
     },
-    // resources:{
-    //   functions: require('./resources/functions')
-    // },
     rootWidget: 'app'
   }
 }

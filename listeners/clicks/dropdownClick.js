@@ -1,5 +1,12 @@
 'use strict'
 
+/**
+ * changing the display type of the dropdown button
+ * @param {*} data 
+ * @param {*} _props 
+ * @param {*} event 
+ * @returns 
+ */
 module.exports = (data, _props, event) => {
     switch (_props.srcButton) {
         case "tempsPerdu":

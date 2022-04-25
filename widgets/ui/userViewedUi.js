@@ -2,8 +2,6 @@
 
 module.exports = (data, props) => {
   var arr = Object.values(data.userViewed);
-  // console.log("ksdqjslfqksdj " + data.userViewed['34676']);
-  // console.log(arr);
   return {
     type: "container",
     decoration: {
@@ -55,6 +53,11 @@ module.exports = (data, props) => {
                   }
                 },
                 ...arr.sort().map(element => {
+                  if (data.userInterests["tvshows_" + element[0]] != null || data.userInterests["tvshows_" + element[0]] != undefined) {
+                    var movieId = "tvshows_" + element[0];
+                  } else {
+                    var movieId = element[0];
+                  }
                   return {
                     // type: "flex",
                     // children: [
@@ -117,7 +120,7 @@ module.exports = (data, props) => {
                           movieId: element[0],
                           height: 50,
                           width: 250,
-                          array: data.userViewed,
+                          arrayData: data.userViewed,
                           // viewWidget: [
                           // ]
                         }

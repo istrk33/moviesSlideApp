@@ -192,16 +192,11 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 
 29. background d'une vue de scroll non disponible sans ajouter au moins un élément dans la liste à scroll
 
+30. pour l'utilisation des overlay, dans la doc on ne sait pas comment utiliser l'overlay, d'une première intuition je pense qu'il faudrait dupliquer la vue et placer l'overlay sur la copie ?
+
 <!-- 
-* actionnable dropdownmenu en brackground transparent -> effacer les espaces au dessus et en dessous
-* gérer le hover des actionnables
-* centrer les textes
 * clean le code -> fonctions, widgets, commentaires
-* personnaliser le dropdown*
-* pour les acteurs affichage sous forme de tableau 
-* ajouter les plateforme qui proposent le film
-*darkmode
-*gestion des suppressions daes listes
+
 
 * ajouter la gestion des séries :
  avec overlay + mode + lors du clic sur ajouter

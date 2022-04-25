@@ -50,20 +50,6 @@ module.exports = (data, props) => {
                                 size: 40,
                                 color: props.iconColor
                             },
-                            // {
-                            //     type: "container",
-                            //     padding: {
-                            //         top: 1
-                            //     },
-                            //     child: {
-                            //         type: "text",
-                            //         value: props.buttonStr,
-                            //         style: {
-                            //             color: 0xFFFFFFFF,
-                            //             fontSize: 15
-                            //         }
-                            //     }
-                            // }
                         ]
                     }
                 }

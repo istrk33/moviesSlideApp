@@ -2,26 +2,30 @@
 
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
-  if (Object.keys(data.listOfUndiscoveredMovies)[0].includes("tvshows_")) {
-    var numberOfSeason = (data.currentMovie[3]).length;
-    var currentFilmDurationStr = (numberOfSeason = +1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
-    var img = "https://api.betaseries.com/pictures/shows?key=941cc48f228b&id=" + data.currentMovieInfo.show.id + "&width=627&height=933";
-    var director = data.currentMovieInfo.show.showrunner.name;
+  if (data.currentMovieInfo.show != null) {
+    var numberOfSeason = data.currentMovieInfo.show.seasons;
+    var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
+    var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.currentMovieInfo.show.id + "&width=627&height=933";
+    if (data.currentMovieInfo.show.showrunner == null) {
+      var director = "Inconnu";
+    } else {
+      var director = data.currentMovieInfo.show.showrunner.name;
+    }
     var videoType = "tvshow";
     var title = data.currentMovieInfo.show.title;
     var year = data.currentMovieInfo.show.creation;
     var videoInfo = data.currentMovieInfo.show;
+    var action = "showOverlaySeason";
   } else {
-    // console.log(data.currentMovieInfo);
-    var img = "https://api.betaseries.com/pictures/movies?key=941cc48f228b&id=" + data.currentMovieInfo.movie.id + "&width=627&height=933";
+    var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + data.currentMovieInfo.movie.id + "&width=627&height=933";
     var currentFilmDurationStr = functions.computeMovieDuration(data.currentMovieInfo.movie.length);
     var director = data.currentMovieInfo.movie.director;
     var videoType = "movie";
     var title = data.currentMovieInfo.movie.title;
     var year = data.currentMovieInfo.movie.production_year;
     var videoInfo = data.currentMovieInfo.movie;
+    var action = "bottomButtonClick";
   }
-  // console.log("LE VRAI TYPEEEE"+video)
   return {
     type: "container",
     decoration: {
@@ -106,7 +110,6 @@ module.exports = (data, props) => {
           child: {
             type: "flex",
             direction: "vertical",
-            // fillParent: true,
             crossAxisAlignment: "center",
             mainAxisAlignment: "center",
             spacing: 1,
@@ -190,7 +193,6 @@ module.exports = (data, props) => {
                   color: data.bottomButton1Color[0],
                   iconColor: data.bottomButton1Color[1],
                   action: "bottomButtonClick",
-                  // movieDict: data.currentMovie,
                   buttonName: "viewed"
                 }
               },

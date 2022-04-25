@@ -1,5 +1,12 @@
 'use strict'
 
+/**
+ * managing menu buttons in function of the order of the buttons
+ * @param {*} data 
+ * @param {*} _props 
+ * @param {*} event 
+ * @returns 
+ */
 module.exports = (data, _props, event) => {
     switch (_props.order) {
         case "first":

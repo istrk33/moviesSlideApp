@@ -1,5 +1,12 @@
 'use strict'
 
+/**
+ * managing colors of bottom actionable when user hovered them
+ * @param {*} data 
+ * @param {*} _props 
+ * @param {*} event 
+ * @returns 
+ */
 module.exports = (data, _props, event) => {
     switch (_props.buttonStr) {
         case "Vu":

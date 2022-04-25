@@ -52,6 +52,11 @@ module.exports = (data, props) => {
                   }
                 },
                 ...arr.sort().map(element => {
+                  if (data.userInterests["tvshows_" + element[0]] != null || data.userInterests["tvshows_" + element[0]] != undefined) {
+                    var movieId = "tvshows_" + element[0];
+                  } else {
+                    var movieId = element[0];
+                  }
                   return {
                     type: "flex",
                     // fillParent: true,
@@ -62,11 +67,10 @@ module.exports = (data, props) => {
                         props: {
                           buttonText: element[1],
                           src: "interests",
-                          from: "other",
-                          movieId: element[0],
+                          movieId: movieId,
                           height: 50,
                           width: 200,
-                          array: data.userInterests,
+                          arrayData: data.userInterests,
                           // viewWidget: [
                           // ]
                         }
@@ -77,7 +81,8 @@ module.exports = (data, props) => {
                           action: "deleteViewedMovie",
                           props: {
                             movieIdToRemove: element[0],
-                            src: "interests"
+                            src: "interests",
+                            videotype:videotype
                           }
                         },
                         child: {
