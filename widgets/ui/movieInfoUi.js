@@ -18,8 +18,8 @@ module.exports = async (data, props) => {
         while (arr.length < 5) {
             arr.splice(arr.length, 0, "star_border_outlined");
         }
-        if (data.currentMovieInfo.show.showrunner == null) {
-            var director = "undefined";
+        if (show.showrunner == null) {
+            var director = "Inconnu";
         } else {
             var director = show.showrunner.name;
         }
@@ -284,6 +284,7 @@ module.exports = async (data, props) => {
                                     },
                                 ]
                             }
+                            // from here to the bottom is all for the grid display
                             , {
                                 type: "flex",
                                 padding: {
@@ -304,7 +305,7 @@ module.exports = async (data, props) => {
                                         },
                                         child: {
                                             type: "text",
-                                            value: "Acteurs",
+                                            value: "Acteurs(rices)",
                                             style: {
                                                 color: 0xFFFFFFFF,
                                                 fontSize: 17
@@ -323,10 +324,6 @@ module.exports = async (data, props) => {
                                     children: [
                                         {
                                             type: "container",
-                                            // padding: {
-                                            //     bottom: 1,
-                                            //     left: 1
-                                            // },
                                             constraints: {
                                                 maxHeight: 70,
                                                 maxWidth: 160,
@@ -360,7 +357,7 @@ module.exports = async (data, props) => {
                                                 children: [
                                                     {
                                                         type: "text",
-                                                        value: "Acteur",
+                                                        value: "Acteur(rice)",
                                                         style: {
                                                             color: 0xFFFFFFFF,
                                                             fontSize: 17
@@ -395,10 +392,6 @@ module.exports = async (data, props) => {
                                                     width: 1
                                                 }
                                             },
-                                            // padding: {
-                                            //     bottom: 1,
-                                            //     left: 1
-                                            // },
                                             child: {
                                                 type: "flex",
                                                 direction: "vertical",

@@ -3,10 +3,8 @@
 module.exports = (data, props) => {
     if (String(props.movieId).includes("tvshows_")) {
         var color = props.arrayData[props.movieId][2];
-        var movieId = String(props.movieId).substring(8);
     } else {
         var color = props.arrayData[props.movieId][2];
-        var movieId = props.movieId;
     }
     var textcolor = (color == data.darkbg) ? data.hoverMenuButtonColor : data.darkbg;
     return {
@@ -14,7 +12,7 @@ module.exports = (data, props) => {
         onPressed: {
             action: "switchMovieInfoUi",
             props: {
-                movieId: movieId,
+                movieId: props.movieId,
                 from: props.from,
                 videotype:props.videotype
             }

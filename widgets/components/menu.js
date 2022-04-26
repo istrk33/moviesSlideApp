@@ -52,7 +52,6 @@ module.exports = (data, props) => {
       type: "flex",
       fillParent: true,
       mainAxisAlignment: "spaceBetween",
-      // crossAxisAlignment: "center",
       padding: {
         left: 4,
         right: 0,
@@ -70,7 +69,7 @@ module.exports = (data, props) => {
               icon: {
                 type: "icon",
                 value: "movie",
-                color: 0xFFFFFFFF,
+                color: 0xFF828282,
                 size: 25
               },
               mainStyle: "tertiary",
@@ -115,28 +114,6 @@ module.exports = (data, props) => {
                           iconColor: data.dropDownButton3Color[1]
                         }
                       },
-                      // {
-                      //   type: "widget",
-                      //   name: "menuButton",
-                      //   props: {
-                      //     buttonIcon: icon1,
-                      //     uiName: uiName1,
-                      //     order: "first",
-                      //     color: data.menuHoverButton1Color[0],
-                      //     iconColor: data.menuHoverButton1Color[1]
-                      //   }
-                      // },
-                      // {
-                      //   type: "widget",
-                      //   name: "menuButton",
-                      //   props: {
-                      //     buttonIcon: icon2,
-                      //     uiName: uiName2,
-                      //     order: "second",
-                      //     color: data.menuHoverButton2Color[0],
-                      //     iconColor: data.menuHoverButton2Color[1]
-                      //   }
-                      // }
                     ]
                   }
                 ]

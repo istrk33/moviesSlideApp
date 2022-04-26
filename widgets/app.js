@@ -1,13 +1,19 @@
 'use strict'
 
 function getCurrentPage(data) {
-  console.log("navigation", data.navigation);
   switch (data.navigation) {
     case "home":
       return {
         type: "widget",
         name: "home"
       };
+    //for overlay v1
+    case "homeWithOverlay":
+      return {
+        type: "widget",
+        name: "homeWithOverlay"
+      };
+    //end
     case "userInterest":
       return {
         type: "widget",
@@ -31,7 +37,6 @@ function getCurrentPage(data) {
   }
 }
 
-module.exports =
-  (data, _props) => {
-    return getCurrentPage(data);
-  }
+module.exports = (data, _props) => {
+  return getCurrentPage(data);
+}

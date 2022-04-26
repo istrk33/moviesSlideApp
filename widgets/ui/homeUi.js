@@ -51,16 +51,10 @@ module.exports = (data, props) => {
             type: "stack",
             alignment: "topRight",
             children: [
-              //image du film courant
               {
                 type: "image",
                 fit: "cover",
                 loadingPlaceholder: {
-                  type: "image",
-                  fit: "cover",
-                  src: "https://www.burmunk.am/themes/burmunk/assets/no-product-image.png"
-                },
-                framePlaceholder: {
                   type: "image",
                   fit: "cover",
                   src: "https://www.burmunk.am/themes/burmunk/assets/no-product-image.png"
@@ -192,7 +186,7 @@ module.exports = (data, props) => {
                   buttonStr: "Vu",
                   color: data.bottomButton1Color[0],
                   iconColor: data.bottomButton1Color[1],
-                  action: "bottomButtonClick",
+                  action: action,
                   buttonName: "viewed"
                 }
               },

@@ -2,10 +2,10 @@
 const axios = require('axios')
 
 /**
- * 
- * @param {*} apiKey 
- * @param {*} start 
- * @returns 
+ * requesting popular movies from an api
+ * @param {key to get value from the } apiKey 
+ * @param {the starting point} start 
+ * @returns a list of json for each movies
  */
 module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, start) {
   var url = "https://api.betaseries.com/movies/discover?key=" + apiKey + "&type=popular&offset=" + start + "&limit=5";
@@ -20,10 +20,10 @@ module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, st
 }
 
 /**
- * 
- * @param {*} apiKey 
- * @param {*} start 
- * @returns 
+ * requesting popular tvshows from the api
+ * @param {api key} apiKey 
+ * @param {the starting point} start 
+ * @returns a list of json for each tvshows
  */
 module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, start) {
   //https://api.betaseries.com/shows/list?key=941cc48f228b&order=popularity&start=0&limit=20
@@ -41,9 +41,9 @@ module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, 
 }
 
 /**
- * 
- * @param {*} apiKey 
- * @param {*} id 
+ * requesting movie details for the current movie or the movie info ui
+ * @param {api key} apiKey 
+ * @param {movie id} id 
  * @returns 
  */
 module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
@@ -60,9 +60,9 @@ module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
 }
 
 /**
- * 
- * @param {*} apiKey 
- * @param {*} id 
+ * requesting tv show details for the current movie or the movie info ui
+ * @param {api key} apiKey 
+ * @param {tv show id} id 
  * @returns 
  */
 module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
@@ -79,9 +79,9 @@ module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
 }
 
 /**
- * 
- * @param {*} apiKey 
- * @param {*} id 
+ * requesting movie characters for the movie info ui
+ * @param {api key} apiKey 
+ * @param {movie id} id 
  * @returns 
  */
 module.exports.getCharacters = async function getCharacters(apiKey, id) {
@@ -97,9 +97,9 @@ module.exports.getCharacters = async function getCharacters(apiKey, id) {
 }
 
 /**
- * 
- * @param {*} apiKey 
- * @param {*} id 
+ * requesting tv shows characters for the movie info ui
+ * @param {api key} apiKey 
+ * @param {id of the tv show} id 
  * @returns 
  */
 module.exports.getTvShowsCharacters = async function getTvShowsCharacters(apiKey, id) {
@@ -115,9 +115,9 @@ module.exports.getTvShowsCharacters = async function getTvShowsCharacters(apiKey
 }
 
 /**
- * 
- * @param {*} movieLength 
- * @returns 
+ * converting an amount of second to "hh:mm:ss" format
+ * @param {number of seconds} movieLength 
+ * @returns seconds to "hh:mm:ss"
  */
 module.exports.computeMovieDuration = function computeMovieDuration(movieLength) {
   var h = Math.floor(movieLength / 3600);
@@ -137,9 +137,9 @@ module.exports.computeMovieDuration = function computeMovieDuration(movieLength)
 }
 
 /**
- * 
- * @param {*} totalSec 
- * @returns 
+ * converting an amount of second to "ddJ hhH mmM" format
+ * @param {number of seconds} totalSec 
+ * @returns seconds to "ddJ hhH mmM"
  */
 module.exports.computeMenuTime = function computeMenuTime(totalSec) {
   var d = Math.floor(totalSec / (3600 * 24));
@@ -151,3 +151,4 @@ module.exports.computeMenuTime = function computeMenuTime(totalSec) {
   var mDisplay = m + "min ";
   return totalSec == 0 ? "0j 0h 0min" : dDisplay + " " + hDisplay + " " + mDisplay;
 }
+

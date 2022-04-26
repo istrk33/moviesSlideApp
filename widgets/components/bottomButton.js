@@ -15,7 +15,6 @@ module.exports = (data, props) => {
                 onPressed: {
                     action: props.action,
                     props: {
-                        // movieDict:props.movieDict,
                         buttonName: props.buttonName,
                         videoType: props.videoType
                     }

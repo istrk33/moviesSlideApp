@@ -1,36 +1,47 @@
 'use strict'
 
 // Widgets
-
 module.exports = () => {
   return {
     widgets: {
+      // main
       app: require('./widgets/app'),
       menu: require('./widgets/components/menu'),
-      bottomButton: require('./widgets/components/bottomButton'),
-      menuButton: require('./widgets/components/menuButton'),
+
+      // uis
       home: require('./widgets/ui/homeUi'),
+      homeWithOverlay: require('./widgets/ui/homeUiWithOverlay'),
       userInterest: require('./widgets/ui/userInterestUi'),
       userViewed: require('./widgets/ui/userViewedUi'),
       movieInfo: require('./widgets/ui/movieInfoUi'),
+
+      // buttons
+      bottomButton: require('./widgets/components/bottomButton'),
+      menuButton: require('./widgets/components/menuButton'),
       movieButton: require('./widgets/components/movieButton'),
       dropdownMenuButton: require('./widgets/components/dropMenuButton'),
     },
     listeners: {
+      // init
       InitData: require('./listeners/initData'),
+
+      // clicks
       bottomButtonClick: require('./listeners/clicks/bottomButtonClick'),
-      switchHomeUi: require('./listeners/clicks/homeUiButton'),
-      switchInterestUi: require('./listeners/clicks/userInterestUiButton'),
-      switchViewedUi: require('./listeners/clicks/userViewedUiButton'),
-      switchMovieInfoUi: require('./listeners/clicks/movieInfoUiButton'),
-      deleteViewedMovie: require('./listeners/clicks/deleteViewedClickEvent'),
+      switchHomeUi: require('./listeners/clicks/homeUiClick'),
+      switchInterestUi: require('./listeners/clicks/interestUiClick'),
+      switchViewedUi: require('./listeners/clicks/viewedUiClick'),
+      switchMovieInfoUi: require('./listeners/clicks/movieInfoUiClick'),
+      deleteViewedMovie: require('./listeners/clicks/deleteViewedClick'),
       changeMenuLabel: require('./listeners/clicks/dropdownClick'),
-      viewedMovieButton: require('./listeners/clicks/addInterestToViewedEvent'),
-      bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHoverEvent'),
-      menuButtonHoverEvent: require('./listeners/hovers/menuButtonHoverEvent'),
-      movieInfoButtonHoverEvent: require('./listeners/hovers/movieInfoButtonHoverEvent'),
-      dropdownButtonHoverEvent: require('./listeners/hovers/dropdownButtonHoverEvent'),
-      movieButtonHovered: require('./listeners/hovers/movieListItemHoverEvent'),
+      viewedMovieButton: require('./listeners/clicks/interestToViewedClick'),
+      showOverlaySeason: require('./listeners/clicks/viewedTvShowClick'),
+      
+      // hovers
+      bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHover'),
+      menuButtonHoverEvent: require('./listeners/hovers/menuButtonHover'),
+      movieInfoButtonHoverEvent: require('./listeners/hovers/movieInfoButtonHover'),
+      dropdownButtonHoverEvent: require('./listeners/hovers/dropdownButtonHover'),
+      movieButtonHovered: require('./listeners/hovers/movieListItemHover'),
     },
     rootWidget: 'app'
   }

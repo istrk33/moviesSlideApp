@@ -59,7 +59,6 @@ module.exports = (data, props) => {
                   }
                   return {
                     type: "flex",
-                    // fillParent: true,
                     children: [
                       {
                         type: "widget",
@@ -71,6 +70,7 @@ module.exports = (data, props) => {
                           height: 50,
                           width: 200,
                           arrayData: data.userInterests,
+
                           // viewWidget: [
                           // ]
                         }
@@ -82,7 +82,6 @@ module.exports = (data, props) => {
                           props: {
                             movieIdToRemove: element[0],
                             src: "interests",
-                            videotype:videotype
                           }
                         },
                         child: {

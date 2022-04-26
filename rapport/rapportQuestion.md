@@ -194,6 +194,8 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 
 30. pour l'utilisation des overlay, dans la doc on ne sait pas comment utiliser l'overlay, d'une première intuition je pense qu'il faudrait dupliquer la vue et placer l'overlay sur la copie ?
 
+31. quand ca fait un moment qu'il n'y a aucune interaction avec le devtool des valeurs (tableaux du init data) passent en undefined, et cela se répercute dès qu'un hover est fait sur un bouton par exemple une erreur est générée.
+
 <!-- 
 * clean le code -> fonctions, widgets, commentaires
 
@@ -202,4 +204,9 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
  avec overlay + mode + lors du clic sur ajouter
  gestion du temps si l'utilisateur n'a spas tout vu, ajouter le temps restant dans le temps potentiel a perdre
  * utiliser l'overlay pour les saisons des séries
+ * quand on change de vue update l'affichage du dropdown
+ *mettre en gris l'icone du dropdown
+ *
+ * textfield
+ *ajouter un champs de recherche dans la liste d'intérets pour rechercher un série et le marquer comme vu, idem dans  séries vues
 -->

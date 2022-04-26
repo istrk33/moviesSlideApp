@@ -18,14 +18,14 @@ module.exports = (data, props) => {
         child: {
             type: "container",
             decoration: {
-                color: props.color//0xFF1E232C
+                color: props.color
             },
             child: {
                 type: "flex",
                 children: [{
                     type: "icon",
                     value: props.icon,
-                    color: props.iconColor,//0xFFFFFFFF,
+                    color: props.iconColor,
                     size: 25
                 },
                 {
@@ -38,7 +38,7 @@ module.exports = (data, props) => {
                         type: "text",
                         value: props.buttonText,
                         style: {
-                            color: props.iconColor,//0xFFFFFFFF
+                            color: props.iconColor
                         }
                     }
                 },

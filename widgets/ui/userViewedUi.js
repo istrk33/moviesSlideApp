@@ -33,7 +33,6 @@ module.exports = (data, props) => {
               direction: "vertical",
               crossAxisAlignment: "center",
               mainAxisAlignment: "center",
-              // fillParent: true,
               scroll: true,
               children: [
                 {
@@ -59,56 +58,7 @@ module.exports = (data, props) => {
                     var movieId = element[0];
                   }
                   return {
-                    // type: "flex",
-                    // children: [
-                    // {
-                    //   type: "widget",
-                    //   name: "movieButton",
-                    //   props: {
-                    //     buttonText: element[1],
-                    //     src: "viewed",
-                    //     from: "other",
-                    //     movieId: element[0],
-                    //     height: 50,
-                    //     width: 600,
-                    //     array: data.userViewed,
-                    //     viewWidget: [
-                    //       {
-                    //         type: "actionable",
-                    //         onPressed: {
-                    //           action: "deleteViewedMovie",
-                    //           props: {
-                    //             movieIdToRemove: element[0],
-                    //             src: "interests"
-                    //           }
-                    //         },
-                    //         child: {
-                    //           type: "container",
-                    //           decoration: {
-                    //             color: 0xFFFA5656
-                    //           },
-                    //           child: {
-                    //             type: "icon",
-                    //             value: "delete",
-                    //             color: 0xFFFA5656
-                    //           }
-                    //         }
-                    //         // onHovered: {
-                    //         //   action:"",
-                    //         //   props:{
-
-                    //         //   }
-                    //         // }
-                    //       }
-
-
-                    //     ]
-                    //   }
-                    // },
-
-                    //   ]
                     type: "flex",
-                    // fillParent: true,
                     children: [
                       {
                         type: "widget",
