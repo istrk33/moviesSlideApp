@@ -22,7 +22,7 @@ module.exports = async (data, props, event) => {
 
   // adding movies and tvshows into the dictionnary
   var start = 0;
-  (await functions.queryPopularMovies(apiKey, start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+  // (await functions.queryPopularMovies(apiKey, start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
   (await functions.queryPopularTvShows(apiKey, start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
   start += 5;
 
@@ -66,7 +66,8 @@ module.exports = async (data, props, event) => {
       currentMovieInfo,
       movieInfoToSee,
       keys,
-      currentId
+      currentId,
+      currentTvShowViewedSeasons:1
     }
   }
 }

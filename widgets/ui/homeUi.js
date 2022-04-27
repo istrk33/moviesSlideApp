@@ -26,6 +26,7 @@ module.exports = (data, props) => {
     var videoInfo = data.currentMovieInfo.movie;
     var action = "bottomButtonClick";
   }
+  
   return {
     type: "container",
     decoration: {

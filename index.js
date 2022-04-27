@@ -42,6 +42,9 @@ module.exports = () => {
       movieInfoButtonHoverEvent: require('./listeners/hovers/movieInfoButtonHover'),
       dropdownButtonHoverEvent: require('./listeners/hovers/dropdownButtonHover'),
       movieButtonHovered: require('./listeners/hovers/movieListItemHover'),
+
+      //slider
+      sliderValueChanged: require('./listeners/slider/numberOfSeasonChanged'),
     },
     rootWidget: 'app'
   }

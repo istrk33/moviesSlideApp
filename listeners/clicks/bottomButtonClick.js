@@ -11,7 +11,7 @@ module.exports = async (data, _props, event) => {
     const functions = require("../../resources/functions");
     var videoId = data.currentId;
     // checking if it's a movie or a tv show
-    if (_props.videoType == "movie") {
+    if (data.currentMovieInfo.movie != null || data.currentMovieInfo.movie != undefined) {
         var timeInSec = data.currentMovieInfo.movie.length;
         actionOnVideo(data, timeInSec, _props.buttonName, videoId);
     } else {
@@ -27,7 +27,7 @@ module.exports = async (data, _props, event) => {
     var currentMovie = data.listOfUndiscoveredMovies[data.currentId][0];
     data.currentMovieInfo = (data.currentId.includes("tvshows_")) ? (await functions.getTvShowDetails(data.apiKey, currentMovie)) : (await functions.getMovieDetails(data.apiKey, currentMovie));
     if (data.keys.length <= 1) {
-        (await functions.queryPopularMovies(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+        // (await functions.queryPopularMovies(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
         (await functions.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
         data.start += 5;
     }

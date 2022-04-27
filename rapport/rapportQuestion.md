@@ -196,6 +196,7 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 
 31. quand ca fait un moment qu'il n'y a aucune interaction avec le devtool des valeurs (tableaux du init data) passent en undefined, et cela se répercute dès qu'un hover est fait sur un bouton par exemple une erreur est générée.
 
+32. slider, le curseur a un bug de focus ? 
 <!-- 
 * clean le code -> fonctions, widgets, commentaires
 
@@ -209,4 +210,11 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
  *
  * textfield
  *ajouter un champs de recherche dans la liste d'intérets pour rechercher un série et le marquer comme vu, idem dans  séries vues
+ * pour ajouter les séries :
+                        * ajouter dans la liste des vues par saisons ou ajouter par séries et on ajoute un tableau supplémentaire pour comptabiliser les saisons vues
+                        * les saisons pas vues elles seront directement placé dans la liste des intérêts
+                        * une série suprimé de la liste des vues sera directement placé dans la liste des intérêts
+
+* une fois le bouton validé activé rediriger vers bottombuton clicked  ? ou pas  événement specifique pour l'ajout des séries
+* pour la recherche des élément dans le dictionnaire pour chaque evenement textchanged du textfield, rechercher les titres contenant la chaine de caracteres dans le dict
 -->
