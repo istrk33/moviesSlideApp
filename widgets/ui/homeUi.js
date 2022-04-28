@@ -2,6 +2,7 @@
 
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
+  console.log("ON EST DANS HOME");
   if (data.currentMovieInfo.show != null) {
     var numberOfSeason = data.currentMovieInfo.show.seasons;
     var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";

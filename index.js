@@ -35,6 +35,7 @@ module.exports = () => {
       changeMenuLabel: require('./listeners/clicks/dropdownClick'),
       viewedMovieButton: require('./listeners/clicks/interestToViewedClick'),
       showOverlaySeason: require('./listeners/clicks/viewedTvShowClick'),
+      addTvShowSeason: require('./listeners/clicks/addTvShowSeasonClick'),
       
       // hovers
       bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHover'),

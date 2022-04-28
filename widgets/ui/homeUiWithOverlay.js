@@ -3,13 +3,19 @@
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
   var numberOfSeason = Math.floor(data.currentTvShowViewedSeasons);
+  var numberOfViewedSeason = 0;
   var numberOfViewedEpisode = 0;
+  var numberOfNotViewedEpisode = 0;
   data.currentMovieInfo.show.seasons_details.forEach(element => {
     if (parseInt(element.number) <= numberOfSeason) {
       numberOfViewedEpisode += parseInt(element.episodes);
-    } 
+      numberOfViewedSeason += 1;
+    }else{
+      numberOfNotViewedEpisode+=parseInt(element.episodes);
+    }
   });
   var totalViewedTime = numberOfViewedEpisode * data.currentMovieInfo.show.length * 60;
+  var totalNotViewedTime = numberOfNotViewedEpisode * data.currentMovieInfo.show.length * 60;
   return {
     type: "container",
     decoration: {
@@ -47,13 +53,20 @@ module.exports = (data, props) => {
               }
             }
           },
-          // {
-          //   type: "button",
-          //   text: "Ajouter " + data.currentTvShowViewedSeasons + " saisons en vue",
-          //   // onPressed:{
-
-          //   // }
-          // },
+          {
+            type: "button",
+            text: "Ajouter " + data.currentTvShowViewedSeasons + " saisons en vue",
+            onPressed: {
+              action: "addTvShowSeason",
+              props: {
+                tvshowid: data.currentMovieInfo.show.id,
+                seasonNum: numberOfSeason,
+                viewedSeason:numberOfViewedSeason,
+                tvshowViewedTime: totalViewedTime,
+                tvshowNotViewedTime: totalNotViewedTime,
+              }
+            }
+          },
           {
             type: "button",
             text: "Retour",

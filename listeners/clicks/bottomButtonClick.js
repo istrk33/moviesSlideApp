@@ -31,7 +31,6 @@ module.exports = async (data, _props, event) => {
         (await functions.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
         data.start += 5;
     }
-    actionOnVideo();
     return data
 }
 
