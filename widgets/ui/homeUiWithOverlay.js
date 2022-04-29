@@ -2,14 +2,12 @@
 
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
-  var numberOfSeason = Math.floor(data.currentTvShowViewedSeasons);
-  var numberOfViewedSeason = 0;
+  var numberOfSeasonViewed = Math.floor(data.currentTvShowViewedSeasons);
   var numberOfViewedEpisode = 0;
   var numberOfNotViewedEpisode = 0;
   data.currentMovieInfo.show.seasons_details.forEach(element => {
-    if (parseInt(element.number) <= numberOfSeason) {
+    if (parseInt(element.number) <= numberOfSeasonViewed) {
       numberOfViewedEpisode += parseInt(element.episodes);
-      numberOfViewedSeason += 1;
     }else{
       numberOfNotViewedEpisode+=parseInt(element.episodes);
     }
@@ -23,6 +21,7 @@ module.exports = (data, props) => {
     },
     child: {
       type: "overlayEntry",
+      showOverlay:true,
       child: {
         type: "flex",
         direction: "vertical",
@@ -40,17 +39,14 @@ module.exports = (data, props) => {
             type: "slider",
             label: "" + data.currentTvShowViewedSeasons,
             min: 1,
-            divisions: parseInt(data.currentMovieInfo.show.seasons),
+            divisions: parseInt(data.currentMovieInfo.show.seasons)-1,
             max: parseInt(data.currentMovieInfo.show.seasons),
             autofocus: true,
             // max: parseInt(5),
             // value:data.currentTvShowViewedSeasons,
             value: parseInt(data.currentTvShowViewedSeasons),
             onChanged: {
-              action: "sliderValueChanged",
-              props: {
-
-              }
+              action: "sliderValueChanged"
             }
           },
           {
@@ -60,10 +56,10 @@ module.exports = (data, props) => {
               action: "addTvShowSeason",
               props: {
                 tvshowid: data.currentMovieInfo.show.id,
-                seasonNum: numberOfSeason,
-                viewedSeason:numberOfViewedSeason,
+                seasonNum: numberOfSeasonViewed,
                 tvshowViewedTime: totalViewedTime,
                 tvshowNotViewedTime: totalNotViewedTime,
+                
               }
             }
           },

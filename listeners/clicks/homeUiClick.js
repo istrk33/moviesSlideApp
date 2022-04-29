@@ -12,5 +12,6 @@ module.exports = (data, _props, event) => {
     data.menuHoverButton2Color=[data.black,data.white];
     data.navigation="home";
     data.menuTimeLabel = "tempsPerdu";
+    data.searchValue="";
     return data
 }

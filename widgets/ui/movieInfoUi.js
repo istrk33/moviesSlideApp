@@ -448,7 +448,7 @@ module.exports = async (data, props) => {
                                                             {
                                                                 type: "container",
                                                                 constraints: {
-                                                                    maxHeight: 70,
+                                                                    maxHeight: 200,
                                                                     maxWidth: 160,
                                                                     minWidth: 160,
                                                                     minHeight: 25,
@@ -494,7 +494,7 @@ module.exports = async (data, props) => {
                                                             {
                                                                 type: "container",
                                                                 constraints: {
-                                                                    maxHeight: 70,
+                                                                    maxHeight: 200,
                                                                     maxWidth: 160,
                                                                     minWidth: 160,
                                                                     minHeight: 25,

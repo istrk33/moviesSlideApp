@@ -3,7 +3,6 @@
 function getCurrentPage(data) {
   switch (data.navigation) {
     case "home":
-      console.log("ON PASSE DANS HOME");
       return {
         type: "widget",
         name: "home"

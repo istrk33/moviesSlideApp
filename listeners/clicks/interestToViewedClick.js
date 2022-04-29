@@ -8,9 +8,23 @@
  * @returns 
  */
 module.exports = (data, _props, event) => {
-    data.userViewed[_props.viewedMovieId] = data.userInterests[_props.viewedMovieId];
-    data.totalWastedTime += data.userViewed[_props.viewedMovieId][3];
-    data.potentialWasteTime -= data.userInterests[_props.viewedMovieId][3];
-    delete data.userInterests[_props.viewedMovieId];
+    // var tvshowid = _props.viewedMovieId.substring(8);
+    if (_props.viewedMovieId.includes("tvshows_")) {
+        //if série deja commencé afficher overlay avec curseur sur la saison en cour
+        if (data.userViewed[_props.viewedMovieId] != null || data.userViewed[_props.viewedMovieId] != undefined) {
+            
+        //else afficher l'overlay
+        }else{
+
+        }
+        // console.log("si la série est deja dans viewed pour les saisons antérieure");
+        // console.log(data.userInterests[_props.viewedMovieId]);
+        // console.log(data.userViewed[_props.viewedMovieId]);
+    } else {
+        data.userViewed[_props.viewedMovieId] = data.userInterests[_props.viewedMovieId];
+        data.totalWastedTime += data.userViewed[_props.viewedMovieId][3];
+        data.potentialWasteTime -= data.userInterests[_props.viewedMovieId][3];
+        delete data.userInterests[_props.viewedMovieId];
+    }
     return data
 }

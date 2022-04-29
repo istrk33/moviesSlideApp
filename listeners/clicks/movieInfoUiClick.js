@@ -19,5 +19,6 @@ module.exports = async (data, _props, event) => {
             data.movieInfoToSee = (await functions.getMovieDetails(data.apiKey, _props.movieId));
         }
     }
+    data.searchValue="";
     return data
 }

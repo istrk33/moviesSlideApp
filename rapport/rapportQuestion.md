@@ -197,24 +197,34 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 31. quand ca fait un moment qu'il n'y a aucune interaction avec le devtool des valeurs (tableaux du init data) passent en undefined, et cela se répercute dès qu'un hover est fait sur un bouton par exemple une erreur est générée.
 
 32. slider, le curseur a un bug de focus ? 
+
+33. textfield, on ne peut mettre un style, dans le cas d'un dark mode, le texte reste invisible
+![-1](c9.png)
+
 <!-- 
 * clean le code -> fonctions, widgets, commentaires
-
-
-* ajouter la gestion des séries :
- avec overlay + mode + lors du clic sur ajouter
- gestion du temps si l'utilisateur n'a spas tout vu, ajouter le temps restant dans le temps potentiel a perdre
- * utiliser l'overlay pour les saisons des séries
- * quand on change de vue update l'affichage du dropdown
- *mettre en gris l'icone du dropdown
  *
- * textfield
  *ajouter un champs de recherche dans la liste d'intérets pour rechercher un série et le marquer comme vu, idem dans  séries vues
  * pour ajouter les séries :
                         * ajouter dans la liste des vues par saisons ou ajouter par séries et on ajoute un tableau supplémentaire pour comptabiliser les saisons vues
                         * les saisons pas vues elles seront directement placé dans la liste des intérêts
-                        * une série suprimé de la liste des vues sera directement placé dans la liste des intérêts
 
-* une fois le bouton validé activé rediriger vers bottombuton clicked  ? ou pas  événement specifique pour l'ajout des séries
-* pour la recherche des élément dans le dictionnaire pour chaque evenement textchanged du textfield, rechercher les titres contenant la chaine de caracteres dans le dict
+* gerer quand l'utilisateur met en vue une série dans interests -> on réutilise l'overlay 
+
+* gerer l'ajout interest to viwed dans la interest ui : 
+    - aller sur la page d'overlay
+    - checker si la série na pas déjà été commencé
+    - si elle a déja été commencé :
+          * récupérer le nombre max de saisons pour la série
+          * ajuster le slider sur la derniere saison regardé
+          * quand on clic sur le bouton de validation -> on met à jour l'index qui correspond à la dernière saison regardé
+    - sinon 
+        on fait l'ajout classique comme depuis homeui
+
+* gerer quand l'utilisateur supprime la série vue -> suppression de user viewed -> et de interest si ya
+    - supprimer de user viewed
+    - si user interest du film est pas null
+          * on delete aussi la meme valeur depuis user interest
+
+/!\ si l'utilisateur a déjà vu la série complete ? et que 1 semaine plus tard une nouvelle saison est disponible ?????????????????????????????????????????
 -->

@@ -46,6 +46,9 @@ module.exports = () => {
 
       //slider
       sliderValueChanged: require('./listeners/slider/numberOfSeasonChanged'),
+      
+      //textfield
+      searchTextChanged: require('./listeners/textFields/searchTextChanged'),
     },
     rootWidget: 'app'
   }

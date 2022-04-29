@@ -18,6 +18,26 @@ module.exports = (data, props) => {
           props: {
             page: "User Viewed"
           }
+        }
+        ,
+        {
+          type: "container",
+          padding: {
+            top: 1,
+            bottom: 1
+          },
+          // constraints:{
+          //   minHeight:50,
+          //   minWidth:200
+          // },
+          child: {
+            type: "textfield",
+            value: "",
+            label: "Rechercher",
+            onChanged: {
+              action: "searchTextChanged",
+            }
+          }
         },
         {
           type: "flexible",
@@ -51,11 +71,21 @@ module.exports = (data, props) => {
                     }
                   }
                 },
-                ...arr.sort().map(element => {
+                ...arr.sort(function (a, b) {
+                  if (a[1] < b[1]) {
+                    return -1;
+                  } else {
+                    return 1;
+                  };
+                 }).filter(function (element) {
+                  return (element[1].toLowerCase().includes(data.searchValue.toLowerCase()));
+                }).map(element => {
                   if (data.userInterests["tvshows_" + element[0]] != null || data.userInterests["tvshows_" + element[0]] != undefined) {
                     var movieId = "tvshows_" + element[0];
+                    var btnTxt=element[1]+", S"+element[4];
                   } else {
                     var movieId = element[0];
+                    var btnTxt=element[1];
                   }
                   return {
                     type: "flex",
@@ -64,10 +94,10 @@ module.exports = (data, props) => {
                         type: "widget",
                         name: "movieButton",
                         props: {
-                          buttonText: element[1],
+                          buttonText:btnTxt ,
                           src: "viewed",
                           from: "other",
-                          movieId: element[0],
+                          movieId: movieId,
                           height: 50,
                           width: 250,
                           arrayData: data.userViewed,
@@ -80,7 +110,7 @@ module.exports = (data, props) => {
                         onPressed: {
                           action: "deleteViewedMovie",
                           props: {
-                            movieIdToRemove: element[0],
+                            movieIdToRemove: movieId,
                             src: "viewed"
                           }
                         },

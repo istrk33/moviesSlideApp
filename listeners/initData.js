@@ -67,7 +67,9 @@ module.exports = async (data, props, event) => {
       movieInfoToSee,
       keys,
       currentId,
-      currentTvShowViewedSeasons:1
+      searchValue: "",
+      
+      currentTvShowViewedSeasons: 1,
     }
   }
 }

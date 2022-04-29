@@ -26,10 +26,8 @@ module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, st
  * @returns a list of json for each tvshows
  */
 module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, start) {
-  //https://api.betaseries.com/shows/list?key=941cc48f228b&order=popularity&start=0&limit=20
-  //https://api.betaseries.com/shows/discover?key=941cc48f228b&offset=0&limit=5
-  var url = "https://api.betaseries.com/shows/discover?key=" + apiKey + "&offset=" + start + "&limit=5";
   // var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=popularity&start=" + start + "&limit=5";
+  var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=followers&start=" + start + "&limit=5";
   var listOfTvShows = ((await axios.get(url, { crossdomain: true },
     {
       headers: {
