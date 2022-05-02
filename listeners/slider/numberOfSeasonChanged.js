@@ -9,6 +9,5 @@
  */
 module.exports = (data, _props, event) => {
     data.currentTvShowViewedSeasons=event.value;
-    // console.log(event);
     return data
 }

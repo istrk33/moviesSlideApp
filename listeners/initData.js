@@ -68,7 +68,7 @@ module.exports = async (data, props, event) => {
       keys,
       currentId,
       searchValue: "",
-      
+      tvShowIdToSetupSeasons:-1,
       currentTvShowViewedSeasons: 1,
     }
   }

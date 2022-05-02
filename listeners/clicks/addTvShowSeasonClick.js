@@ -9,7 +9,6 @@
  */
 module.exports = async (data, _props, event) => {
     const functions = require("../../resources/functions");
-
     var tvshowid = _props.tvshowid;
     var numberOfSeasons=(await functions.getTvShowDetails(data.apiKey, tvshowid)).show.seasons;
     //if user had seen every seasons

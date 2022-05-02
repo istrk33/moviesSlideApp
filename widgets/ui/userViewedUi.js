@@ -80,7 +80,7 @@ module.exports = (data, props) => {
                  }).filter(function (element) {
                   return (element[1].toLowerCase().includes(data.searchValue.toLowerCase()));
                 }).map(element => {
-                  if (data.userInterests["tvshows_" + element[0]] != null || data.userInterests["tvshows_" + element[0]] != undefined) {
+                  if (data.userViewed["tvshows_" + element[0]] != null || data.userViewed["tvshows_" + element[0]] != undefined) {
                     var movieId = "tvshows_" + element[0];
                     var btnTxt=element[1]+", S"+element[4];
                   } else {

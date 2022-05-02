@@ -95,10 +95,13 @@ module.exports = (data, props) => {
                 }).map(element => {
                   if (data.userInterests["tvshows_" + element[0]] != null || data.userInterests["tvshows_" + element[0]] != undefined) {
                     var movieId = "tvshows_" + element[0];
-                    var btnTxt=element[1]+", de la S"+element[4];
+                    var btnTxt = element[1] + ", de la S" + element[4];
+                    var action = "showOverlaySeason";
+                   data.currentTvShowViewedSeasons = data.userViewed[movieId][4];
                   } else {
                     var movieId = element[0];
-                    var btnTxt=element[1];
+                    var btnTxt = element[1];
+                    var action = "viewedMovieButton";
                   }
                   return {
                     type: "flex",
@@ -167,9 +170,10 @@ module.exports = (data, props) => {
                       {
                         type: "actionable",
                         onPressed: {
-                          action: "viewedMovieButton",
+                          action: action,
                           props: {
                             viewedMovieId: movieId,
+                            tvShowUpdate: true,
                           }
                         },
                         child: {

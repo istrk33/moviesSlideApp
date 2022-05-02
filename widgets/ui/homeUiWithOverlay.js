@@ -1,19 +1,43 @@
 'use strict'
 
-module.exports = (data, props) => {
+module.exports = async (data, props) => {
   const functions = require("../../resources/functions");
-  var numberOfSeasonViewed = Math.floor(data.currentTvShowViewedSeasons);
-  var numberOfViewedEpisode = 0;
-  var numberOfNotViewedEpisode = 0;
-  data.currentMovieInfo.show.seasons_details.forEach(element => {
-    if (parseInt(element.number) <= numberOfSeasonViewed) {
-      numberOfViewedEpisode += parseInt(element.episodes);
-    }else{
-      numberOfNotViewedEpisode+=parseInt(element.episodes);
-    }
-  });
-  var totalViewedTime = numberOfViewedEpisode * data.currentMovieInfo.show.length * 60;
-  var totalNotViewedTime = numberOfNotViewedEpisode * data.currentMovieInfo.show.length * 60;
+  if (data.tvShowIdToSetupSeasons == -1) {
+    var numberOfSeasonViewed = Math.floor(data.currentTvShowViewedSeasons);
+    var numberOfViewedEpisode = 0;
+    var numberOfNotViewedEpisode = 0;
+    var tvshow = data.currentMovieInfo.show;
+    //utiliser props
+    tvshow.seasons_details.forEach(element => {
+      if (parseInt(element.number) <= numberOfSeasonViewed) {
+        numberOfViewedEpisode += parseInt(element.episodes);
+      } else {
+        numberOfNotViewedEpisode += parseInt(element.episodes);
+      }
+    });
+
+    //utiliser props
+    var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
+    var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
+  } else {
+    var numberOfSeasonViewed = Math.floor(data.currentTvShowViewedSeasons);
+    var numberOfViewedEpisode = 0;
+    var numberOfNotViewedEpisode = 0;
+    var tvshow = (await functions.getTvShowDetails(data.apiKey, data.tvShowIdToSetupSeasons)).show;
+    //utiliser props
+    tvshow.seasons_details.forEach(element => {
+      if (parseInt(element.number) <= numberOfSeasonViewed) {
+        numberOfViewedEpisode += parseInt(element.episodes);
+      } else {
+        numberOfNotViewedEpisode += parseInt(element.episodes);
+      }
+    });
+
+    //utiliser props
+    var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
+    var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
+  }
+
   return {
     type: "container",
     decoration: {
@@ -21,7 +45,7 @@ module.exports = (data, props) => {
     },
     child: {
       type: "overlayEntry",
-      showOverlay:true,
+      showOverlay: true,
       child: {
         type: "flex",
         direction: "vertical",
@@ -30,7 +54,7 @@ module.exports = (data, props) => {
         children: [
           {
             type: "text",
-            value: "Nombre de saisons vues " + data.currentTvShowViewedSeasons + "/" + data.currentMovieInfo.show.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
+            value: "Nombre de saisons vues " + data.currentTvShowViewedSeasons + "/" + tvshow.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
             style: {
               color: 0xFFFFFFFF
             }
@@ -39,14 +63,15 @@ module.exports = (data, props) => {
             type: "slider",
             label: "" + data.currentTvShowViewedSeasons,
             min: 1,
-            divisions: parseInt(data.currentMovieInfo.show.seasons)-1,
-            max: parseInt(data.currentMovieInfo.show.seasons),
+            divisions: parseInt(tvshow.seasons) - 1,
+            max: parseInt(tvshow.seasons),
             autofocus: true,
             // max: parseInt(5),
             // value:data.currentTvShowViewedSeasons,
             value: parseInt(data.currentTvShowViewedSeasons),
             onChanged: {
-              action: "sliderValueChanged"
+              action: "sliderValueChanged",
+              props:{alreadyChanged:true}
             }
           },
           {
@@ -55,11 +80,11 @@ module.exports = (data, props) => {
             onPressed: {
               action: "addTvShowSeason",
               props: {
-                tvshowid: data.currentMovieInfo.show.id,
+                tvshowid: tvshow.id,
                 seasonNum: numberOfSeasonViewed,
                 tvshowViewedTime: totalViewedTime,
                 tvshowNotViewedTime: totalNotViewedTime,
-                
+
               }
             }
           },
