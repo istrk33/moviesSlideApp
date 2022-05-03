@@ -7,6 +7,7 @@ module.exports = () => {
       // main
       app: require('./widgets/app'),
       menu: require('./widgets/components/menu'),
+      charactersGrid: require('./widgets/components/videoInfoGrid'),
 
       // uis
       home: require('./widgets/ui/homeUi'),

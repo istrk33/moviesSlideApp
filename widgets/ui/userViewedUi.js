@@ -26,10 +26,6 @@ module.exports = (data, props) => {
             top: 1,
             bottom: 1
           },
-          // constraints:{
-          //   minHeight:50,
-          //   minWidth:200
-          // },
           child: {
             type: "textfield",
             value: "",

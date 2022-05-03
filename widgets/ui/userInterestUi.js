@@ -30,10 +30,6 @@ module.exports = (data, props) => {
                 top: 1,
                 bottom: 1
               },
-              // constraints:{
-              //   minHeight:50,
-              //   minWidth:200
-              // },
               child: {
                 type: "textfield",
                 value: "",
@@ -97,7 +93,6 @@ module.exports = (data, props) => {
                     var movieId = "tvshows_" + element[0];
                     var btnTxt = element[1] + ", de la S" + element[4];
                     var action = "showOverlaySeason";
-                  //  data.currentTvShowViewedSeasons = data.userViewed[movieId][4];
                   } else {
                     var movieId = element[0];
                     var btnTxt = element[1];

@@ -5,24 +5,11 @@ module.exports = async (data, props) => {
     if (data.movieInfoToSee.show != null || data.movieInfoToSee.show != undefined) {
         var show = data.movieInfoToSee.show;
         var title = show.title;
-        var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.movieInfoToSee.show.id+ "&height=300";
+        var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.movieInfoToSee.show.id + "&height=300";
         var year = show.creation;
-        if (show.platforms == null) {
-            var platforms = [];
-        } else {
-            var platforms = show.platforms.svods;
-        }
-        var numberOfStar = parseInt(show.notes.mean);
-        var arr = Array(numberOfStar).fill("star");
-        (show.notes.mean % 1 != 0) ? arr.splice(arr.length, 0, "star_half") : "";
-        while (arr.length < 5) {
-            arr.splice(arr.length, 0, "star_border_outlined");
-        }
-        if (show.showrunner == null) {
-            var director = "Inconnu";
-        } else {
-            var director = show.showrunner.name;
-        }
+        var platforms = (show.platforms == null) ? [] : show.platforms.svods;
+        var director = (show.showrunner == null) ? "Inconnu" : show.showrunner.name;
+        var arr = functions.getStars(show);
         var genresArray = Object.values(show.genres);
         var genresArrayStr = genresArray.join('\n');
         var synopsis = show.description;
@@ -36,19 +23,11 @@ module.exports = async (data, props) => {
     } else {
         var movie = data.movieInfoToSee.movie;
         var title = movie.title;
-        var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + movie.id+ "&height=300";
+        var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + movie.id + "&height=300";
         var year = movie.production_year;
         var platforms = movie.platform_links;
         var synopsis = movie.synopsis;
-        // get characters https://api.betaseries.com/movies/characters?key=941cc48f228b&id=
-        // characters pictures https://api.betaseries.com/pictures/characters?key=941cc48f228b&id=
-        // pour la gestion d'affichage des étoiles en fonctions de la note
-        var numberOfStar = parseInt(movie.notes.mean);
-        var arr = Array(numberOfStar).fill("star");
-        (movie.notes.mean % 1 != 0) ? arr.splice(arr.length, 0, "star_half") : "";
-        while (arr.length < 5) {
-            arr.splice(arr.length, 0, "star_border_outlined");
-        }
+        var arr = functions.getStars(movie);
         var director = movie.director;
         var currentFilmDurationStr = functions.computeMovieDuration(movie.length);
         var genresArrayStr = movie.genres.join('\n');
@@ -283,267 +262,13 @@ module.exports = async (data, props) => {
                                         ]
                                     },
                                 ]
-                            }
-                            // from here to the bottom is all for the grid display
-                            , {
-                                type: "flex",
-                                padding: {
-                                    bottom: 1
-                                },
-                                children: [
-                                    {
-                                        type: "icon",
-                                        value: "people",
-                                        size: 25,
-                                        color: 0xFFFFFFFF,
-                                    }, {
-                                        type: "container",
-                                        padding: {
-                                            top: 1,
-                                            bottom: 1,
-                                            left: 1
-                                        },
-                                        child: {
-                                            type: "text",
-                                            value: "Acteurs(rices)",
-                                            style: {
-                                                color: 0xFFFFFFFF,
-                                                fontSize: 17
-                                            }
-                                        },
-                                    }
-                                ]
                             },
                             {
-                                type: "container",
-                                child: {
-                                    type: "flex",
-                                    fillParent: true,
-                                    crossAxisAlignment: "center",
-                                    mainAxisAlignment: "center",
-                                    children: [
-                                        {
-                                            type: "container",
-                                            constraints: {
-                                                maxHeight: 70,
-                                                maxWidth: 160,
-                                                minWidth: 160,
-                                                minHeight: 25,
-                                            },
-                                            border: {
-                                                top: {
-                                                    color: data.white,
-                                                    width: 1
-                                                },
-                                                bottom: {
-                                                    color: data.white,
-                                                    width: 1
-                                                },
-                                                left: {
-                                                    color: data.white,
-                                                    width: 1
-                                                },
-                                                right: {
-                                                    color: data.white,
-                                                    width: 1
-                                                }
-                                            },
-                                            child: {
-                                                type: "flex",
-                                                direction: "vertical",
-                                                fillParent: true,
-                                                crossAxisAlignment: "center",
-                                                mainAxisAlignment: "center",
-                                                children: [
-                                                    {
-                                                        type: "text",
-                                                        value: "Acteur(rice)",
-                                                        style: {
-                                                            color: 0xFFFFFFFF,
-                                                            fontSize: 17
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                        },
-                                        {
-                                            type: "container",
-                                            constraints: {
-                                                maxHeight: 70,
-                                                maxWidth: 160,
-                                                minWidth: 160,
-                                                minHeight: 25,
-                                            },
-                                            border: {
-                                                top: {
-                                                    color: data.white,
-                                                    width: 1
-                                                },
-                                                bottom: {
-                                                    color: data.white,
-                                                    width: 1
-                                                },
-                                                left: {
-                                                    color: data.white,
-                                                    width: 1
-                                                },
-                                                right: {
-                                                    color: data.white,
-                                                    width: 1
-                                                }
-                                            },
-                                            child: {
-                                                type: "flex",
-                                                direction: "vertical",
-                                                fillParent: true,
-                                                crossAxisAlignment: "center",
-                                                mainAxisAlignment: "center",
-                                                children: [
-                                                    {
-                                                        type: "text",
-                                                        value: "Rôle",
-                                                        style: {
-                                                            color: 0xFFFFFFFF,
-                                                            fontSize: 17
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                        }
-                                    ]
+                                type: "widget",
+                                name: "charactersGrid",
+                                props: {
+                                    charactersArray: charactersArray
                                 }
-                            }
-                            , {
-                                type: "flex",
-                                children: [
-                                    {
-                                        type: "flex",
-                                        direction: "vertical",
-                                        fillParent: true,
-                                        children: [
-                                            ...charactersArray.sort().map(element => {
-                                                return {
-                                                    type: "container",
-                                                    border: {
-                                                        top: {
-                                                            color: data.white,
-                                                            width: 1
-                                                        },
-                                                        bottom: {
-                                                            color: data.white,
-                                                            width: 1
-                                                        },
-                                                        left: {
-                                                            color: data.white,
-                                                            width: 1
-                                                        },
-                                                        right: {
-                                                            color: data.white,
-                                                            width: 1
-                                                        }
-                                                    },
-                                                    child: {
-                                                        type: "flex",
-                                                        children: [
-                                                            {
-                                                                type: "container",
-                                                                constraints: {
-                                                                    maxHeight: 200,
-                                                                    maxWidth: 160,
-                                                                    minWidth: 160,
-                                                                    minHeight: 25,
-                                                                },
-                                                                border: {
-                                                                    left: {
-                                                                        color: data.white,
-                                                                        width: 1
-                                                                    },
-                                                                    right: {
-                                                                        color: data.white,
-                                                                        width: 1
-                                                                    }
-                                                                },
-                                                                child:
-                                                                {
-                                                                    type: "flex",
-                                                                    crossAxisAlignment: "center",
-                                                                    mainAxisAlignment: "center",
-                                                                    direction: "vertical",
-                                                                    children: [
-                                                                        {
-                                                                            type: "container",
-                                                                            padding: {
-                                                                                top: 1,
-                                                                                left: 1,
-                                                                                bottom: 1,
-                                                                                right: 1
-                                                                            },
-                                                                            child:
-                                                                            {
-                                                                                type: "text",
-                                                                                value: element.actor,
-                                                                                style: {
-                                                                                    color: 0xFFFFFFFF,
-                                                                                    fontSize: 17
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            },
-                                                            {
-                                                                type: "container",
-                                                                constraints: {
-                                                                    maxHeight: 200,
-                                                                    maxWidth: 160,
-                                                                    minWidth: 160,
-                                                                    minHeight: 25,
-                                                                },
-                                                                border: {
-                                                                    left: {
-                                                                        color: data.white,
-                                                                        width: 1
-                                                                    },
-                                                                    right: {
-                                                                        color: data.white,
-                                                                        width: 1
-                                                                    }
-                                                                },
-                                                                child:
-                                                                {
-                                                                    type: "flex",
-                                                                    direction: "vertical",
-                                                                    crossAxisAlignment: "center",
-                                                                    mainAxisAlignment: "center",
-                                                                    children: [
-                                                                        {
-                                                                            type: "container",
-                                                                            padding: {
-                                                                                top: 1,
-                                                                                left: 1,
-                                                                                bottom: 1,
-                                                                                right: 1
-                                                                            },
-                                                                            child:
-                                                                            {
-                                                                                type: "text",
-                                                                                value: element.name,
-                                                                                style: {
-                                                                                    color: 0xFFFFFFFF,
-                                                                                    fontSize: 17
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                }
-                                            })
-                                        ]
-                                    }
-                                ]
                             }
                         ]
                     }

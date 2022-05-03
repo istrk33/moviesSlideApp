@@ -18,7 +18,7 @@ module.exports = async (data, _props, event) => {
             /*update viewed*/
             //removing old wasted time
             data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
-            data.userViewed["tvshows_" + tvshowid] = [data.userViewed["tvshows_" + tvshowid][0],data.userViewed["tvshows_" + tvshowid][1]];
+            data.userViewed["tvshows_" + tvshowid] = [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]];
             //button color
             data.userViewed["tvshows_" + tvshowid].push(data.darkbg);
             //viewed time
@@ -32,7 +32,7 @@ module.exports = async (data, _props, event) => {
         } else {
             //update viewed
             data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
-            data.userViewed["tvshows_" + tvshowid] = [data.userViewed["tvshows_" + tvshowid][0],data.userViewed["tvshows_" + tvshowid][1]];
+            data.userViewed["tvshows_" + tvshowid] = [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]];
             //button color
             data.userViewed["tvshows_" + tvshowid].push(data.darkbg);
             //viewed time
@@ -43,7 +43,7 @@ module.exports = async (data, _props, event) => {
 
             data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
             /*ajout dans interests*/
-            data.userInterests["tvshows_" + tvshowid] = [data.userInterests["tvshows_" + tvshowid][0],data.userInterests["tvshows_" + tvshowid][1]];
+            data.userInterests["tvshows_" + tvshowid] = [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]];
             //button color
             data.userInterests["tvshows_" + tvshowid].push(data.darkbg);
             //unviewed time

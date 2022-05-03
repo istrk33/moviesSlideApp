@@ -26,11 +26,12 @@ module.exports = async (data, _props, event) => {
     data.currentId = data.keys[data.keys.length * Math.random() << 0];
     var currentMovie = data.listOfUndiscoveredMovies[data.currentId][0];
     data.currentMovieInfo = (data.currentId.includes("tvshows_")) ? (await functions.getTvShowDetails(data.apiKey, currentMovie)) : (await functions.getMovieDetails(data.apiKey, currentMovie));
-    if (data.keys.length <= 1) {
+    if (data.keys.length <= 2) {
         (await functions.queryPopularMovies(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
         (await functions.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
         data.start += 5;
     }
+    // functions.updateCurrent(videoId,data.listOfUndiscoveredMovies,data.keys,data.currentId,data.currentMovieInfo,data.start,data.apiKey);
     return data
 }
 

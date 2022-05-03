@@ -150,3 +150,37 @@ module.exports.computeMenuTime = function computeMenuTime(totalSec) {
   return totalSec == 0 ? "0j 0h 0min" : dDisplay + " " + hDisplay + " " + mDisplay;
 }
 
+/**
+ * getting stars strings from the average note of the video
+ * @param {the object that contains the data} video 
+ * @returns array of strings
+ */
+module.exports.getStars = function getStars(video) {
+  var numberOfStar = parseInt(video.notes.mean);
+  var arr = Array(numberOfStar).fill("star");
+  (video.notes.mean % 1 != 0) ? arr.splice(arr.length, 0, "star_half") : "";
+  while (arr.length < 5) {
+    arr.splice(arr.length, 0, "star_border_outlined");
+  }
+  return arr;
+}
+
+/**
+ * getting stars strings from the average note of the video
+ * @param {the object that contains the data} video 
+ * @returns array of strings
+ */
+module.exports.updateCurrent = function updateCurrent(videoId, listOfUndiscoveredMovies, keys, currentId,
+  currentMovieInfo, start, apiKey) {
+  delete listOfUndiscoveredMovies[videoId];
+  keys = Object.keys(listOfUndiscoveredMovies);
+  currentId = keys[keys.length * Math.random() << 0];
+  var currentMovie = listOfUndiscoveredMovies[currentId][0];
+  currentMovieInfo = (currentId.includes("tvshows_")) ? (module.exports.getTvShowDetails(apiKey, currentMovie)) : (module.exports.getMovieDetails(apiKey, currentMovie));
+  if (keys.length <= 2) {
+    (module.exports.queryPopularMovies(apiKey, start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+    (module.exports.queryPopularTvShows(apiKey, start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
+    data.start += 5;
+  }
+}
+
