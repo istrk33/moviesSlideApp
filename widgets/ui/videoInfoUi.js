@@ -5,7 +5,7 @@ module.exports = async (data, props) => {
     if (data.movieInfoToSee.show != null || data.movieInfoToSee.show != undefined) {
         var show = data.movieInfoToSee.show;
         var title = show.title;
-        var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.movieInfoToSee.show.id;
+        var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.movieInfoToSee.show.id+ "&height=300";
         var year = show.creation;
         if (show.platforms == null) {
             var platforms = [];
@@ -36,7 +36,7 @@ module.exports = async (data, props) => {
     } else {
         var movie = data.movieInfoToSee.movie;
         var title = movie.title;
-        var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + movie.id;
+        var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + movie.id+ "&height=300";
         var year = movie.production_year;
         var platforms = movie.platform_links;
         var synopsis = movie.synopsis;

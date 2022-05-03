@@ -141,7 +141,7 @@ module.exports = (data, props) => {
                             type: "icon",
                             value: "delete",
                             color: 0xFFFA5656,
-                            size: 49
+                            size: 51
                           }
                         }
                         // onHovered: {

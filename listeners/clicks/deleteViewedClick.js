@@ -25,6 +25,10 @@ function manageDicts(data, dictToEdit, id, srcTime) {
         var id = "tvshows_" + id;
     }
     if (srcTime == "wasted") {
+        if (id.includes("tvshows_") && data.userInterests[id] != null) {
+            data.potentialWasteTime -= data.userInterests[id][3];
+            delete data.userInterests[id];
+        }
         data.totalWastedTime -= dictToEdit[id][3];
     } else {
         data.potentialWasteTime -= dictToEdit[id][3];

@@ -72,7 +72,7 @@ module.exports = (data, props) => {
                 color: 0xFF828282,
                 size: 25
               },
-              mainStyle: "tertiary",
+              // mainStyle: "tertiary",
               child: {
                 type: "menu",
                 children: [

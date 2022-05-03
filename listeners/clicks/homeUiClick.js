@@ -8,10 +8,11 @@
  * @returns 
  */
 module.exports = (data, _props, event) => {
-    data.menuHoverButton1Color=[data.black,data.white];
-    data.menuHoverButton2Color=[data.black,data.white];
-    data.navigation="home";
+    data.menuHoverButton1Color = [data.black, data.white];
+    data.menuHoverButton2Color = [data.black, data.white];
+    data.navigation = "home";
     data.menuTimeLabel = "tempsPerdu";
-    data.searchValue="";
+    data.searchValue = "";
+    data.overlaySliderValue = 1;
     return data
 }

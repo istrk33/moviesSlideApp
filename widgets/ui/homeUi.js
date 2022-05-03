@@ -3,7 +3,7 @@
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
   if (data.currentMovieInfo.show != null) {
-    data.tvShowToSetupSeasons=data.currentMovieInfo.show;
+    data.tvShowToSetupSeasons = data.currentMovieInfo.show;
     var numberOfSeason = data.currentMovieInfo.show.seasons;
     var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
     var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.currentMovieInfo.show.id + "&width=627&height=933";
@@ -27,7 +27,7 @@ module.exports = (data, props) => {
     var videoInfo = data.currentMovieInfo.movie;
     var action = "bottomButtonClick";
   }
-  
+
   return {
     type: "container",
     decoration: {
@@ -188,7 +188,7 @@ module.exports = (data, props) => {
                   buttonStr: "Vu",
                   color: data.bottomButton1Color[0],
                   iconColor: data.bottomButton1Color[1],
-                  movie:data.currentMovieInfo,
+                  movie: data.currentMovieInfo,
                   action: action,
                   buttonName: "viewed"
                 }

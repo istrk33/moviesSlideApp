@@ -97,7 +97,7 @@ module.exports = (data, props) => {
                     var movieId = "tvshows_" + element[0];
                     var btnTxt = element[1] + ", de la S" + element[4];
                     var action = "showOverlaySeason";
-                   data.currentTvShowViewedSeasons = data.userViewed[movieId][4];
+                  //  data.currentTvShowViewedSeasons = data.userViewed[movieId][4];
                   } else {
                     var movieId = element[0];
                     var btnTxt = element[1];
@@ -157,7 +157,7 @@ module.exports = (data, props) => {
                             type: "icon",
                             value: "delete",
                             color: 0xFFFA5656,
-                            size: 49
+                            size: 51
                           }
                         }
                         // onHovered: {
@@ -203,7 +203,7 @@ module.exports = (data, props) => {
                             type: "icon",
                             value: "done",
                             color: 0xFF36CD6B,
-                            size: 49
+                            size: 51
                           }
                         }
                         // onHovered: {

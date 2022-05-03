@@ -201,6 +201,7 @@ npm ERR!     /home/app/.npm/_logs/2022-04-13T11_27_18_762Z-debug.log
 33. textfield, on ne peut mettre un style, dans le cas d'un dark mode, le texte reste invisible
 ![-1](c9.png)
 
+34. slider onChanged agit comme un onChangedEnd (prends la valeur que quand on relache le slider)
 <!-- 
 * clean le code -> fonctions, widgets, commentaires
  *

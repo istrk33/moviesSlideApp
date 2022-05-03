@@ -3,7 +3,7 @@
 module.exports = async (data, props) => {
   const functions = require("../../resources/functions");
   if (data.tvShowIdToSetupSeasons == -1) {
-    var numberOfSeasonViewed = Math.floor(data.currentTvShowViewedSeasons);
+    var numberOfSeasonViewed = Math.floor(data.overlaySliderValue);
     var numberOfViewedEpisode = 0;
     var numberOfNotViewedEpisode = 0;
     var tvshow = data.currentMovieInfo.show;
@@ -15,12 +15,14 @@ module.exports = async (data, props) => {
         numberOfNotViewedEpisode += parseInt(element.episodes);
       }
     });
-
     //utiliser props
     var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
     var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
+    var returnAction = "switchHomeUi";
+    var val = data.currentTvShowViewedSeasons;
   } else {
-    var numberOfSeasonViewed = Math.floor(data.currentTvShowViewedSeasons);
+    var returnAction = "switchInterestUi";
+    var numberOfSeasonViewed = Math.floor(data.overlaySliderValue);
     var numberOfViewedEpisode = 0;
     var numberOfNotViewedEpisode = 0;
     var tvshow = (await functions.getTvShowDetails(data.apiKey, data.tvShowIdToSetupSeasons)).show;
@@ -36,7 +38,11 @@ module.exports = async (data, props) => {
     //utiliser props
     var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
     var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
+    // var val = data.userViewed["tvshows_" + data.tvShowIdToSetupSeasons][4];
   }
+  // if (data.currentTvShowViewedSeasons != 1)
+  //   data.overlaySliderValue = data.currentTvShowViewedSeasons;
+  // var onlyOneSeason = ;
 
   return {
     type: "container",
@@ -54,29 +60,33 @@ module.exports = async (data, props) => {
         children: [
           {
             type: "text",
-            value: "Nombre de saisons vues " + data.currentTvShowViewedSeasons + "/" + tvshow.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
+            value: "Nombre de saisons vues " + data.overlaySliderValue + "/" + tvshow.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
             style: {
               color: 0xFFFFFFFF
             }
           },
-          {
-            type: "slider",
-            label: "" + data.currentTvShowViewedSeasons,
-            min: 1,
-            divisions: parseInt(tvshow.seasons) - 1,
-            max: parseInt(tvshow.seasons),
-            autofocus: true,
-            // max: parseInt(5),
-            // value:data.currentTvShowViewedSeasons,
-            value: parseInt(data.currentTvShowViewedSeasons),
-            onChanged: {
-              action: "sliderValueChanged",
-              props:{alreadyChanged:true}
+
+          ...(tvshow.seasons > 1) ? [
+            {
+              type: "slider",
+              label: "" + data.overlaySliderValue,
+              min: 1,
+              divisions: parseInt(tvshow.seasons) - 1,
+              max: parseInt(tvshow.seasons),
+              autofocus: true,
+              value: data.overlaySliderValue,
+              onChanged: {
+                action: "sliderValueChanged",
+                props: {
+                  alreadyChanged: true
+                }
+              }
             }
-          },
+          ] : []
+          ,
           {
             type: "button",
-            text: "Ajouter " + data.currentTvShowViewedSeasons + " saisons en vue",
+            text: "Ajouter " + data.overlaySliderValue + " saisons en vue",
             onPressed: {
               action: "addTvShowSeason",
               props: {
@@ -84,7 +94,6 @@ module.exports = async (data, props) => {
                 seasonNum: numberOfSeasonViewed,
                 tvshowViewedTime: totalViewedTime,
                 tvshowNotViewedTime: totalNotViewedTime,
-
               }
             }
           },
@@ -92,7 +101,7 @@ module.exports = async (data, props) => {
             type: "button",
             text: "Retour",
             onPressed: {
-              action: "switchHomeUi"
+              action: returnAction
             }
           }
         ]
