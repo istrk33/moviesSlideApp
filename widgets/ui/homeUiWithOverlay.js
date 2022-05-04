@@ -1,40 +1,31 @@
 'use strict'
 
+/**
+ * view that display the slider to the user to choose his last viewed season on the concerned tv show
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = async (data, props) => {
   const functions = require("../../resources/functions");
+  var numberOfSeasonViewed = Math.floor(data.overlaySliderValue);
+  var numberOfViewedEpisode = 0;
+  var numberOfNotViewedEpisode = 0;
   if (data.tvShowIdToSetupSeasons == -1) {
-    var numberOfSeasonViewed = Math.floor(data.overlaySliderValue);
-    var numberOfViewedEpisode = 0;
-    var numberOfNotViewedEpisode = 0;
     var tvshow = data.currentMovieInfo.show;
-    //utiliser props
     tvshow.seasons_details.forEach(element => {
-      if (parseInt(element.number) <= numberOfSeasonViewed) {
-        numberOfViewedEpisode += parseInt(element.episodes);
-      } else {
-        numberOfNotViewedEpisode += parseInt(element.episodes);
-      }
+      (parseInt(element.number) <= numberOfSeasonViewed) ? numberOfViewedEpisode += parseInt(element.episodes) : numberOfNotViewedEpisode += parseInt(element.episodes);
     });
-    //utiliser props
-    var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
-    var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
     var returnAction = "switchHomeUi";
   } else {
-    var returnAction = "switchInterestUi";
-    var numberOfSeasonViewed = Math.floor(data.overlaySliderValue);
-    var numberOfViewedEpisode = 0;
-    var numberOfNotViewedEpisode = 0;
     var tvshow = (await functions.getTvShowDetails(data.apiKey, data.tvShowIdToSetupSeasons)).show;
     tvshow.seasons_details.forEach(element => {
-      if (parseInt(element.number) <= numberOfSeasonViewed) {
-        numberOfViewedEpisode += parseInt(element.episodes);
-      } else {
-        numberOfNotViewedEpisode += parseInt(element.episodes);
-      }
+      (parseInt(element.number) <= numberOfSeasonViewed) ? numberOfViewedEpisode += parseInt(element.episodes) : numberOfNotViewedEpisode += parseInt(element.episodes);
     });
-    var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
-    var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
+    var returnAction = "switchInterestUi";
   }
+  var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
+  var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
   return {
     type: "container",
     decoration: {
@@ -81,7 +72,7 @@ module.exports = async (data, props) => {
             onPressed: {
               action: "addTvShowSeason",
               props: {
-                tvshowid: tvshow.id,
+                movieId: tvshow.id,
                 seasonNum: numberOfSeasonViewed,
                 tvshowViewedTime: totalViewedTime,
                 tvshowNotViewedTime: totalNotViewedTime,

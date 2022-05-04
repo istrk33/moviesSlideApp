@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * view that display informations on the movie or the tv show
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = async (data, props) => {
     const functions = require("../../resources/functions");
     if (data.movieInfoToSee.show != null || data.movieInfoToSee.show != undefined) {

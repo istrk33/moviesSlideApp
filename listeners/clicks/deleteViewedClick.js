@@ -8,7 +8,7 @@
  * @returns 
  */
 module.exports = (data, _props, event) => {
-    var id = _props.movieIdToRemove;
+    var id = _props.movieId;
     switch (_props.src) {
         case "viewed":
             manageDicts(data, data.userViewed, id, "wasted");
@@ -20,12 +20,19 @@ module.exports = (data, _props, event) => {
     return data
 }
 
+/**
+ * managing the deletion of index in function of the dict
+ * @param {*} data 
+ * @param {*} dictToEdit 
+ * @param {*} id 
+ * @param {*} srcTime 
+ */
 function manageDicts(data, dictToEdit, id, srcTime) {
     if (dictToEdit[id] == null || dictToEdit[id] == undefined) {
         var id = "tvshows_" + id;
     }
     if (srcTime == "wasted") {
-        if (id.includes("tvshows_") && data.userInterests[id] != null) {
+        if (String(id).includes("tvshows_") && data.userInterests[id] != null) {
             data.potentialWasteTime -= data.userInterests[id][3];
             delete data.userInterests[id];
         }

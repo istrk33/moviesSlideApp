@@ -1,10 +1,19 @@
 'use strict'
 
+/**
+ * 
+ * @param {*} data 
+ * @param {*} _props 
+ * @param {*} event 
+ * @returns 
+ */
 module.exports = async (data, _props, event) => {
     data.navigation = "homeWithOverlay";
     if (_props.tvShowUpdate) {
-        data.tvShowIdToSetupSeasons = String(_props.viewedMovieId).substring(8);
-        data.overlaySliderValue=data.userViewed[_props.viewedMovieId][4];
+        data.tvShowIdToSetupSeasons = String(_props.movieId).substring(8);
+        data.overlaySliderValue = data.userViewed[_props.movieId][4];
+    } else {
+        data.overlaySliderValue = 1;
     }
     return data
 }

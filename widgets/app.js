@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * 
+ * @param {*} data 
+ * @returns 
+ */
 function getCurrentPage(data) {
   switch (data.navigation) {
     case "home":
@@ -37,6 +42,12 @@ function getCurrentPage(data) {
   }
 }
 
+/**
+ * 
+ * @param {*} data 
+ * @param {*} _props 
+ * @returns 
+ */
 module.exports = (data, _props) => {
   return getCurrentPage(data);
 }

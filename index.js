@@ -1,26 +1,30 @@
 'use strict'
 
-// Widgets
+/**
+ * Widgets
+ * @returns 
+ */
 module.exports = () => {
   return {
     widgets: {
       // main
       app: require('./widgets/app'),
-      menu: require('./widgets/components/menu'),
-      charactersGrid: require('./widgets/components/videoInfoGrid'),
-
+      
       // uis
       home: require('./widgets/ui/homeUi'),
       homeWithOverlay: require('./widgets/ui/homeUiWithOverlay'),
       userInterest: require('./widgets/ui/userInterestUi'),
       userViewed: require('./widgets/ui/userViewedUi'),
       movieInfo: require('./widgets/ui/videoInfoUi'),
-
-      // buttons
+      
+      // widgets
+      menu: require('./widgets/components/menu'),
+      charactersGrid: require('./widgets/components/videoInfoGrid'),
       bottomButton: require('./widgets/components/bottomButton'),
       menuButton: require('./widgets/components/menuButton'),
       movieButton: require('./widgets/components/movieButton'),
       dropdownMenuButton: require('./widgets/components/dropMenuButton'),
+      listButton: require('./widgets/components/listsButton'),
     },
     listeners: {
       // init

@@ -8,9 +8,9 @@
  * @returns 
  */
 module.exports = (data, _props, event) => {
-    data.userViewed[_props.viewedMovieId] = data.userInterests[_props.viewedMovieId];
-    data.totalWastedTime += data.userViewed[_props.viewedMovieId][3];
-    data.potentialWasteTime -= data.userInterests[_props.viewedMovieId][3];
-    delete data.userInterests[_props.viewedMovieId];
+    data.userViewed[_props.movieId] = data.userInterests[_props.movieId];
+    data.totalWastedTime += data.userViewed[_props.movieId][3];
+    data.potentialWasteTime -= data.userInterests[_props.movieId][3];
+    delete data.userInterests[_props.movieId];
     return data
 }

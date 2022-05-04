@@ -166,21 +166,22 @@ module.exports.getStars = function getStars(video) {
 }
 
 /**
- * getting stars strings from the average note of the video
- * @param {the object that contains the data} video 
- * @returns array of strings
+ * update current video and checking if the main dict containing tvshows/movies is not empty
+ * @param {the main data of the app} data
+ * @param {id of the video to erase from the main list} videoId
+ * @returns data
  */
-module.exports.updateCurrent = function updateCurrent(videoId, listOfUndiscoveredMovies, keys, currentId,
-  currentMovieInfo, start, apiKey) {
-  delete listOfUndiscoveredMovies[videoId];
-  keys = Object.keys(listOfUndiscoveredMovies);
-  currentId = keys[keys.length * Math.random() << 0];
-  var currentMovie = listOfUndiscoveredMovies[currentId][0];
-  currentMovieInfo = (currentId.includes("tvshows_")) ? (module.exports.getTvShowDetails(apiKey, currentMovie)) : (module.exports.getMovieDetails(apiKey, currentMovie));
-  if (keys.length <= 2) {
-    (module.exports.queryPopularMovies(apiKey, start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
-    (module.exports.queryPopularTvShows(apiKey, start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
+module.exports.updateCurrent = async function updateCurrent(data, videoId) {
+  delete data.listOfUndiscoveredMovies[videoId];
+  data.keys = Object.keys(data.listOfUndiscoveredMovies);
+  data.currentId = data.keys[data.keys.length * Math.random() << 0];
+  var currentMovie = data.listOfUndiscoveredMovies[data.currentId][0];
+  data.currentMovieInfo = (data.currentId.includes("tvshows_")) ? (await module.exports.getTvShowDetails(data.apiKey, currentMovie)) : (await module.exports.getMovieDetails(data.apiKey, currentMovie));
+  if (data.keys.length <= 2) {
+    (await module.exports.queryPopularMovies(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+    (await module.exports.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
     data.start += 5;
   }
+  return data;
 }
 

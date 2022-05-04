@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * bottom button (not viewed, interest and viewed)
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
     return {
         type: "flexible",

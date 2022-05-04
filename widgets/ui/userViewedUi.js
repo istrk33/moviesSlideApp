@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * view that display all viewed tv shows, movies of the user
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
   var arr = Object.values(data.userViewed);
   return {
@@ -102,51 +108,17 @@ module.exports = (data, props) => {
                         }
                       },
                       {
-                        type: "actionable",
-                        onPressed: {
+                        type:"widget",
+                        name:"listButton",
+                        props: {
+                          borderColor:  0xFFFA5656,
+                          src: "viewed",
+                          movieId: movieId,
+                          iconValue: "delete",
+                          iconColor: 0xFFFA5656,
                           action: "deleteViewedMovie",
-                          props: {
-                            movieIdToRemove: movieId,
-                            src: "viewed"
-                          }
-                        },
-                        child: {
-                          type: "container",
-                          decoration: {
-                            color: data.darkbg
-                          },
-                          border: {
-                            top: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            },
-                            bottom: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            },
-                            right: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            },
-                            left: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            }
-                          },
-                          child: {
-                            type: "icon",
-                            value: "delete",
-                            color: 0xFFFA5656,
-                            size: 51
-                          }
                         }
-                        // onHovered: {
-                        //   action:"",
-                        //   props:{
-
-                        //   }
-                        // }
-                      },
+                      }
                     ]
                   }
                 })

@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * the menu that is displayed on the top
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
   var uiName1 = "";
@@ -72,7 +78,6 @@ module.exports = (data, props) => {
                 color: 0xFF828282,
                 size: 25
               },
-              // mainStyle: "tertiary",
               child: {
                 type: "menu",
                 children: [

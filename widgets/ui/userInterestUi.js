@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * view that display all interested movies/tv shows of the user
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
   var arr = Object.values(data.userInterests);
   data.searchValue = "";
@@ -91,7 +97,7 @@ module.exports = (data, props) => {
                 }).map(element => {
                   if (data.userInterests["tvshows_" + element[0]] != null || data.userInterests["tvshows_" + element[0]] != undefined) {
                     var movieId = "tvshows_" + element[0];
-                    var btnTxt = element[1] + ", de la S" + element[4];
+                    var btnTxt = (element[4] == undefined) ? element[1] + ", de la S1" : element[1] + ", de la S" + element[4];
                     var action = "showOverlaySeason";
                   } else {
                     var movieId = element[0];
@@ -111,103 +117,34 @@ module.exports = (data, props) => {
                           height: 50,
                           width: 200,
                           arrayData: data.userInterests,
-
-                          // viewWidget: [
-                          // ]
                         }
                       },
                       {
-                        type: "actionable",
-                        onPressed: {
+                        type: "widget",
+                        name: "listButton",
+                        props: {
+                          borderColor: 0xFFFA5656,
+                          // tvShowUpdate: true,
+                          src: "interests",
+                          movieId: movieId,
+                          iconValue: "delete",
+                          iconColor: 0xFFFA5656,
                           action: "deleteViewedMovie",
-                          props: {
-                            movieIdToRemove: movieId,
-                            src: "interests",
-                          }
-                        },
-                        child: {
-                          type: "container",
-                          decoration: {
-                            color: data.darkbg
-                          },
-                          border: {
-                            top: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            },
-                            bottom: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            },
-                            right: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            },
-                            left: {
-                              width: 1,
-                              color: 0xFFFA5656
-                            }
-                          },
-                          child: {
-                            type: "icon",
-                            value: "delete",
-                            color: 0xFFFA5656,
-                            size: 51
-                          }
                         }
-                        // onHovered: {
-                        //   action:"",
-                        //   props:{
-
-                        //   }
-                        // }
                       },
                       {
-                        type: "actionable",
-                        onPressed: {
+                        type: "widget",
+                        name: "listButton",
+                        props: {
+                          borderColor: 0xFF36CD6B,
+                          tvShowUpdate: (data.userViewed[movieId] != null || data.userViewed[movieId] != undefined),
+                          src: "interests",
+                          movieId: movieId,
+                          iconValue: "done",
+                          iconColor: 0xFF36CD6B,
                           action: action,
-                          props: {
-                            viewedMovieId: movieId,
-                            tvShowUpdate: true,
-                          }
-                        },
-                        child: {
-                          type: "container",
-                          decoration: {
-                            color: data.darkbg
-                          },
-                          border: {
-                            top: {
-                              width: 1,
-                              color: 0xFF36CD6B
-                            },
-                            bottom: {
-                              width: 1,
-                              color: 0xFF36CD6B
-                            },
-                            right: {
-                              width: 1,
-                              color: 0xFF36CD6B
-                            },
-                            left: {
-                              width: 1,
-                              color: 0xFF36CD6B
-                            }
-                          }
-                          , child: {
-                            type: "icon",
-                            value: "done",
-                            color: 0xFF36CD6B,
-                            size: 51
-                          }
                         }
-                        // onHovered: {
-                        //   action:"",
-                        //   props:{
-
-                        //   }
-                        // }
-                      },
+                      }
                     ]
                   }
                 }),

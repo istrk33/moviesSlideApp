@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * the grid used to display characters of a movie tv show in videoInfo view
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
     return {
         type: "flex",

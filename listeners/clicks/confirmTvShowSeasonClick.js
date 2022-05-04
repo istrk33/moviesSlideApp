@@ -9,98 +9,77 @@
  */
 module.exports = async (data, _props, event) => {
     const functions = require("../../resources/functions");
-    var tvshowid = _props.tvshowid;
+    var tvshowid = _props.movieId;
     var numberOfSeasons = (await functions.getTvShowDetails(data.apiKey, tvshowid)).show.seasons;
-
+    // if the tv show first seasons are already watched
     if (data.userViewed["tvshows_" + tvshowid] != null && data.userInterests["tvshows_" + tvshowid] != null) {
-        //if user had seen every seasons
+        // if the last season is watched
         if (data.overlaySliderValue == numberOfSeasons) {
-            /*update viewed*/
-            //removing old wasted time
             data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
-            data.userViewed["tvshows_" + tvshowid] = [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]];
-            //button color
-            data.userViewed["tvshows_" + tvshowid].push(data.darkbg);
-            //viewed time
-            data.userViewed["tvshows_" + tvshowid].push(_props.tvshowViewedTime);
-            //viewed seasons
-            data.userViewed["tvshows_" + tvshowid].push(_props.seasonNum);
-            data.totalWastedTime += _props.tvshowViewedTime;
+            data = addTvShowToViewed(data, _props, tvshowid, [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
 
             data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
             delete data.userInterests["tvshows_" + tvshowid];
         } else {
-            //update viewed
             data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
-            data.userViewed["tvshows_" + tvshowid] = [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]];
-            //button color
-            data.userViewed["tvshows_" + tvshowid].push(data.darkbg);
-            //viewed time
-            data.userViewed["tvshows_" + tvshowid].push(_props.tvshowViewedTime);
-            //viewed seasons
-            data.userViewed["tvshows_" + tvshowid].push(_props.seasonNum);
-            data.totalWastedTime += _props.tvshowViewedTime;
+            data = addTvShowToViewed(data, _props, tvshowid, [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
 
             data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
-            /*ajout dans interests*/
-            data.userInterests["tvshows_" + tvshowid] = [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]];
-            //button color
-            data.userInterests["tvshows_" + tvshowid].push(data.darkbg);
-            //unviewed time
-            data.userInterests["tvshows_" + tvshowid].push(_props.tvshowNotViewedTime);
-            //seasons remaining
-            data.userInterests["tvshows_" + tvshowid].push(_props.seasonNum + 1);
-            data.potentialWasteTime += _props.tvshowNotViewedTime;
+            data = addTvShowToInterests(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]])
         }
         data.navigation = "userInterest";
+        // if the tv show is only in userInterests or is never treated (from homeUi)
     } else {
-        //if user had seen every seasons
+        // if all season are watched
         if (data.overlaySliderValue == numberOfSeasons) {
-            /*ajout dans viewed*/
-            data.userViewed["tvshows_" + tvshowid] = [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]];
-            //button color
-            data.userViewed["tvshows_" + tvshowid].push(data.darkbg);
-            //viewed time
-            data.userViewed["tvshows_" + tvshowid].push(_props.tvshowViewedTime);
-            //viewed seasons
-            data.userViewed["tvshows_" + tvshowid].push(_props.seasonNum);
-            data.totalWastedTime += _props.tvshowViewedTime;
+            //  if the tv show is not treated
+            if (data.listOfUndiscoveredMovies["tvshows_" + tvshowid] != null) {
+                data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+                // tv show only in userInterests
+            } else {
+                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
+            }
         } else {
-            /*ajout dans viewed*/
-            data.userViewed["tvshows_" + tvshowid] = [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]];
-            //button color
-            data.userViewed["tvshows_" + tvshowid].push(data.darkbg);
-            //viewed time
-            data.userViewed["tvshows_" + tvshowid].push(_props.tvshowViewedTime);
-            //viewed seasons
-            data.userViewed["tvshows_" + tvshowid].push(_props.seasonNum);
-            data.totalWastedTime += _props.tvshowViewedTime;
-
-            /*ajout dans interests*/
-            data.userInterests["tvshows_" + tvshowid] = [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]];
-            //button color
-            data.userInterests["tvshows_" + tvshowid].push(data.darkbg);
-            //unviewed time
-            data.userInterests["tvshows_" + tvshowid].push(_props.tvshowNotViewedTime);
-            //seasons remaining
-            data.userInterests["tvshows_" + tvshowid].push(_props.seasonNum + 1);
-            data.potentialWasteTime += _props.tvshowNotViewedTime;
+            data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+            data = addTvShowToInterests(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
         }
-
-
-        delete data.listOfUndiscoveredMovies["tvshows_" + tvshowid];
-        data.keys = Object.keys(data.listOfUndiscoveredMovies);
-        data.currentId = data.keys[data.keys.length * Math.random() << 0];
-        var currentMovie = data.listOfUndiscoveredMovies[data.currentId][0];
-        data.currentMovieInfo = (data.currentId.includes("tvshows_")) ? (await functions.getTvShowDetails(data.apiKey, currentMovie)) : (await functions.getMovieDetails(data.apiKey, currentMovie));
-        if (data.keys.length <= 1) {
-            (await functions.queryPopularMovies(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
-            (await functions.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
-            data.start += 5;
-        }
+        data = (await functions.updateCurrent(data, "tvshows_" + tvshowid));
         data.navigation = "home";
     }
     data.overlaySliderValue = 1;
-
     return data
+}
+
+/**
+ * updating the index corresponding to tvshowid in data.userViewed
+ * @param {*} data 
+ * @param {*} _props 
+ * @param {*} tvshowid 
+ * @param {*} arr 
+ * @returns data
+ */
+function addTvShowToViewed(data, _props, tvshowid, arr) {
+    data.userViewed["tvshows_" + tvshowid] = arr;
+    data.userViewed["tvshows_" + tvshowid].push(data.darkbg);
+    data.userViewed["tvshows_" + tvshowid].push(_props.tvshowViewedTime);
+    data.userViewed["tvshows_" + tvshowid].push(_props.seasonNum);
+    data.totalWastedTime += _props.tvshowViewedTime;
+    return data;
+}
+
+/**
+ * updating the index corresponding to tvshowid in data.userInterests
+ * @param {*} data 
+ * @param {*} _props 
+ * @param {*} tvshowid 
+ * @param {*} arr 
+ * @returns 
+ */
+function addTvShowToInterests(data, _props, tvshowid, arr) {
+    data.userInterests["tvshows_" + tvshowid] = arr;
+    data.userInterests["tvshows_" + tvshowid].push(data.darkbg);
+    data.userInterests["tvshows_" + tvshowid].push(_props.tvshowNotViewedTime);
+    data.userInterests["tvshows_" + tvshowid].push(_props.seasonNum + 1);
+    data.potentialWasteTime += _props.tvshowNotViewedTime;
+    return data;
 }

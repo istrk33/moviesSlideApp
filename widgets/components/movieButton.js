@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * button into userViewed or userInterests
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
     if (String(props.movieId).includes("tvshows_")) {
         var color = props.arrayData[props.movieId][2];

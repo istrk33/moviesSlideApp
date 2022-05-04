@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * button used when dropdown button is clicked
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
     return {
         type: "actionable",

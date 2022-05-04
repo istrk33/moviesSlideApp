@@ -10,31 +10,30 @@
 module.exports = async (data, _props, event) => {
     const functions = require("../../resources/functions");
     var videoId = data.currentId;
-    // checking if it's a movie or a tv show
+    //if it's a video of type movie
     if (data.currentMovieInfo.movie != null || data.currentMovieInfo.movie != undefined) {
         var timeInSec = data.currentMovieInfo.movie.length;
         actionOnVideo(data, timeInSec, _props.buttonName, videoId);
+        // if it's a video of type of type tvShow
     } else {
+        // computing the total length of the tv show by using the number of seasons, episodes and the average length of one episode
         var timeInSec = 0;
         data.currentMovieInfo.show.seasons_details.forEach(element => {
             timeInSec += element.episodes * data.currentMovieInfo.show.length * 60;
         });
         actionOnVideo(data, timeInSec, _props.buttonName, videoId);
     }
-    delete data.listOfUndiscoveredMovies[videoId];
-    data.keys = Object.keys(data.listOfUndiscoveredMovies);
-    data.currentId = data.keys[data.keys.length * Math.random() << 0];
-    var currentMovie = data.listOfUndiscoveredMovies[data.currentId][0];
-    data.currentMovieInfo = (data.currentId.includes("tvshows_")) ? (await functions.getTvShowDetails(data.apiKey, currentMovie)) : (await functions.getMovieDetails(data.apiKey, currentMovie));
-    if (data.keys.length <= 2) {
-        (await functions.queryPopularMovies(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
-        (await functions.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
-        data.start += 5;
-    }
-    // functions.updateCurrent(videoId,data.listOfUndiscoveredMovies,data.keys,data.currentId,data.currentMovieInfo,data.start,data.apiKey);
+    data = (await functions.updateCurrent(data, videoId));
     return data
 }
 
+/**
+ * manage the video to lists in function of the button
+ * @param {*} data 
+ * @param {the length in sec of the video} timeInSec 
+ * @param {the button} buttonName 
+ * @param {the id of the video} videoId 
+ */
 function actionOnVideo(data, timeInSec, buttonName, videoId) {
     switch (buttonName) {
         case "viewed":

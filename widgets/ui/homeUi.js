@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * the main view that display new movies/tv shows
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
   if (data.currentMovieInfo.show != null) {
@@ -7,11 +13,7 @@ module.exports = (data, props) => {
     var numberOfSeason = data.currentMovieInfo.show.seasons;
     var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
     var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.currentMovieInfo.show.id + "&width=627&height=933";
-    if (data.currentMovieInfo.show.showrunner == null) {
-      var director = "Inconnu";
-    } else {
-      var director = data.currentMovieInfo.show.showrunner.name;
-    }
+    var director=(data.currentMovieInfo.show.showrunner == null)?"Inconnu": data.currentMovieInfo.show.showrunner.name;
     var videoType = "tvshow";
     var title = data.currentMovieInfo.show.title;
     var year = data.currentMovieInfo.show.creation;

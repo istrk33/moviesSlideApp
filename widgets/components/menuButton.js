@@ -1,5 +1,11 @@
 'use strict'
 
+/**
+ * button display on the top menu at the right
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
 module.exports = (data, props) => {
     return {
         type: "actionable",
