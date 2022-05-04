@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * 
+ * redirecting to the view with the slider to setup the number of seasons
  * @param {*} data 
  * @param {*} _props 
  * @param {*} event 

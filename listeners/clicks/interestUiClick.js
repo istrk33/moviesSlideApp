@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * 
+ * redirecting to the ui of interested videos of the user
  * @param {*} data 
  * @param {*} _props 
  * @param {*} event 

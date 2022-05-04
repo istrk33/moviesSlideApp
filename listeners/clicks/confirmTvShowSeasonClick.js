@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * 
+ * managing lists, and time variables that store lost, potential lost time and the user interest with the user viewed dict
  * @param {*} data 
  * @param {*} _props 
  * @param {*} event 

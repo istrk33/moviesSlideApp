@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * 
+ * changing the value of the search for the filter into the list views
  * @param {*} data 
  * @param {*} _props 
  * @param {*} event 
