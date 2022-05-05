@@ -1,5 +1,7 @@
 'use strict'
 
+const { process_params } = require("express/lib/router");
+
 /**
  * redirecting to the view with the slider to setup the number of seasons
  * @param {*} data 
@@ -8,9 +10,13 @@
  * @returns 
  */
 module.exports = async (data, _props, event) => {
-    data.navigation = "homeWithOverlay";
-    if (_props.tvShowUpdate) {
+    data.overlayState = true;
+    console.log("TESTTTTTTTTTT");
+    console.log(_props.tvShowUpdate);
+    if (_props.movieId != null || _props.movieId != undefined) {
         data.tvShowIdToSetupSeasons = String(_props.movieId).substring(8);
+    }
+    if (_props.tvShowUpdate) {
         data.overlaySliderValue = data.userViewed[_props.movieId][4];
     } else {
         data.overlaySliderValue = 1;

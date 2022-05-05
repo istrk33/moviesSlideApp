@@ -13,7 +13,7 @@ module.exports = (data, props) => {
     var numberOfSeason = data.currentMovieInfo.show.seasons;
     var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
     var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.currentMovieInfo.show.id + "&width=627&height=933";
-    var director=(data.currentMovieInfo.show.showrunner == null)?"Inconnu": data.currentMovieInfo.show.showrunner.name;
+    var director = (data.currentMovieInfo.show.showrunner == null) ? "Inconnu" : data.currentMovieInfo.show.showrunner.name;
     var videoType = "tvshow";
     var title = data.currentMovieInfo.show.title;
     var year = data.currentMovieInfo.show.creation;
@@ -41,6 +41,10 @@ module.exports = (data, props) => {
       fillParent: true,
       crossAxisAlignment: "center",
       children: [
+        {
+          type: "widget",
+          name: "homeWithOverlay",
+        },
         {
           type: "widget",
           name: "menu",
@@ -143,8 +147,8 @@ module.exports = (data, props) => {
               }
             ]
           }
-        }
-        , {
+        },
+        {
           type: "container",
           child:
           {

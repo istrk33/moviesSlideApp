@@ -12,7 +12,7 @@ module.exports = () => {
       
       // uis
       home: require('./widgets/ui/homeUi'),
-      homeWithOverlay: require('./widgets/ui/homeUiWithOverlay'),
+      homeWithOverlay: require('./widgets/ui/overlayForTvShows'),
       userInterest: require('./widgets/ui/userInterestUi'),
       userViewed: require('./widgets/ui/userViewedUi'),
       movieInfo: require('./widgets/ui/videoInfoUi'),
@@ -41,6 +41,7 @@ module.exports = () => {
       viewedMovieButton: require('./listeners/clicks/movieInterestToViewedClick'),
       showOverlaySeason: require('./listeners/clicks/viewedTvShowClick'),
       addTvShowSeason: require('./listeners/clicks/confirmTvShowSeasonClick'),
+      hideOverlay: require('./listeners/clicks/hideOverlay'),
       
       // hovers
       bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHover'),

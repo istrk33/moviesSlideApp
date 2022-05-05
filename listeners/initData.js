@@ -68,9 +68,10 @@ module.exports = async (data, props, event) => {
       keys,
       currentId,
       searchValue: "",
-      tvShowIdToSetupSeasons:-1,
+      tvShowIdToSetupSeasons: -1,
       currentTvShowViewedSeasons: 1,
-      overlaySliderValue:1
+      overlaySliderValue: 1,
+      overlayState: false
     }
   }
 }

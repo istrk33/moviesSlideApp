@@ -14,20 +14,23 @@ module.exports = async (data, _props, event) => {
     // if the tv show first seasons are already watched
     if (data.userViewed["tvshows_" + tvshowid] != null && data.userInterests["tvshows_" + tvshowid] != null) {
         // if the last season is watched
+        console.log("SIUUUUUUUUUUU111111111111");
         if (data.overlaySliderValue == numberOfSeasons) {
+            console.log("SIUUUUUUUUUUU11111111112222222222");
             data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
             data = addTvShowToViewed(data, _props, tvshowid, [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
 
             data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
             delete data.userInterests["tvshows_" + tvshowid];
         } else {
+            console.log("SIUUUUUUUUUUU1111111111333333333333333");
             data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
             data = addTvShowToViewed(data, _props, tvshowid, [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
 
             data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
             data = addTvShowToInterests(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]])
         }
-        data.navigation = "userInterest";
+        // data.navigation = "userInterest";
         // if the tv show is only in userInterests or is never treated (from homeUi)
     } else {
         // if all season are watched
@@ -36,16 +39,30 @@ module.exports = async (data, _props, event) => {
             if (data.listOfUndiscoveredMovies["tvshows_" + tvshowid] != null) {
                 data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
                 // tv show only in userInterests
+            } else if (data.userViewed["tvshows_" + tvshowid] == null) {
+                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]]);
             } else {
                 data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
             }
         } else {
-            data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
-            data = addTvShowToInterests(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+            if (data.listOfUndiscoveredMovies["tvshows_" + tvshowid] != null) {
+                data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+                data = addTvShowToInterests(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+                // tv show only in userInterests
+            } else if (data.userViewed["tvshows_" + tvshowid] == null) {
+                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]]);
+                data = addTvShowToInterests(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]]);
+            }
+            else {
+                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
+                data = addTvShowToInterests(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
+            }
+            // data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
         }
         data = (await functions.updateCurrent(data, "tvshows_" + tvshowid));
-        data.navigation = "home";
+        // data.navigation = "home";
     }
+    data.overlayState = false;
     data.overlaySliderValue = 1;
     return data
 }

@@ -20,6 +20,10 @@ module.exports = (data, props) => {
       crossAxisAlignment: "center",
       children: [
         {
+          type:"widget",
+          name:"homeWithOverlay",
+        },
+        {
           type: "widget",
           name: "menu",
           props: {
@@ -86,6 +90,7 @@ module.exports = (data, props) => {
                     }
                   }
                 },
+                
                 ...arr.sort(function (a, b) {
                   if (a[1] < b[1]) {
                     return -1;
