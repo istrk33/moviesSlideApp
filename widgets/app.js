@@ -13,12 +13,12 @@ function getCurrentPage(data) {
         name: "home"
       };
     //for overlay v1
-    case "homeWithOverlay":
-      return {
-        type: "widget",
-        name: "homeWithOverlay"
-      };
-    //end
+    // case "homeWithOverlay":
+    //   return {
+    //     type: "widget",
+    //     name: "homeWithOverlay"
+    //   };
+    // //end
     case "userInterest":
       return {
         type: "widget",

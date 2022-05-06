@@ -77,6 +77,7 @@ module.exports = async (data, props) => {
                                 },
                                 children: [{
                                     type: "text",
+                                    textAlign:"center",
                                     value: title,
                                     style: {
                                         color: 0xFFFFFFFF,
@@ -109,7 +110,7 @@ module.exports = async (data, props) => {
                                         {
                                             type: "container",
                                             padding: {
-                                                top: 1,
+                                                // top: 1,
                                                 left: 1
                                             },
                                             child:
@@ -140,6 +141,7 @@ module.exports = async (data, props) => {
                                 type: "flex",
                                 crossAxisAlignment: "center",
                                 padding: {
+                                    top: 1,
                                     bottom: 1
                                 },
                                 children: [
@@ -174,6 +176,7 @@ module.exports = async (data, props) => {
                                     },
                                     children: [{
                                         type: "text",
+                                        textAlign:"justify",
                                         value: synopsis,
                                         style: {
                                             color: 0xFFFFFFFF,
@@ -196,7 +199,6 @@ module.exports = async (data, props) => {
                                     }, {
                                         type: "container",
                                         padding: {
-                                            top: 1,
                                             left: 1
                                         },
                                         child: {
@@ -224,7 +226,6 @@ module.exports = async (data, props) => {
                                     {
                                         type: "container",
                                         padding: {
-                                            top: 1,
                                             left: 1
                                         },
                                         child: {
@@ -252,7 +253,6 @@ module.exports = async (data, props) => {
                                         direction: "vertical",
                                         crossAxisAlignment: "center",
                                         padding: {
-                                            top: 1,
                                             bottom: 1,
                                             left: 1
                                         },

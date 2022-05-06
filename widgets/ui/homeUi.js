@@ -122,6 +122,7 @@ module.exports = (data, props) => {
                   {
                     type: "text",
                     value: title,
+                    textAlign:"center",
                     style: {
                       color: 0xFFFFFFFF,
                       fontSize: 30

@@ -8,7 +8,6 @@
  */
 module.exports = (data, props) => {
   var arr = Object.values(data.userInterests);
-  data.searchValue = "";
   return {
     type: "container",
     decoration: {
@@ -20,8 +19,8 @@ module.exports = (data, props) => {
       crossAxisAlignment: "center",
       children: [
         {
-          type:"widget",
-          name:"homeWithOverlay",
+          type: "widget",
+          name: "homeWithOverlay",
         },
         {
           type: "widget",
@@ -31,34 +30,10 @@ module.exports = (data, props) => {
           }
         },
         {
-          type: "flex",
-          direction: "vertical",
-          children: [
-            {
-              type: "container",
-              padding: {
-                top: 1,
-                bottom: 1
-              },
-              child: {
-                type: "textfield",
-                value: "",
-                label: "Rechercher",
-                onChanged: {
-                  action: "searchTextChanged",
-                }
-              }
-            },
-            {
-              type: "text",
-              value: data.searchValue,
-              style: {
-                color: data.white
-              }
-            }
-          ]
-        }
-        , {
+          type: "widget",
+          name: "textfield"
+        },
+        {
           type: "flexible",
           fit: "tight",
           child:
@@ -90,7 +65,7 @@ module.exports = (data, props) => {
                     }
                   }
                 },
-                
+
                 ...arr.sort(function (a, b) {
                   if (a[1] < b[1]) {
                     return -1;
@@ -111,6 +86,12 @@ module.exports = (data, props) => {
                   }
                   return {
                     type: "flex",
+                    mainAxisAlignment: "center",
+                    crossAxisAlignment: "center",
+                    padding: {
+                      top: 1.5,
+                      bottom: 1.5
+                    },
                     children: [
                       {
                         type: "widget",

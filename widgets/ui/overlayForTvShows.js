@@ -13,18 +13,15 @@ module.exports = async (data, props) => {
   var numberOfNotViewedEpisode = 0;
   if (data.overlayState) {
     if (data.tvShowIdToSetupSeasons == -1) {
-      console.log("SIUUUUUUUUUUUUUUUU");
       var tvshow = data.currentMovieInfo.show;
       tvshow.seasons_details.forEach(element => {
         (parseInt(element.number) <= numberOfSeasonViewed) ? numberOfViewedEpisode += parseInt(element.episodes) : numberOfNotViewedEpisode += parseInt(element.episodes);
       });
-      // var returnAction = "switchHomeUi";
     } else {
       var tvshow = (await functions.getTvShowDetails(data.apiKey, data.tvShowIdToSetupSeasons)).show;
       tvshow.seasons_details.forEach(element => {
         (parseInt(element.number) <= numberOfSeasonViewed) ? numberOfViewedEpisode += parseInt(element.episodes) : numberOfNotViewedEpisode += parseInt(element.episodes);
       });
-      // var returnAction = "switchInterestUi";
     }
     var totalViewedTime = numberOfViewedEpisode * tvshow.length * 60;
     var totalNotViewedTime = numberOfNotViewedEpisode * tvshow.length * 60;
@@ -33,62 +30,67 @@ module.exports = async (data, props) => {
     type: "overlayEntry",
     showOverlay: data.overlayState,
     child: (data.overlayState) ? {
-      type: "flex",
-      direction: "vertical",
-      mainAxisAlignment: "center",
-      crossAxisAlignment: "center",
-      children: [
-        {
-          type: "text",
-          value: "Nombre de saisons vues " + data.overlaySliderValue + "/" + tvshow.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
-          style: {
-            color: 0xFFFFFFFF
-          }
-        },
-
-        ...(tvshow.seasons > 1) ? [
+      type: "container",
+      decoration:{
+        color:0xAC000000
+      },
+      child: {
+        type: "flex",
+        direction: "vertical",
+        mainAxisAlignment: "center",
+        crossAxisAlignment: "center",
+        children: [
           {
-            type: "slider",
-            label: "" + data.overlaySliderValue,
-            min: 1,
-            divisions: parseInt(tvshow.seasons) - 1,
-            max: parseInt(tvshow.seasons),
-            autofocus: true,
-            value: data.overlaySliderValue,
-            onChanged: {
-              action: "sliderValueChanged",
-              props: {
-                alreadyChanged: true
+            type: "text",
+            value: "Nombre de saisons vues " + data.overlaySliderValue + "/" + tvshow.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
+            style: {
+              color: 0xFFFFFFFF
+            }
+          },
+          ...(tvshow.seasons > 1) ? [
+            {
+              type: "slider",
+              label: "" + data.overlaySliderValue,
+              min: 1,
+              divisions: parseInt(tvshow.seasons) - 1,
+              max: parseInt(tvshow.seasons),
+              autofocus: true,
+              value: data.overlaySliderValue,
+              onChanged: {
+                action: "sliderValueChanged",
+                props: {
+                  alreadyChanged: true
+                }
               }
             }
-          }
-        ] : []
-        ,
-        {
-          type: "button",
-          text: "Ajouter " + data.overlaySliderValue + " saisons en vue",
-          onPressed: {
-            action: "addTvShowSeason",
-            props: {
-              movieId: tvshow.id,
-              seasonNum: numberOfSeasonViewed,
-              tvshowViewedTime: totalViewedTime,
-              tvshowNotViewedTime: totalNotViewedTime,
+          ] : []
+          ,
+          {
+            type: "button",
+            text: "Ajouter " + data.overlaySliderValue + " saisons en vue",
+            onPressed: {
+              action: "addTvShowSeason",
+              props: {
+                movieId: tvshow.id,
+                seasonNum: numberOfSeasonViewed,
+                tvshowViewedTime: totalViewedTime,
+                tvshowNotViewedTime: totalNotViewedTime,
+              }
+            }
+          },
+          {
+            type: "button",
+            text: "Retour",
+            onPressed: {
+              action: "hideOverlay"
             }
           }
-        },
-        {
-          type: "button",
-          text: "Retour",
-          onPressed: {
-            action: "hideOverlay"
-          }
-        }
-      ]
+        ]
+      }
     } : {
-      type:"text",
-      value:"not defined"
+      type: "text",
+      value: "not defined"
     },
-    opaque: true
+    // opaque: true
   }
 }

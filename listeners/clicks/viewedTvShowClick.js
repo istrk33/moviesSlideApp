@@ -11,8 +11,6 @@ const { process_params } = require("express/lib/router");
  */
 module.exports = async (data, _props, event) => {
     data.overlayState = true;
-    console.log("TESTTTTTTTTTT");
-    console.log(_props.tvShowUpdate);
     if (_props.movieId != null || _props.movieId != undefined) {
         data.tvShowIdToSetupSeasons = String(_props.movieId).substring(8);
     }

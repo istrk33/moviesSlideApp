@@ -24,22 +24,10 @@ module.exports = (data, props) => {
           props: {
             page: "User Viewed"
           }
-        }
-        ,
+        },
         {
-          type: "container",
-          padding: {
-            top: 1,
-            bottom: 1
-          },
-          child: {
-            type: "textfield",
-            value: "",
-            label: "Rechercher",
-            onChanged: {
-              action: "searchTextChanged",
-            }
-          }
+          type: "widget",
+          name: "textfield"
         },
         {
           type: "flexible",
@@ -79,24 +67,30 @@ module.exports = (data, props) => {
                   } else {
                     return 1;
                   };
-                 }).filter(function (element) {
+                }).filter(function (element) {
                   return (element[1].toLowerCase().includes(data.searchValue.toLowerCase()));
                 }).map(element => {
                   if (data.userViewed["tvshows_" + element[0]] != null || data.userViewed["tvshows_" + element[0]] != undefined) {
                     var movieId = "tvshows_" + element[0];
-                    var btnTxt=element[1]+", S"+element[4];
+                    var btnTxt = element[1] + ", S" + element[4];
                   } else {
                     var movieId = element[0];
-                    var btnTxt=element[1];
+                    var btnTxt = element[1];
                   }
                   return {
                     type: "flex",
+                    mainAxisAlignment: "center",
+                    crossAxisAlignment: "center",
+                    padding: {
+                      top: 1.5,
+                      bottom: 1.5
+                    },
                     children: [
                       {
                         type: "widget",
                         name: "movieButton",
                         props: {
-                          buttonText:btnTxt ,
+                          buttonText: btnTxt,
                           src: "viewed",
                           from: "other",
                           movieId: movieId,
@@ -108,10 +102,10 @@ module.exports = (data, props) => {
                         }
                       },
                       {
-                        type:"widget",
-                        name:"listButton",
+                        type: "widget",
+                        name: "listButton",
                         props: {
-                          borderColor:  0xFFFA5656,
+                          borderColor: 0xFFFA5656,
                           src: "viewed",
                           movieId: movieId,
                           iconValue: "delete",

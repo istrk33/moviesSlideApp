@@ -25,6 +25,7 @@ module.exports = () => {
       movieButton: require('./widgets/components/movieButton'),
       dropdownMenuButton: require('./widgets/components/dropMenuButton'),
       listButton: require('./widgets/components/listsButton'),
+      textfield: require('./widgets/components/searchTextField'),
     },
     listeners: {
       // init

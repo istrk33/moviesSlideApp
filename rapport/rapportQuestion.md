@@ -64,7 +64,7 @@ Par exemple je ne pensais pas que l'élément stack soit utilisé pour superpose
 
 10. Style d'une image, mise en place d'un filtre d'opacité pour mon cas, lorsque l'image est grande et que l'on veut qu'elle prenne toute la place difficultés à la centrer.
 
-11. faire l'équivalent d'un fillParent sur un actionnable.
+11. équivalent d'un fillParent sur un actionnable.
 
 12. minHeight sur la constraint du conteneur qui efface le contenu
 ![-1](c3.png)
