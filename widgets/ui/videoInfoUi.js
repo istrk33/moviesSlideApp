@@ -77,7 +77,7 @@ module.exports = async (data, props) => {
                                 },
                                 children: [{
                                     type: "text",
-                                    textAlign:"center",
+                                    textAlign: "center",
                                     value: title,
                                     style: {
                                         color: 0xFFFFFFFF,
@@ -176,7 +176,7 @@ module.exports = async (data, props) => {
                                     },
                                     children: [{
                                         type: "text",
-                                        textAlign:"justify",
+                                        textAlign: "justify",
                                         value: synopsis,
                                         style: {
                                             color: 0xFFFFFFFF,
@@ -274,6 +274,13 @@ module.exports = async (data, props) => {
                                 name: "charactersGrid",
                                 props: {
                                     charactersArray: charactersArray
+                                },
+                                query: {
+                                    "$find": {
+                                        "_datastore": {
+                                            "$eq": "appData"
+                                        }
+                                    }
                                 }
                             }
                         ]

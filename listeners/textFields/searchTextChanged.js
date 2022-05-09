@@ -1,5 +1,6 @@
 'use strict'
 
+const service = require("../../services/userDataService");
 /**
  * changing the value of the search for the filter into the list views
  * @param {*} data 
@@ -7,7 +8,10 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
-    data.searchValue=event.value;
-    return data
+module.exports =async (_props, event, api) => {
+    var datas=(await service.get(api,"general")).general;
+    datas["searchValue"]=event.value;
+    return service.put(api, datas).then(function (response) {
+        response.data
+    });
 }

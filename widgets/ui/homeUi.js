@@ -8,32 +8,32 @@
  */
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
-  if (data.currentMovieInfo.show != null) {
-    data.tvShowToSetupSeasons = data.currentMovieInfo.show;
-    var numberOfSeason = data.currentMovieInfo.show.seasons;
+  var datas = data[0].general;
+  if (datas.currentMovieInfo.show != null) {
+    datas.tvShowToSetupSeasons = datas.currentMovieInfo.show;
+    var numberOfSeason = datas.currentMovieInfo.show.seasons;
     var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
-    var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.currentMovieInfo.show.id + "&width=627&height=933";
-    var director = (data.currentMovieInfo.show.showrunner == null) ? "Inconnu" : data.currentMovieInfo.show.showrunner.name;
+    var img = "https://api.betaseries.com/pictures/shows?key=" + datas.apiKey + "&id=" + datas.currentMovieInfo.show.id + "&width=627&height=933";
+    var director = (datas.currentMovieInfo.show.showrunner == null) ? "Inconnu" : datas.currentMovieInfo.show.showrunner.name;
     var videoType = "tvshow";
-    var title = data.currentMovieInfo.show.title;
-    var year = data.currentMovieInfo.show.creation;
-    var videoInfo = data.currentMovieInfo.show;
+    var title = datas.currentMovieInfo.show.title;
+    var year = datas.currentMovieInfo.show.creation;
+    var videoInfo = datas.currentMovieInfo.show;
     var action = "showOverlaySeason";
   } else {
-    var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + data.currentMovieInfo.movie.id + "&width=627&height=933";
-    var currentFilmDurationStr = functions.computeMovieDuration(data.currentMovieInfo.movie.length);
-    var director = data.currentMovieInfo.movie.director;
+    var img = "https://api.betaseries.com/pictures/movies?key=" + datas.apiKey + "&id=" + datas.currentMovieInfo.movie.id + "&width=627&height=933";
+    var currentFilmDurationStr = functions.computeMovieDuration(datas.currentMovieInfo.movie.length);
+    var director = datas.currentMovieInfo.movie.director;
     var videoType = "movie";
-    var title = data.currentMovieInfo.movie.title;
-    var year = data.currentMovieInfo.movie.production_year;
-    var videoInfo = data.currentMovieInfo.movie;
+    var title = datas.currentMovieInfo.movie.title;
+    var year = datas.currentMovieInfo.movie.production_year;
+    var videoInfo = datas.currentMovieInfo.movie;
     var action = "bottomButtonClick";
   }
-
   return {
     type: "container",
     decoration: {
-      color: data.darkbg
+      color: datas.darkbg
     },
     child: {
       type: "flex",
@@ -50,6 +50,13 @@ module.exports = (data, props) => {
           name: "menu",
           props: {
             page: "Main Page"
+          },
+          query: {
+            "$find": {
+              "_datastore": {
+                "$eq": "appData"
+              }
+            }
           }
         },
         {
@@ -85,7 +92,7 @@ module.exports = (data, props) => {
                 child: {
                   type: "container",
                   decoration: {
-                    color: data.movieInfoButtonColor[0],
+                    color: datas.movieInfoButtonColor[0],
                   },
                   child: {
                     type: "flex",
@@ -93,7 +100,7 @@ module.exports = (data, props) => {
                       {
                         type: "icon",
                         value: "info",
-                        color: data.movieInfoButtonColor[1],
+                        color: datas.movieInfoButtonColor[1],
                         size: 35
                       }
                     ]
@@ -122,7 +129,7 @@ module.exports = (data, props) => {
                   {
                     type: "text",
                     value: title,
-                    textAlign:"center",
+                    textAlign: "center",
                     style: {
                       color: 0xFFFFFFFF,
                       fontSize: 30
@@ -165,10 +172,10 @@ module.exports = (data, props) => {
                   videoType: videoType,
                   buttonIcon: "close",
                   buttonStr: "Pas vu",
-                  color: data.bottomButton3Color[0],
-                  iconColor: data.bottomButton3Color[1],
+                  color: datas.bottomButton3Color[0],
+                  iconColor: datas.bottomButton3Color[1],
                   action: "bottomButtonClick",
-                  movieDict: data.currentMovie,
+                  movieDict: datas.currentMovie,
                   buttonName: "notviewed"
                 }
               },
@@ -179,10 +186,10 @@ module.exports = (data, props) => {
                   videoType: videoType,
                   buttonIcon: "add",
                   buttonStr: "Intéressé",
-                  color: data.bottomButton2Color[0],
-                  iconColor: data.bottomButton2Color[1],
+                  color: datas.bottomButton2Color[0],
+                  iconColor: datas.bottomButton2Color[1],
                   action: "bottomButtonClick",
-                  movieDict: data.currentMovie,
+                  movieDict: datas.currentMovie,
                   buttonName: "interested"
                 }
               },
@@ -193,9 +200,9 @@ module.exports = (data, props) => {
                   videoType: videoType,
                   buttonIcon: "done",
                   buttonStr: "Vu",
-                  color: data.bottomButton1Color[0],
-                  iconColor: data.bottomButton1Color[1],
-                  movie: data.currentMovieInfo,
+                  color: datas.bottomButton1Color[0],
+                  iconColor: datas.bottomButton1Color[1],
+                  movie: datas.currentMovieInfo,
                   action: action,
                   buttonName: "viewed"
                 }

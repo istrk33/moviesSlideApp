@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = (_props, event, api) => {
     data.userViewed[_props.movieId] = data.userInterests[_props.movieId];
     data.totalWastedTime += data.userViewed[_props.movieId][3];
     data.potentialWasteTime -= data.userInterests[_props.movieId][3];

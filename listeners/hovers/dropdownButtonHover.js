@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = (_props, event, api) => {
     switch (_props.srcButton) {
         case "tempsPerdu":
             if (data.dropDownButton1Color[0] == data.dropDownDefaultButtonColor) {

@@ -9,6 +9,7 @@ module.exports = () => {
     widgets: {
       // main
       app: require('./widgets/app'),
+      main: require('./widgets/main'),
       
       // uis
       home: require('./widgets/ui/homeUi'),
@@ -29,7 +30,9 @@ module.exports = () => {
     },
     listeners: {
       // init
-      InitData: require('./listeners/initData'),
+      onEnvStart: require('./listeners/appInit/onEnvStart'),
+      onSessionStart: require('./listeners/appInit/onSessionStart'),
+      onUserFirstJoin: require('./listeners/appInit/onSessionStart'),
 
       // clicks
       bottomButtonClick: require('./listeners/clicks/bottomButtonClick'),
@@ -57,6 +60,6 @@ module.exports = () => {
       //textfield
       searchTextChanged: require('./listeners/textFields/searchTextChanged'),
     },
-    rootWidget: 'app'
+    rootWidget: 'main'
   }
 }

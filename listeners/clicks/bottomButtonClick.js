@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = async (data, _props, event) => {
+module.exports = async (_props, event, api) => {
     const functions = require("../../resources/functions");
     var videoId = data.currentId;
     //if it's a video of type movie

@@ -19,3 +19,46 @@
 15.  quand ca fait un moment qu'il n'y a aucune interaction avec le devtool des valeurs (tableaux du init data) passent en undefined, et cela se répercute dès qu'un hover est fait sur un bouton par exemple une erreur est générée.
 16. slider onChanged agit comme un onChangedEnd (prends la valeur que quand on relache le slider)
 17. la contrainte maxWidth efface textfield
+
+## Nouvelle méthode de la gestion des données
+
+1. le fichier counterService.js est propre à chaque appli ?
+    > * createDatastore -> créer une collection qui se nome `Counter`.
+    > * new -> créer un compteur 
+    > * delete -> créer un compteur 
+    > * put -> mettre à jour un compteur
+    > * get -> récupérer un compteur
+```js
+'use strict'
+
+const { default: axios } = require("axios");
+
+module.exports = {
+    get(api, counterId) {
+        return axios.get(`${api.url}/app/datastores/Counter/data/${counterId}`, { headers: { Authorization: `Bearer ${api.token}` } }
+        );
+    },
+    put(api, counter) {
+        return axios.put(`${api.url}/app/datastores/Counter/data/${counter._id}`, counter, { headers: { Authorization: `Bearer ${api.token}` } });
+    },
+    new(api) {
+        return axios.post(`${api.url}/app/datastores/Counter/data`, { "value": 0 }, { headers: { Authorization: `Bearer ${api.token}` } });
+    },
+    delete(api, counterId) {
+        return axios.delete(`${api.url}/app/datastores/Counter/data/${counterId}`, { headers: { Authorization: `Bearer ${api.token}` } });
+
+    },
+    createDatastore(api) {
+        return axios.post(`${api.url}/app/datastores`, { "name": "Counter" }, { headers: { Authorization: `Bearer ${api.token}` } });
+    }
+}
+
+```
+
+2. Différence entre le onEnvStart et le onSessionStart ?
+
+3. 
+
+<!-- 
+* passer le tableau data en props pas beoin de refaire un query ???
+ -->

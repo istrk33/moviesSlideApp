@@ -8,16 +8,17 @@
  */
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
+  var datas = data[0].general;
   var uiName1 = "";
   var icon1 = "";
   var uiName2 = "";
   var icon2 = "";
-  if (data.navigation == "home") {
+  if (datas.navigation == "home") {
     uiName1 = "switchInterestUi";
     uiName2 = "switchViewedUi";
     icon1 = "featured_play_list";
     icon2 = "done_all";
-  } else if (data.navigation == "userViewed") {
+  } else if (datas.navigation == "userViewed") {
     uiName1 = "switchInterestUi";
     uiName2 = "switchHomeUi";
     icon1 = "featured_play_list";
@@ -29,21 +30,21 @@ module.exports = (data, props) => {
     icon2 = "done_all";
   }
   var menudisp;
-  switch (data.menuTimeLabel) {
+  switch (datas.menuTimeLabel) {
     case "tempsPerdu":
-      menudisp = functions.computeMenuTime(data.totalWastedTime);
+      menudisp = functions.computeMenuTime(datas.totalWastedTime);
       break;
     case "tempsAPerdre":
-      menudisp = functions.computeMenuTime(data.potentialWasteTime);
+      menudisp = functions.computeMenuTime(datas.potentialWasteTime);
       break;
     case "tempsEconomise":
-      menudisp = functions.computeMenuTime(data.totalSavedTime);
+      menudisp = functions.computeMenuTime(datas.totalSavedTime);
       break;
   }
   return {
     type: "container",
     decoration: {
-      color: data.black,
+      color: datas.black,
       boxShadow: {
         blurRadius: 8,
         color: 0x1AFFFFFF,
@@ -93,8 +94,8 @@ module.exports = (data, props) => {
                           srcButton: "tempsPerdu",
                           icon: "remove_red_eye",
                           buttonText: "Temps Perdu",
-                          color: data.dropDownButton1Color[0],
-                          iconColor: data.dropDownButton1Color[1]
+                          color: datas.dropDownButton1Color[0],
+                          iconColor: datas.dropDownButton1Color[1]
                         }
                       },
                       {
@@ -104,8 +105,8 @@ module.exports = (data, props) => {
                           srcButton: "tempsAPerdre",
                           icon: "watch_later",
                           buttonText: "Temps à Perdre",
-                          color: data.dropDownButton2Color[0],
-                          iconColor: data.dropDownButton2Color[1]
+                          color: datas.dropDownButton2Color[0],
+                          iconColor: datas.dropDownButton2Color[1]
                         }
                       },
                       {
@@ -115,8 +116,8 @@ module.exports = (data, props) => {
                           srcButton: "tempsEconomise",
                           icon: "close",
                           buttonText: "Temps Economisé",
-                          color: data.dropDownButton3Color[0],
-                          iconColor: data.dropDownButton3Color[1]
+                          color: datas.dropDownButton3Color[0],
+                          iconColor: datas.dropDownButton3Color[1]
                         }
                       },
                     ]
@@ -139,8 +140,8 @@ module.exports = (data, props) => {
                 buttonIcon: icon1,
                 uiName: uiName1,
                 order: "first",
-                color: data.menuHoverButton1Color[0],
-                iconColor: data.menuHoverButton1Color[1]
+                color: datas.menuHoverButton1Color[0],
+                iconColor: datas.menuHoverButton1Color[1]
               }
             },
             {
@@ -150,8 +151,8 @@ module.exports = (data, props) => {
                 buttonIcon: icon2,
                 uiName: uiName2,
                 order: "second",
-                color: data.menuHoverButton2Color[0],
-                iconColor: data.menuHoverButton2Color[1]
+                color: datas.menuHoverButton2Color[0],
+                iconColor: datas.menuHoverButton2Color[1]
               }
             }
           ]

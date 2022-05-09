@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = (_props, event, api) => {
     data.overlaySliderValue=event.value;
     return data
 }

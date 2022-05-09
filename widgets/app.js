@@ -10,29 +10,50 @@ function getCurrentPage(data) {
     case "home":
       return {
         type: "widget",
-        name: "home"
+        name: "home",
+        query: {
+          "$find": {
+            "_datastore": {
+              "$eq": "appData"
+            }
+          }
+        }
       };
-    //for overlay v1
-    // case "homeWithOverlay":
-    //   return {
-    //     type: "widget",
-    //     name: "homeWithOverlay"
-    //   };
-    // //end
     case "userInterest":
       return {
         type: "widget",
-        name: "userInterest"
+        name: "userInterest",
+        query: {
+          "$find": {
+            "_datastore": {
+              "$eq": "appData"
+            }
+          }
+        }
       };
     case "userViewed":
       return {
         type: "widget",
-        name: "userViewed"
+        name: "userViewed",
+        query: {
+          "$find": {
+            "_datastore": {
+              "$eq": "appData"
+            }
+          }
+        }
       };
     case "movieInfo":
       return {
         type: "widget",
-        name: "movieInfo"
+        name: "movieInfo",
+        query: {
+          "$find": {
+            "_datastore": {
+              "$eq": "appData"
+            }
+          }
+        }
       };
     default:
       return {
@@ -48,6 +69,6 @@ function getCurrentPage(data) {
  * @param {*} _props 
  * @returns 
  */
-module.exports = (data, _props) => {
-  return getCurrentPage(data);
+module.exports = async (data, _props) => {
+  return getCurrentPage(data[0].general);
 }

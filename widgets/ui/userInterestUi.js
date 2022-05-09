@@ -7,11 +7,12 @@
  * @returns 
  */
 module.exports = (data, props) => {
-  var arr = Object.values(data.userInterests);
+  var datas = data[0].general;
+  var arr = Object.values(datas.userInterests);
   return {
     type: "container",
     decoration: {
-      color: data.darkbg
+      color: datas.darkbg
     },
     child: {
       type: "flex",
@@ -40,7 +41,7 @@ module.exports = (data, props) => {
           {
             type: "container",
             decoration: {
-              color: data.darkbg
+              color: datas.darkbg
             },
             child: {
               type: "flex",
@@ -73,9 +74,9 @@ module.exports = (data, props) => {
                     return 1;
                   };
                 }).filter(function (element) {
-                  return (element[1].toLowerCase().includes(data.searchValue.toLowerCase()));
+                  return (element[1].toLowerCase().includes(datas.searchValue.toLowerCase()));
                 }).map(element => {
-                  if (data.userInterests["tvshows_" + element[0]] != null || data.userInterests["tvshows_" + element[0]] != undefined) {
+                  if (datas.userInterests["tvshows_" + element[0]] != null || datas.userInterests["tvshows_" + element[0]] != undefined) {
                     var movieId = "tvshows_" + element[0];
                     var btnTxt = (element[4] == undefined) ? element[1] + ", de la S1" : element[1] + ", de la S" + element[4];
                     var action = "showOverlaySeason";
@@ -102,7 +103,7 @@ module.exports = (data, props) => {
                           movieId: movieId,
                           height: 50,
                           width: 200,
-                          arrayData: data.userInterests,
+                          arrayData: datas.userInterests,
                         }
                       },
                       {
@@ -123,7 +124,7 @@ module.exports = (data, props) => {
                         name: "listButton",
                         props: {
                           borderColor: 0xFF36CD6B,
-                          tvShowUpdate: (data.userViewed[movieId] != null || data.userViewed[movieId] != undefined),
+                          tvShowUpdate: (datas.userViewed[movieId] != null || datas.userViewed[movieId] != undefined),
                           src: "interests",
                           movieId: movieId,
                           iconValue: "done",

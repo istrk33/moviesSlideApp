@@ -8,17 +8,18 @@
  */
 module.exports = async (data, props) => {
   const functions = require("../../resources/functions");
-  var numberOfSeasonViewed = Math.floor(data.overlaySliderValue);
+  var datas = data[0].general;
+  var numberOfSeasonViewed = Math.floor(datas.overlaySliderValue);
   var numberOfViewedEpisode = 0;
   var numberOfNotViewedEpisode = 0;
-  if (data.overlayState) {
-    if (data.tvShowIdToSetupSeasons == -1) {
-      var tvshow = data.currentMovieInfo.show;
+  if (datas.overlayState) {
+    if (datas.tvShowIdToSetupSeasons == -1) {
+      var tvshow = datas.currentMovieInfo.show;
       tvshow.seasons_details.forEach(element => {
         (parseInt(element.number) <= numberOfSeasonViewed) ? numberOfViewedEpisode += parseInt(element.episodes) : numberOfNotViewedEpisode += parseInt(element.episodes);
       });
     } else {
-      var tvshow = (await functions.getTvShowDetails(data.apiKey, data.tvShowIdToSetupSeasons)).show;
+      var tvshow = (await functions.getTvShowDetails(datas.apiKey, datas.tvShowIdToSetupSeasons)).show;
       tvshow.seasons_details.forEach(element => {
         (parseInt(element.number) <= numberOfSeasonViewed) ? numberOfViewedEpisode += parseInt(element.episodes) : numberOfNotViewedEpisode += parseInt(element.episodes);
       });
@@ -28,11 +29,11 @@ module.exports = async (data, props) => {
   }
   return {
     type: "overlayEntry",
-    showOverlay: data.overlayState,
-    child: (data.overlayState) ? {
+    showOverlay: dadatasta.overlayState,
+    child: (datas.overlayState) ? {
       type: "container",
-      decoration:{
-        color:0xAC000000
+      decoration: {
+        color: 0xAC000000
       },
       child: {
         type: "flex",
@@ -42,7 +43,7 @@ module.exports = async (data, props) => {
         children: [
           {
             type: "text",
-            value: "Nombre de saisons vues " + data.overlaySliderValue + "/" + tvshow.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
+            value: "Nombre de saisons vues " + datas.overlaySliderValue + "/" + tvshow.seasons + "\n Équivalent à " + functions.computeMenuTime(totalViewedTime),
             style: {
               color: 0xFFFFFFFF
             }
@@ -50,12 +51,12 @@ module.exports = async (data, props) => {
           ...(tvshow.seasons > 1) ? [
             {
               type: "slider",
-              label: "" + data.overlaySliderValue,
+              label: "" + datas.overlaySliderValue,
               min: 1,
               divisions: parseInt(tvshow.seasons) - 1,
               max: parseInt(tvshow.seasons),
               autofocus: true,
-              value: data.overlaySliderValue,
+              value: datas.overlaySliderValue,
               onChanged: {
                 action: "sliderValueChanged",
                 props: {
@@ -67,7 +68,7 @@ module.exports = async (data, props) => {
           ,
           {
             type: "button",
-            text: "Ajouter " + data.overlaySliderValue + " saisons en vue",
+            text: "Ajouter " + datas.overlaySliderValue + " saisons en vue",
             onPressed: {
               action: "addTvShowSeason",
               props: {

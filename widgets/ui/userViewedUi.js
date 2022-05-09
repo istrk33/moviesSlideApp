@@ -7,11 +7,12 @@
  * @returns 
  */
 module.exports = (data, props) => {
-  var arr = Object.values(data.userViewed);
+  var datas = data[0].general;
+  var arr = Object.values(datas.userViewed);
   return {
     type: "container",
     decoration: {
-      color: data.darkbg
+      color: datas.darkbg
     },
     child: {
       type: "flex",
@@ -36,7 +37,7 @@ module.exports = (data, props) => {
           {
             type: "container",
             decoration: {
-              color: data.darkbg
+              color: datas.darkbg
             },
             child: {
               type: "flex",
@@ -68,9 +69,9 @@ module.exports = (data, props) => {
                     return 1;
                   };
                 }).filter(function (element) {
-                  return (element[1].toLowerCase().includes(data.searchValue.toLowerCase()));
+                  return (element[1].toLowerCase().includes(datas.searchValue.toLowerCase()));
                 }).map(element => {
-                  if (data.userViewed["tvshows_" + element[0]] != null || data.userViewed["tvshows_" + element[0]] != undefined) {
+                  if (datas.userViewed["tvshows_" + element[0]] != null || datas.userViewed["tvshows_" + element[0]] != undefined) {
                     var movieId = "tvshows_" + element[0];
                     var btnTxt = element[1] + ", S" + element[4];
                   } else {
@@ -96,7 +97,7 @@ module.exports = (data, props) => {
                           movieId: movieId,
                           height: 50,
                           width: 250,
-                          arrayData: data.userViewed,
+                          arrayData: datas.userViewed,
                           // viewWidget: [
                           // ]
                         }

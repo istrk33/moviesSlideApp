@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = (_props, event, api) => {
     switch (_props.listName) {
         case "viewed":
             movieListItemColor(data, data.userViewed, _props.movieId);

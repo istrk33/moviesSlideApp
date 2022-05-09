@@ -7,16 +7,21 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = async(_props, event, api) => {
+    // var datas=(await service.get(api,"general"));
+    // console.log("SIUUUUUUUUUUUUUUUUUUU");
+    // console.log(datas);
     switch (_props.order) {
         case "first":
-            menuButtonColors(data, data.menuHoverButton1Color);
+            menuButtonColors(datas, datas.menuHoverButton1Color);
             break;
         case "second":
-            menuButtonColors(data, data.menuHoverButton2Color);
+            menuButtonColors(datas, datas.menuHoverButton2Color);
             break;
     }
-    return data
+    return service.put(api, datas).then(function (response) {
+        response.data
+    });
 }
 
 /**

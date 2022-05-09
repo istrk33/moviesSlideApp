@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = (_props, event, api) => {
     if(data.movieInfoButtonColor[0]==0xF4212121){
         data.movieInfoButtonColor[0]=0xFFFFFFFF;
         data.movieInfoButtonColor[1]=0xF4212121;

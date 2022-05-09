@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = async (data, _props, event) => {
+module.exports = async (_props, event, api) => {
     const functions = require("../../resources/functions");
     var tvshowid = _props.movieId;
     var numberOfSeasons = (await functions.getTvShowDetails(data.apiKey, tvshowid)).show.seasons;

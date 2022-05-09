@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = (_props, event, api) => {
     switch (_props.buttonStr) {
         case "Vu":
             changeButtonColorState(data.bottomButton1Color, data.bottomButtonsColors[0][0], data.bottomButtonsColors[0][1], data);

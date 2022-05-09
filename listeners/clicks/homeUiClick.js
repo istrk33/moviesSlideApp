@@ -7,7 +7,7 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (data, _props, event) => {
+module.exports = (_props, event, api) => {
     data.menuHoverButton1Color = [data.black, data.white];
     data.menuHoverButton2Color = [data.black, data.white];
     data.navigation = "home";
