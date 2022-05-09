@@ -18,6 +18,4 @@
 14. background d'une vue de scroll non disponible
 15.  quand ca fait un moment qu'il n'y a aucune interaction avec le devtool des valeurs (tableaux du init data) passent en undefined, et cela se répercute dès qu'un hover est fait sur un bouton par exemple une erreur est générée.
 16. slider onChanged agit comme un onChangedEnd (prends la valeur que quand on relache le slider)
-17. textfield, on ne peut pas mettre un style, dans le cas d'un dark mode, le texte reste invisible
-![-1](c9.png)
-18. la contrainte maxWidth efface textfield
+17. la contrainte maxWidth efface textfield
