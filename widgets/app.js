@@ -14,7 +14,7 @@ function getCurrentPage(data) {
         query: {
           "$find": {
             "_datastore": {
-              "$eq": "appData"
+              "$eq": "general"
             }
           }
         }
@@ -26,7 +26,7 @@ function getCurrentPage(data) {
         query: {
           "$find": {
             "_datastore": {
-              "$eq": "appData"
+              "$eq": "general"
             }
           }
         }
@@ -38,7 +38,7 @@ function getCurrentPage(data) {
         query: {
           "$find": {
             "_datastore": {
-              "$eq": "appData"
+              "$eq": "general"
             }
           }
         }
@@ -50,7 +50,7 @@ function getCurrentPage(data) {
         query: {
           "$find": {
             "_datastore": {
-              "$eq": "appData"
+              "$eq": "general"
             }
           }
         }
@@ -70,5 +70,9 @@ function getCurrentPage(data) {
  * @returns 
  */
 module.exports = async (data, _props) => {
-  return getCurrentPage(data[0].general);
+  if (data[0].element !== undefined || data[0].element != null) {
+    return getCurrentPage(data[0].element);
+  } else {
+    return getCurrentPage(data[0]);
+  }
 }

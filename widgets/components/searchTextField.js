@@ -7,6 +7,11 @@
  * @returns 
  */
 module.exports = (data, props) => {
+    if (data[0].element !== undefined || data[0].element != null) {
+        var datas = data[0].element;
+      } else {
+        var datas = data[0];
+      }
     return {
         type: "container",
         padding: {
@@ -22,26 +27,26 @@ module.exports = (data, props) => {
             value: "",
             style: {
                 textStyle: {
-                    color: data.white,
+                    color: datas.white,
                 },
                 decoration: {
                     icon: {
                         type: "icon",
                         value: "search",
-                        color: data.white,
+                        color: datas.white,
                         size: 25
                     },
                     focusedBorder: {
                         type: "underline",
                         borderSide: {
-                            color: data.white
+                            color: datas.white
                         }
                     },
                     label: {
                         type: "text",
                         value: "Rechercher",
                         style: {
-                            color: data.white
+                            color: datas.white
                         }
                     }
                 }

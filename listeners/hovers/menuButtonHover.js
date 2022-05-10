@@ -8,9 +8,6 @@
  * @returns 
  */
 module.exports = async(_props, event, api) => {
-    // var datas=(await service.get(api,"general"));
-    // console.log("SIUUUUUUUUUUUUUUUUUUU");
-    // console.log(datas);
     switch (_props.order) {
         case "first":
             menuButtonColors(datas, datas.menuHoverButton1Color);

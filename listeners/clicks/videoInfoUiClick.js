@@ -7,18 +7,28 @@
  * @param {*} event 
  * @returns 
  */
+const functions = require("../../resources/functions");
+const service = require("../../services/userDataService");
 module.exports = async (_props, event, api) => {
-    const functions = require("../../resources/functions");
-    data.navigation = "movieInfo";
+    var obj = (await service.getGeneral(api)).data.data[0];
+    var id = obj._id;
+    if (obj.element !== undefined || obj.element != null) {
+        var datas = obj.element;
+    } else {
+        var datas = obj;
+    }
+    datas["searchValue"] = "";
+    datas["navigation"] = "movieInfo";
     if (_props.from == "home") {
-        data.movieInfoToSee = data.currentMovieInfo;
+        datas["movieInfoToSee"] = datas["currentMovieInfo"];
     } else {
         if (String(_props.movieId).includes("tvshows")) {
-            data.movieInfoToSee = (await functions.getTvShowDetails(data.apiKey, String(_props.movieId).substring(8)));
+            datas["movieInfoToSee"] = (await functions.getTvShowDetails(datas["apiKey"], String(_props.movieId).substring(8)));
         } else {
-            data.movieInfoToSee = (await functions.getMovieDetails(data.apiKey, _props.movieId));
+            datas["movieInfoToSee"] = (await functions.getMovieDetails(datas["apiKey"], _props.movieId));
         }
     }
-    data.searchValue="";
-    return data
+    return service.put(api, id, datas).then(function (response) {
+        response.data
+    });
 }

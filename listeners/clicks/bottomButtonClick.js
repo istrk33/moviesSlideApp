@@ -7,24 +7,34 @@
  * @param {*} event 
  * @returns 
  */
+const service = require("../../services/userDataService");
+const functions = require("../../resources/functions");
 module.exports = async (_props, event, api) => {
-    const functions = require("../../resources/functions");
-    var videoId = data.currentId;
-    //if it's a video of type movie
-    if (data.currentMovieInfo.movie != null || data.currentMovieInfo.movie != undefined) {
-        var timeInSec = data.currentMovieInfo.movie.length;
-        actionOnVideo(data, timeInSec, _props.buttonName, videoId);
+    var obj = (await service.getGeneral(api)).data.data[0];
+    var id = obj._id;
+    if (obj.element !== undefined || obj.element != null) {
+        var datas = obj.element;
+    } else {
+        var datas = obj;
+    }
+    var videoId = datas.currentId;
+    if (datas.currentMovieInfo.movie != null || datas.currentMovieInfo.movie != undefined) {
+        var timeInSec = datas.currentMovieInfo.movie.length;
+        datas = actionOnVideo(datas, timeInSec, _props.buttonName, videoId);
         // if it's a video of type of type tvShow
     } else {
         // computing the total length of the tv show by using the number of seasons, episodes and the average length of one episode
         var timeInSec = 0;
-        data.currentMovieInfo.show.seasons_details.forEach(element => {
-            timeInSec += element.episodes * data.currentMovieInfo.show.length * 60;
+        datas.currentMovieInfo.show.seasons_details.forEach(element => {
+            timeInSec += element.episodes * datas.currentMovieInfo.show.length * 60;
         });
-        actionOnVideo(data, timeInSec, _props.buttonName, videoId);
+        datas = actionOnVideo(datas, timeInSec, _props.buttonName, videoId);
     }
-    data = (await functions.updateCurrent(data, videoId));
-    return data
+    datas = (await functions.updateCurrent(datas, videoId));
+
+    return service.put(api, id, datas).then(function (response) {
+        response.data
+    });
 }
 
 /**
@@ -35,22 +45,24 @@ module.exports = async (_props, event, api) => {
  * @param {the id of the video} videoId 
  */
 function actionOnVideo(data, timeInSec, buttonName, videoId) {
+    var datas = data;
     switch (buttonName) {
         case "viewed":
-            data.userViewed[videoId] = data.listOfUndiscoveredMovies[videoId];
-            data.userViewed[videoId].push(data.darkbg);
-            data.userViewed[videoId].push(timeInSec);
-            data.totalWastedTime += timeInSec;
+            datas.userViewed[videoId] = datas.listOfUndiscoveredMovies[videoId];
+            datas.userViewed[videoId].push(datas.darkbg);
+            datas.userViewed[videoId].push(timeInSec);
+            datas.totalWastedTime += timeInSec;
             break;
         case "notviewed":
-            data.userNotViewed[videoId] = data.listOfUndiscoveredMovies[videoId];
-            data.totalSavedTime += timeInSec;
+            datas.userNotViewed[videoId] = datas.listOfUndiscoveredMovies[videoId];
+            datas.totalSavedTime += timeInSec;
             break;
         case "interested":
-            data.userInterests[videoId] = data.listOfUndiscoveredMovies[videoId];
-            data.userInterests[videoId].push(data.darkbg);
-            data.userInterests[videoId].push(timeInSec);
-            data.potentialWasteTime += timeInSec;
+            datas.userInterests[videoId] = datas.listOfUndiscoveredMovies[videoId];
+            datas.userInterests[videoId].push(datas.darkbg);
+            datas.userInterests[videoId].push(timeInSec);
+            datas.potentialWasteTime += timeInSec;
             break;
     }
+    return datas;
 }

@@ -7,14 +7,15 @@
  * @param {*} event 
  * @returns 
  */
+const service = require("../../services/userDataService");
 module.exports = (_props, event, api) => {
-    var id = _props.movieId;
+    var props_id = _props.movieId;
     switch (_props.src) {
         case "viewed":
-            manageDicts(data, data.userViewed, id, "wasted");
+            manageDicts(data, data.userViewed, props_id, "wasted");
             break;
         case "interests":
-            manageDicts(data, data.userInterests, id, "potential");
+            manageDicts(data, data.userInterests, props_id, "potential");
             break;
     }
     return data
@@ -24,22 +25,22 @@ module.exports = (_props, event, api) => {
  * managing the deletion of index in function of the dict
  * @param {*} data 
  * @param {*} dictToEdit 
- * @param {*} id 
+ * @param {*} props_id 
  * @param {*} srcTime 
  */
-function manageDicts(data, dictToEdit, id, srcTime) {
-    if (dictToEdit[id] == null || dictToEdit[id] == undefined) {
-        var id = "tvshows_" + id;
+function manageDicts(data, dictToEdit, props_id, srcTime) {
+    if (dictToEdit[props_id] == null || dictToEdit[props_id] == undefined) {
+        var props_id = "tvshows_" + props_id;
     }
     if (srcTime == "wasted") {
-        if (String(id).includes("tvshows_") && data.userInterests[id] != null) {
-            data.potentialWasteTime -= data.userInterests[id][3];
-            delete data.userInterests[id];
+        if (String(props_id).includes("tvshows_") && data.userInterests[props_id] != null) {
+            data.potentialWasteTime -= data.userInterests[props_id][3];
+            delete data.userInterests[props_id];
         }
-        data.totalWastedTime -= dictToEdit[id][3];
+        data.totalWastedTime -= dictToEdit[props_id][3];
     } else {
-        data.potentialWasteTime -= dictToEdit[id][3];
+        data.potentialWasteTime -= dictToEdit[props_id][3];
     }
-    data.totalSavedTime += dictToEdit[id][3];
-    delete dictToEdit[id];
+    data.totalSavedTime += dictToEdit[props_id][3];
+    delete dictToEdit[props_id];
 }

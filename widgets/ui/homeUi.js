@@ -8,7 +8,11 @@
  */
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
-  var datas = data[0].general;
+  if (data[0].element !== undefined || data[0].element != null) {
+    var datas = data[0].element;
+  } else {
+    var datas = data[0];
+  }
   if (datas.currentMovieInfo.show != null) {
     datas.tvShowToSetupSeasons = datas.currentMovieInfo.show;
     var numberOfSeason = datas.currentMovieInfo.show.seasons;
@@ -54,7 +58,7 @@ module.exports = (data, props) => {
           query: {
             "$find": {
               "_datastore": {
-                "$eq": "appData"
+                "$eq": "general"
               }
             }
           }
@@ -86,9 +90,9 @@ module.exports = (data, props) => {
                     movieData: videoInfo
                   }
                 },
-                onHovered: {
-                  action: "movieInfoButtonHoverEvent"
-                },
+                // onHovered: {
+                //   action: "movieInfoButtonHoverEvent"
+                // },
                 child: {
                   type: "container",
                   decoration: {

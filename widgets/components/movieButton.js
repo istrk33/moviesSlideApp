@@ -7,12 +7,17 @@
  * @returns 
  */
 module.exports = (data, props) => {
+    if (data[0].element !== undefined || data[0].element != null) {
+        var datas = data[0].element;
+    } else {
+        var datas = data[0];
+    }
     if (String(props.movieId).includes("tvshows_")) {
         var color = props.arrayData[props.movieId][2];
     } else {
         var color = props.arrayData[props.movieId][2];
     }
-    var textcolor = (color == data.darkbg) ? data.hoverMenuButtonColor : data.darkbg;
+    var textcolor = (color == datas.darkbg) ? datas.hoverMenuButtonColor : datas.darkbg;
     return {
         type: "actionable",
         onPressed: {
@@ -20,16 +25,16 @@ module.exports = (data, props) => {
             props: {
                 movieId: props.movieId,
                 from: props.from,
-                videotype:props.videotype
+                videotype: props.videotype
             }
         },
-        onHovered: {
-            action: "movieButtonHovered",
-            props: {
-                movieId: props.movieId,
-                listName: props.src
-            }
-        },
+        // onHovered: {
+        //     action: "movieButtonHovered",
+        //     props: {
+        //         movieId: props.movieId,
+        //         listName: props.src
+        //     }
+        // },
         child: {
             type: "container",
             constraints: {
@@ -41,19 +46,19 @@ module.exports = (data, props) => {
             border: {
                 top: {
                     width: 1,
-                    color: data.white
+                    color: datas.white
                 },
                 bottom: {
                     width: 1,
-                    color: data.white
+                    color: datas.white
                 },
                 right: {
                     width: 1,
-                    color: data.white
+                    color: datas.white
                 },
                 left: {
                     width: 1,
-                    color: data.white
+                    color: datas.white
                 }
             },
             decoration: {

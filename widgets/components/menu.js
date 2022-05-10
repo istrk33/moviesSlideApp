@@ -8,7 +8,11 @@
  */
 module.exports = (data, props) => {
   const functions = require("../../resources/functions");
-  var datas = data[0].general;
+  if (data[0].element !== undefined || data[0].element != null) {
+    var datas = data[0].element;
+  } else {
+    var datas = data[0];
+  }
   var uiName1 = "";
   var icon1 = "";
   var uiName2 = "";
@@ -107,6 +111,12 @@ module.exports = (data, props) => {
                           buttonText: "Temps à Perdre",
                           color: datas.dropDownButton2Color[0],
                           iconColor: datas.dropDownButton2Color[1]
+                        }, query: {
+                          "$find": {
+                            "_datastore": {
+                              "$eq": "general"
+                            }
+                          }
                         }
                       },
                       {
@@ -118,6 +128,12 @@ module.exports = (data, props) => {
                           buttonText: "Temps Economisé",
                           color: datas.dropDownButton3Color[0],
                           iconColor: datas.dropDownButton3Color[1]
+                        }, query: {
+                          "$find": {
+                            "_datastore": {
+                              "$eq": "general"
+                            }
+                          }
                         }
                       },
                     ]
@@ -142,6 +158,13 @@ module.exports = (data, props) => {
                 order: "first",
                 color: datas.menuHoverButton1Color[0],
                 iconColor: datas.menuHoverButton1Color[1]
+              },
+              query: {
+                "$find": {
+                  "_datastore": {
+                    "$eq": "general"
+                  }
+                }
               }
             },
             {
@@ -153,6 +176,13 @@ module.exports = (data, props) => {
                 order: "second",
                 color: datas.menuHoverButton2Color[0],
                 iconColor: datas.menuHoverButton2Color[1]
+              },
+              query: {
+                "$find": {
+                  "_datastore": {
+                    "$eq": "general"
+                  }
+                }
               }
             }
           ]

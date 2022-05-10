@@ -7,7 +7,11 @@
  * @returns 
  */
 module.exports = (data, props) => {
-  var datas = data[0].general;
+  if (data[0].element !== undefined || data[0].element != null) {
+    var datas = data[0].element;
+  } else {
+    var datas = data[0];
+  }
   var arr = Object.values(datas.userInterests);
   return {
     type: "container",
@@ -28,11 +32,24 @@ module.exports = (data, props) => {
           name: "menu",
           props: {
             page: "User Viewed"
+          }, query: {
+            "$find": {
+              "_datastore": {
+                "$eq": "general"
+              }
+            }
           }
         },
         {
           type: "widget",
-          name: "textfield"
+          name: "textfield",
+          query: {
+            "$find": {
+              "_datastore": {
+                "$eq": "general"
+              }
+            }
+          }
         },
         {
           type: "flexible",
@@ -104,6 +121,13 @@ module.exports = (data, props) => {
                           height: 50,
                           width: 200,
                           arrayData: datas.userInterests,
+                        },
+                        query: {
+                          "$find": {
+                            "_datastore": {
+                              "$eq": "general"
+                            }
+                          }
                         }
                       },
                       {
@@ -130,7 +154,7 @@ module.exports = (data, props) => {
                           iconValue: "done",
                           iconColor: 0xFF36CD6B,
                           action: action,
-                        }
+                        },
                       }
                     ]
                   }

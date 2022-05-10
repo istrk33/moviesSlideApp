@@ -12,12 +12,12 @@ module.exports = (data, props) => {
         onPressed: {
             action: props.uiName
         },
-        onHovered: {
-            action: "menuButtonHoverEvent",
-            props: {
-                order: props.order
-            }
-        },
+        // onHovered: {
+        //     action: "menuButtonHoverEvent",
+        //     props: {
+        //         order: props.order
+        //     }
+        // },
         child: {
             type: "container",
             decoration: {

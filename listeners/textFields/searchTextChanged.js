@@ -8,10 +8,12 @@ const service = require("../../services/userDataService");
  * @param {*} event 
  * @returns 
  */
-module.exports =async (_props, event, api) => {
-    var datas=(await service.get(api,"general")).general;
-    datas["searchValue"]=event.value;
-    return service.put(api, datas).then(function (response) {
+module.exports = async (_props, event, api) => {
+    var obj = (await service.getGeneral(api)).data.data[0];
+    var id = obj._id;
+    var datas = obj;
+    datas["searchValue"] = event.value;
+    return service.put(api, id, datas).then(function (response) {
         response.data
     });
 }

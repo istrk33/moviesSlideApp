@@ -32,7 +32,7 @@ module.exports = () => {
       // init
       onEnvStart: require('./listeners/appInit/onEnvStart'),
       onSessionStart: require('./listeners/appInit/onSessionStart'),
-      onUserFirstJoin: require('./listeners/appInit/onSessionStart'),
+      onUserFirstJoin: require('./listeners/appInit/onUserFirstJoin'),
 
       // clicks
       bottomButtonClick: require('./listeners/clicks/bottomButtonClick'),

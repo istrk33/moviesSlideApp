@@ -57,8 +57,38 @@ module.exports = {
 
 2. Différence entre le onEnvStart et le onSessionStart ?
 
-3. 
+3. quand on a des erreurs, par exemple ici on ne sait pas d'où viens l'erreur (ligne,fichier)
+```
+12:29:04.455 [error] Application error (500) TypeError: Cannot read property 'element' of undefined
+12:29:04.455 [error] GenServer {:session, "65c20b75-f158-49ad-9c16-05b97b030ad9"} terminating
+** (CaseClauseError) no case clause matching: {:error, "Application error (500) TypeError: Cannot read property 'element' of undefined"}
+    (application_runner 0.0.0-dev) lib/session/session_manager.ex:194: ApplicationRunner.SessionManager.get_and_build_ui/2
+    (application_runner 0.0.0-dev) lib/session/session_manager.ex:131: ApplicationRunner.SessionManager.handle_info/2
+    (stdlib 3.17.1) gen_server.erl:695: :gen_server.try_dispatch/4
+    (stdlib 3.17.1) gen_server.erl:771: :gen_server.handle_msg/6
+    (stdlib 3.17.1) proc_lib.erl:226: :proc_lib.init_p_do_apply/3
+Last message: :data_changed
+12:29:04.457 [error] GenServer #PID<0.3569.0> terminating
+** (CaseClauseError) no case clause matching: {:error, "Application error (500) TypeError: Cannot read property 'element' of undefined"}
+    (application_runner 0.0.0-dev) lib/session/session_manager.ex:194: ApplicationRunner.SessionManager.get_and_build_ui/2
+    (application_runner 0.0.0-dev) lib/session/session_manager.ex:131: ApplicationRunner.SessionManager.handle_info/2
+    (stdlib 3.17.1) gen_server.erl:695: :gen_server.try_dispatch/4
+    (stdlib 3.17.1) gen_server.erl:771: :gen_server.handle_msg/6
+    (stdlib 3.17.1) proc_lib.erl:226: :proc_lib.init_p_do_apply/3
+Last message: {:EXIT, #PID<0.3568.0>, {{:case_clause, {:error, "Application error (500) TypeError: Cannot read property 'element' of undefined"}}, [{ApplicationRunner.SessionManager, :get_and_build_ui, 2, [file: 'lib/session/session_manager.ex', line: 194]}, {ApplicationRunner.SessionManager, :handle_info, 2, [file: 'lib/session/session_manager.ex', line: 131]}, {:gen_server, :try_dispatch, 4, [file: 'gen_server.erl', line: 695]}, {:gen_server, :handle_msg, 6, [file: 'gen_server.erl', line: 771]}, {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 226]}]}}
+```
+4. stack bar qui persiste son affichage pour la meme erreur
+5. lors d'un ctrl+c et d'un refresh du devtool, on la la vue d'erreur qui s'affiche et quand on refait un refresh sans rien modifier l'appli fonctionne sans erreur
+![-1](c6.png)
 
 <!-- 
-* passer le tableau data en props pas beoin de refaire un query ???
+À faire :
+* delete viewed de viewed UI
+* delete Interest de Interest UI
+* add Interest to Viewed de Interest UI
+* gestion des séries avec l'overlay
+* nettoyage de la gestion des données avec dictionnaires propres pour chaque elements
+        * pour les consantes
+        * pour les variables qui changent
+        * pour chancun des dictionnaires
  -->

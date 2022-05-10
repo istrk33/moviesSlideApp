@@ -15,12 +15,12 @@ module.exports = (data, props) => {
                 srcButton: props.srcButton,
             }
         },
-        onHovered: {
-            action: "dropdownButtonHoverEvent",
-            props: {
-                srcButton: props.srcButton
-            }
-        },
+        // onHovered: {
+        //     action: "dropdownButtonHoverEvent",
+        //     props: {
+        //         srcButton: props.srcButton
+        //     }
+        // },
         child: {
             type: "container",
             decoration: {

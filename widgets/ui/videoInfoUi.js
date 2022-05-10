@@ -8,10 +8,11 @@
  */
 module.exports = async (data, props) => {
     const functions = require("../../resources/functions");
-    if (data.movieInfoToSee.show != null || data.movieInfoToSee.show != undefined) {
-        var show = data.movieInfoToSee.show;
+    var datas = data[0];
+    if (datas.movieInfoToSee.show != null || datas.movieInfoToSee.show != undefined) {
+        var show = datas.movieInfoToSee.show;
         var title = show.title;
-        var img = "https://api.betaseries.com/pictures/shows?key=" + data.apiKey + "&id=" + data.movieInfoToSee.show.id + "&height=300";
+        var img = "https://api.betaseries.com/pictures/shows?key=" + datas.apiKey + "&id=" + datas.movieInfoToSee.show.id + "&height=300";
         var year = show.creation;
         var platforms = (show.platforms == null) ? [] : show.platforms.svods;
         var director = (show.showrunner == null) ? "Inconnu" : show.showrunner.name;
@@ -19,7 +20,7 @@ module.exports = async (data, props) => {
         var genresArray = Object.values(show.genres);
         var genresArrayStr = genresArray.join('\n');
         var synopsis = show.description;
-        var charactersArray = await functions.getTvShowsCharacters(data.apiKey, show.id);
+        var charactersArray = await functions.getTvShowsCharacters(datas.apiKey, show.id);
         var episodesBySeasons = show.seasons_details.map(x => [x.number, x.episodes * (show.length * 60)]);
         var strArray = [episodesBySeasons.length + " saisons"]
         episodesBySeasons.forEach(element => {
@@ -27,9 +28,9 @@ module.exports = async (data, props) => {
         });
         var currentFilmDurationStr = strArray.join("\n");
     } else {
-        var movie = data.movieInfoToSee.movie;
+        var movie = datas.movieInfoToSee.movie;
         var title = movie.title;
-        var img = "https://api.betaseries.com/pictures/movies?key=" + data.apiKey + "&id=" + movie.id + "&height=300";
+        var img = "https://api.betaseries.com/pictures/movies?key=" + datas.apiKey + "&id=" + movie.id + "&height=300";
         var year = movie.production_year;
         var platforms = movie.platform_links;
         var synopsis = movie.synopsis;
@@ -37,7 +38,7 @@ module.exports = async (data, props) => {
         var director = movie.director;
         var currentFilmDurationStr = functions.computeMovieDuration(movie.length);
         var genresArrayStr = movie.genres.join('\n');
-        var charactersArray = await functions.getCharacters(data.apiKey, movie.id);
+        var charactersArray = await functions.getCharacters(datas.apiKey, movie.id);
     }
     return {
         type: "container",
@@ -54,6 +55,13 @@ module.exports = async (data, props) => {
                     name: "menu",
                     props: {
                         page: "User Viewed"
+                    },
+                    query: {
+                        "$find": {
+                            "_datastore": {
+                                "$eq": "general"
+                            }
+                        }
                     }
                 },
                 {
@@ -132,7 +140,7 @@ module.exports = async (data, props) => {
                                     ...platforms.map(x => {
                                         return {
                                             type: "image",
-                                            src: "https://api.betaseries.com/pictures/platforms?key=" + data.apiKey + "&id=" + x.id + "&height=40&width=40"
+                                            src: "https://api.betaseries.com/pictures/platforms?key=" + datas.apiKey + "&id=" + x.id + "&height=40&width=40"
                                         }
                                     })
                                 ]
@@ -278,7 +286,7 @@ module.exports = async (data, props) => {
                                 query: {
                                     "$find": {
                                         "_datastore": {
-                                            "$eq": "appData"
+                                            "$eq": "general"
                                         }
                                     }
                                 }

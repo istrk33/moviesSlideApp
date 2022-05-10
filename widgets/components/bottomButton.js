@@ -25,12 +25,12 @@ module.exports = (data, props) => {
                         videoType: props.videoType
                     }
                 },
-                onHovered: {
-                    action: "bottomButtonHoverEvent",
-                    props: {
-                        buttonStr: props.buttonStr
-                    }
-                },
+                // onHovered: {
+                //     action: "bottomButtonHoverEvent",
+                //     props: {
+                //         buttonStr: props.buttonStr
+                //     }
+                // },
                 child: {
                     type: "container",
                     decoration: {

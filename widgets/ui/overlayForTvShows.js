@@ -8,7 +8,8 @@
  */
 module.exports = async (data, props) => {
   const functions = require("../../resources/functions");
-  var datas = data[0].general;
+  // var datas = data[0].general;
+  var datas = "data[0].general";
   var numberOfSeasonViewed = Math.floor(datas.overlaySliderValue);
   var numberOfViewedEpisode = 0;
   var numberOfNotViewedEpisode = 0;
@@ -29,7 +30,7 @@ module.exports = async (data, props) => {
   }
   return {
     type: "overlayEntry",
-    showOverlay: dadatasta.overlayState,
+    showOverlay: datas.overlayState,
     child: (datas.overlayState) ? {
       type: "container",
       decoration: {

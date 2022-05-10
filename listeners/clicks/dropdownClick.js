@@ -7,17 +7,23 @@
  * @param {*} event 
  * @returns 
  */
-module.exports = (_props, event, api) => {
+const service = require("../../services/userDataService");
+module.exports = async (_props, event, api) => {
+    var obj = (await service.getGeneral(api)).data.data[0];
+    var id = obj._id;
+    var datas = obj;
     switch (_props.srcButton) {
         case "tempsPerdu":
-            data.menuTimeLabel = "tempsPerdu";
+            datas["menuTimeLabel"] = "tempsPerdu";
             break;
         case "tempsAPerdre":
-            data.menuTimeLabel = "tempsAPerdre";
+            datas["menuTimeLabel"] = "tempsAPerdre";
             break;
         case "tempsEconomise":
-            data.menuTimeLabel = "tempsEconomise";
+            datas["menuTimeLabel"] = "tempsEconomise";
             break;
     }
-    return data
+    return service.put(api, id, datas).then(function (response) {
+        response.data
+    });
 }
