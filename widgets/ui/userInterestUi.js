@@ -26,6 +26,13 @@ module.exports = (data, props) => {
         {
           type: "widget",
           name: "homeWithOverlay",
+          query: {
+            "$find": {
+              "_datastore": {
+                "$eq": "general"
+              }
+            }
+          }
         },
         {
           type: "widget",

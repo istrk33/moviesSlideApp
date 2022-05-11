@@ -9,15 +9,25 @@ const { process_params } = require("express/lib/router");
  * @param {*} event 
  * @returns 
  */
+const service = require("../../services/userDataService");
 module.exports = async (_props, event, api) => {
-    data.overlayState = true;
+    var obj = (await service.getGeneral(api)).data.data[0];
+    var id = obj._id;
+    var datas = obj;
+    datas["overlayState"] = true;
     if (_props.movieId != null || _props.movieId != undefined) {
-        data.tvShowIdToSetupSeasons = String(_props.movieId).substring(8);
+        datas.tvShowIdToSetupSeasons = String(_props.movieId).substring(8);
     }
     if (_props.tvShowUpdate) {
-        data.overlaySliderValue = data.userViewed[_props.movieId][4];
+        datas.overlaySliderValue = datas.userViewed[_props.movieId][4];
     } else {
-        data.overlaySliderValue = 1;
+        datas.overlaySliderValue = 1;
     }
-    return data
+    return service.put(api, id, datas).then(function (response) {
+        response.data
+    });
+    // datas["navigation"] = "home";
+    // data.overlayState = true;
+    // datas["menuTimeLabel"] = "tempsPerdu";
+    // datas["overlaySliderValue"] = 1;
 }

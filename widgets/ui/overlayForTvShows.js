@@ -6,10 +6,14 @@
  * @param {*} props 
  * @returns 
  */
+const functions = require("../../resources/functions");
 module.exports = async (data, props) => {
-  const functions = require("../../resources/functions");
-  // var datas = data[0].general;
-  var datas = "data[0].general";
+  console.log("\n\n\n\n\nOVERLAY TV SHOWS\n\n\n\n\n");
+  if (data[0].element !== undefined || data[0].element != null) {
+    var datas = data[0].element;
+  } else {
+    var datas = data[0];
+  }
   var numberOfSeasonViewed = Math.floor(datas.overlaySliderValue);
   var numberOfViewedEpisode = 0;
   var numberOfNotViewedEpisode = 0;

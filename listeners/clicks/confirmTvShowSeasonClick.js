@@ -7,71 +7,83 @@
  * @param {*} event 
  * @returns 
  */
+const functions = require("../../resources/functions");
+const service = require("../../services/userDataService");
 module.exports = async (_props, event, api) => {
-    const functions = require("../../resources/functions");
+    var obj = (await service.getGeneral(api)).data.data[0];
+    var id = obj._id;
+    var datas = obj;
+    // datas["searchValue"] = "";
+    // datas["navigation"] = "home";
+    // datas["menuTimeLabel"] = "tempsPerdu";
+    // datas["overlaySliderValue"] = 1;
     var tvshowid = _props.movieId;
-    var numberOfSeasons = (await functions.getTvShowDetails(data.apiKey, tvshowid)).show.seasons;
+    var numberOfSeasons = (await functions.getTvShowDetails(datas.apiKey, tvshowid)).show.seasons;
     // if the tv show first season is already watched
-    if (data.userViewed["tvshows_" + tvshowid] != null && data.userInterests["tvshows_" + tvshowid] != null) {
+    if (datas.userViewed["tvshows_" + tvshowid] != null && datas.userInterests["tvshows_" + tvshowid] != null) {
         // if the last season is watched
-        if (data.overlaySliderValue == numberOfSeasons) {
+        if (datas.overlaySliderValue == numberOfSeasons) {
             //adding data in userViewed
-            data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
-            data = addTvShowToViewed(data, _props, tvshowid, [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
+            datas.totalWastedTime -= datas.userViewed["tvshows_" + tvshowid][3];
+            datas = addTvShowToViewed(datas, _props, tvshowid, [datas.userViewed["tvshows_" + tvshowid][0], datas.userViewed["tvshows_" + tvshowid][1]]);
 
             //deleting data from userInterests
-            data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
-            delete data.userInterests["tvshows_" + tvshowid];
+            datas.potentialWasteTime -= datas.userInterests["tvshows_" + tvshowid][3];
+            delete datas.userInterests["tvshows_" + tvshowid];
             // else at most the s-1 season is watched
         } else {
             // adding data in userViewed
-            data.totalWastedTime -= data.userViewed["tvshows_" + tvshowid][3];
-            data = addTvShowToViewed(data, _props, tvshowid, [data.userViewed["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
+            datas.totalWastedTime -= datas.userViewed["tvshows_" + tvshowid][3];
+            datas = addTvShowToViewed(datas, _props, tvshowid, [datas.userViewed["tvshows_" + tvshowid][0], datas.userViewed["tvshows_" + tvshowid][1]]);
 
             // adding data in userInterests
-            data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
-            data = addTvShowToInterests(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]])
+            datas.potentialWasteTime -= datas.userInterests["tvshows_" + tvshowid][3];
+            datas = addTvShowToInterests(datas, _props, tvshowid, [datas.userInterests["tvshows_" + tvshowid][0], datas.userInterests["tvshows_" + tvshowid][1]])
         }
         // data.navigation = "userInterest";
         // if the tv show is never watched
     } else {
         // if the last season is watched
-        if (data.overlaySliderValue == numberOfSeasons) {
+        if (datas.overlaySliderValue == numberOfSeasons) {
             //  if we come from the current tvshow in homeUi
-            if (data.listOfUndiscoveredMovies["tvshows_" + tvshowid] != null) {
-                data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+            if (datas.listOfUndiscoveredMovies["tvshows_" + tvshowid] != null) {
+                datas = addTvShowToViewed(datas, _props, tvshowid, [...datas.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
                 // tv show only in userInterests
-            } else if (data.userViewed["tvshows_" + tvshowid] == null) {
-                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]]);
-                data.potentialWasteTime -= data.userInterests["tvshows_" + tvshowid][3];
-                delete data.userInterests["tvshows_" + tvshowid];
+            } else if (datas.userViewed["tvshows_" + tvshowid] == null) {
+                datas = addTvShowToViewed(datas, _props, tvshowid, [datas.userInterests["tvshows_" + tvshowid][0], datas.userInterests["tvshows_" + tvshowid][1]]);
+                datas.potentialWasteTime -= datas.userInterests["tvshows_" + tvshowid][3];
+                delete datas.userInterests["tvshows_" + tvshowid];
             } else {
-                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
+                datas = addTvShowToViewed(datas, _props, tvshowid, [datas.userInterests["tvshows_" + tvshowid][0], datas.userViewed["tvshows_" + tvshowid][1]]);
             }
             //at most the s-1 season is watched
         } else {
             //  if we come from the current tvshow in homeUi
-            if (data.listOfUndiscoveredMovies["tvshows_" + tvshowid] != null) {
+            if (datas.listOfUndiscoveredMovies["tvshows_" + tvshowid] != null) {
                 // updating userViewed and userInterrest
-                data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
-                data = addTvShowToInterests(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+                datas = addTvShowToViewed(datas, _props, tvshowid, [...datas.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
+                datas = addTvShowToInterests(datas, _props, tvshowid, [...datas.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
                 // tv show only in userInterests
-            } else if (data.userViewed["tvshows_" + tvshowid] == null) {
-                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]]);
-                data = addTvShowToInterests(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userInterests["tvshows_" + tvshowid][1]]);
+            } else if (datas.userViewed["tvshows_" + tvshowid] == null) {
+                datas = addTvShowToViewed(datas, _props, tvshowid, [datas.userInterests["tvshows_" + tvshowid][0], datas.userInterests["tvshows_" + tvshowid][1]]);
+                datas = addTvShowToInterests(datas, _props, tvshowid, [datas.userInterests["tvshows_" + tvshowid][0], datas.userInterests["tvshows_" + tvshowid][1]]);
             }
             else {
-                data = addTvShowToViewed(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
-                data = addTvShowToInterests(data, _props, tvshowid, [data.userInterests["tvshows_" + tvshowid][0], data.userViewed["tvshows_" + tvshowid][1]]);
+                datas = addTvShowToViewed(datas, _props, tvshowid, [datas.userInterests["tvshows_" + tvshowid][0], datas.userViewed["tvshows_" + tvshowid][1]]);
+                datas = addTvShowToInterests(datas, _props, tvshowid, [datas.userInterests["tvshows_" + tvshowid][0], datas.userViewed["tvshows_" + tvshowid][1]]);
             }
             // data = addTvShowToViewed(data, _props, tvshowid, [...data.listOfUndiscoveredMovies["tvshows_" + tvshowid]]);
         }
-        data = (await functions.updateCurrent(data, "tvshows_" + tvshowid));
+        datas = (await functions.updateCurrent(datas, "tvshows_" + tvshowid));
         // data.navigation = "home";
     }
-    data.overlayState = false;
-    data.overlaySliderValue = 1;
-    return data
+    datas["overlayState"] = false;
+    datas["overlaySliderValue"] = 1;
+    // return data
+    return service.put(api, id, datas).then(function (response) {
+        response.data
+    });
+
 }
 
 /**

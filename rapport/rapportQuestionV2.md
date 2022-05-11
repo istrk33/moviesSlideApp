@@ -83,10 +83,10 @@ Last message: {:EXIT, #PID<0.3568.0>, {{:case_clause, {:error, "Application erro
 
 <!-- 
 À faire :
-* delete viewed de viewed UI
-* delete Interest de Interest UI
-* add Interest to Viewed de Interest UI
+                                        * delete viewed de viewed UI
+                                        * delete Interest de Interest UI
 * gestion des séries avec l'overlay
+* add Interest to Viewed de Interest UI
 * nettoyage de la gestion des données avec dictionnaires propres pour chaque elements
         * pour les consantes
         * pour les variables qui changent

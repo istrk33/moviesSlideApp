@@ -7,8 +7,8 @@
  * @param {*} event 
  * @returns 
  */
- const service = require("../../services/userDataService");
-module.exports = async(_props, event, api) => {
+const service = require("../../services/userDataService");
+module.exports = async (_props, event, api) => {
     // data.menuHoverButton1Color=[data.black,data.white];
     // data.menuHoverButton2Color=[data.black,data.white];
     var obj = (await service.getGeneral(api)).data.data[0];
