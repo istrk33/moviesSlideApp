@@ -70,9 +70,13 @@ function getCurrentPage(data) {
  * @returns 
  */
 module.exports = async (data, _props) => {
+  console.log("APP APP APP APP APP APP");
+  console.log(data);
   if (data[0].element !== undefined || data[0].element != null) {
-    return getCurrentPage(data[0].element);
+    var page = getCurrentPage(data[0].element);
   } else {
-    return getCurrentPage(data[0]);
+    var page = getCurrentPage(data[0])
   }
+  console.log("APP FIN APP FIN APP FIN");
+  return page;
 }

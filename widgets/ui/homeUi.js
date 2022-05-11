@@ -6,8 +6,9 @@
  * @param {*} props 
  * @returns 
  */
+const functions = require("../../resources/functions");
 module.exports = (data, props) => {
-  const functions = require("../../resources/functions");
+console.log("HOME UI TESTTESTESTESTESTESTESTESTESTEST");
   if (data[0].element !== undefined || data[0].element != null) {
     var datas = data[0].element;
   } else {

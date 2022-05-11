@@ -10,12 +10,11 @@ module.exports = {
     put(api, id, element) {
         return axios.put(`${api.url}/app/datastores/general/data/${id}`, element, { headers: { Authorization: `Bearer ${api.token}` } });
     },
-    new(api, element) {
-        return axios.post(`${api.url}/app/datastores/general/data`, {element }, { headers: { Authorization: `Bearer ${api.token}` } });
+    new(api, data) {
+        return axios.post(`${api.url}/app/datastores/general/data`, { element: data }, { headers: { Authorization: `Bearer ${api.token}` } });
     },
     delete(api, elementId) {
         return axios.delete(`${api.url}/app/datastores/general/data/${elementId}`, { headers: { Authorization: `Bearer ${api.token}` } });
-
     },
     createDatastore(api) {
         return axios.post(`${api.url}/app/datastores`, { "name": "general" }, { headers: { Authorization: `Bearer ${api.token}` } });

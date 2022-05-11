@@ -4,6 +4,7 @@ const service = require("../../services/userDataService");
 const functions = require("../../resources/functions");
 
 module.exports = async(props, event, api) => {
+
     const bottomButtonsColors = [[0xFF72BD28, 0xFFCEEFAE], [0xFFBD7228, 0xFFE3A482], [0xFFBD2828, 0xFFD86E6E]];
     const dropDownDefaultButtonColor = 0xFF1E232C;
     const white = 0xFFFFFFFF;
@@ -65,6 +66,7 @@ module.exports = async(props, event, api) => {
         userNotViewed,
         userViewed
     }
+    console.log("ON USER FIRST JOIN");
     return service.new(api, dict).then(function (response) {
         response.data
     });
