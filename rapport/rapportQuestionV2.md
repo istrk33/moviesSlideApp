@@ -83,12 +83,21 @@ Last message: {:EXIT, #PID<0.3568.0>, {{:case_clause, {:error, "Application erro
 
 <!-- 
 À faire :
-                                        * delete viewed de viewed UI
-                                        * delete Interest de Interest UI
-* gestion des séries avec l'overlay
-* add Interest to Viewed de Interest UI
 * nettoyage de la gestion des données avec dictionnaires propres pour chaque elements
         * pour les consantes
         * pour les variables qui changent
         * pour chancun des dictionnaires
+
+
+        -> bug quand la premiere video est une serie(gere ce bug)
+*gestion des données :
+-> pour les listes de films :
+            -> undiscovered => un ajout par film requetes
+            -> viewed => un ajout par film requetes
+            -> interests => un ajout par film requetes
+            -> peut etre not  viewed => un ajout par film requetes
+-> pour les variables et constantes de l'appli => une requete pour récupérer toutes les valeurs
+-> mettre à jour les query
+-> mettre à jour les requetes dans les listeners
+
  -->
