@@ -16,7 +16,7 @@ module.exports = (props, event, api) => {
     service.createDatastore(api, "userViewed").then(function (response) {
         response.data
     }).catch((e => { list.push(e) }));
-    
+
     // ???? pas sur de garder cette donnée
     service.createDatastore(api, "userNotViewed").then(function (response) {
         response.data
@@ -29,6 +29,6 @@ module.exports = (props, event, api) => {
     service.createDatastore(api, "vars").then(function (response) {
         response.data
     }).catch((e => { list.push(e) }));
-
+    console.log("\n\n\n\nDATASTORES CREATED\n\n\n");
     return list;
 }

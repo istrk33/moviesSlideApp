@@ -8,9 +8,10 @@
  */
 const functions = require("../../resources/functions");
 module.exports = (data, props) => {
-console.log("HOME UI TESTTESTESTESTESTESTESTESTESTEST");
-  if (data[0].element !== undefined || data[0].element != null) {
-    var datas = data[0].element;
+  console.log("HOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEE UI");
+  console.log(data);
+  if (data[0].data !== undefined || data[0].data != null) {
+    var datas = data[0].data;
   } else {
     var datas = data[0];
   }

@@ -9,13 +9,15 @@ const axios = require('axios')
  */
 module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, start) {
   var url = "https://api.betaseries.com/movies/discover?key=" + apiKey + "&type=popular&offset=" + start + "&limit=5";
-  var listOfMovies = ((await axios.get(url, { crossdomain: true },
+  var listOfMovies = (((await axios.get(url, { crossdomain: true },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
       }
     }
-  )).data).movies;
+  ).catch((e => {
+    console.log(e);
+  }))).data).movies);
   return listOfMovies;
 }
 
@@ -28,13 +30,15 @@ module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, st
 module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, start) {
   // var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=popularity&start=" + start + "&limit=5";
   var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=followers&start=" + start + "&limit=5";
-  var listOfTvShows = ((await axios.get(url, { crossdomain: true },
+  var listOfTvShows = (((await axios.get(url, { crossdomain: true },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
       }
     }
-  )).data).shows;
+  ).catch((e => {
+    console.log( e);
+  }))).data).shows);
   return listOfTvShows;
 }
 
@@ -53,7 +57,9 @@ module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
         'Access-Control-Allow-Origin': '*',
       }
     }
-  )).data);
+  ).catch((e => {
+    console.log( e);
+  }))).data);
   return movieDetail;
 }
 
@@ -66,13 +72,16 @@ module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
 module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
   // https://api.betaseries.com/shows/display?key=941cc48f228b&id=22592
   var url = "https://api.betaseries.com/shows/display?key=" + apiKey + "&id=" + id;
+  console.log(url);
   var tvShowDetail = ((await axios.get(url, { crossdomain: true },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
       }
     }
-  )).data);
+  ).catch((e => {
+    console.log(e);
+  }))));
   return tvShowDetail;
 }
 
@@ -90,7 +99,9 @@ module.exports.getCharacters = async function getCharacters(apiKey, id) {
         'Access-Control-Allow-Origin': '*',
       }
     }
-  )).data);
+  ).catch((e => {
+    console.log("ERROR " + e);
+  }))).data);
   return movieCharacters.characters;
 }
 
@@ -108,7 +119,9 @@ module.exports.getTvShowsCharacters = async function getTvShowsCharacters(apiKey
         'Access-Control-Allow-Origin': '*',
       }
     }
-  )).data);
+  ).catch((e => {
+    console.log("ERROR " + e);
+  }))).data)
   return tvShowsCharacters.characters;
 }
 

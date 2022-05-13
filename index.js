@@ -17,6 +17,7 @@ module.exports = () => {
       userInterest: require('./widgets/ui/userInterestUi'),
       userViewed: require('./widgets/ui/userViewedUi'),
       movieInfo: require('./widgets/ui/videoInfoUi'),
+      firstJoin: require('./widgets/ui/firstJoinUi'),
       
       // widgets
       menu: require('./widgets/components/menu'),
@@ -45,7 +46,8 @@ module.exports = () => {
       viewedMovieButton: require('./listeners/clicks/movieInterestToViewedClick'),
       showOverlaySeason: require('./listeners/clicks/viewedTvShowClick'),
       addTvShowSeason: require('./listeners/clicks/confirmTvShowSeasonClick'),
-      hideOverlay: require('./listeners/clicks/hideOverlay'),
+      hideOverlay: require('./listeners/clicks/hideOverlayClick'),
+      firstJoinClick: require('./listeners/clicks/firstJoinClick'),
       
       // hovers
       bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHover'),
