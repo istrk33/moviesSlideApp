@@ -8,13 +8,8 @@
  */
 const functions = require("../../resources/functions");
 module.exports = (data, props) => {
-  console.log("HOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEE UI");
   console.log(data);
-  if (data[0].data !== undefined || data[0].data != null) {
-    var datas = data[0].data;
-  } else {
-    var datas = data[0];
-  }
+  var datas = data[0].data;
   if (datas.currentMovieInfo.show != null) {
     datas.tvShowToSetupSeasons = datas.currentMovieInfo.show;
     var numberOfSeason = datas.currentMovieInfo.show.seasons;
@@ -53,7 +48,7 @@ module.exports = (data, props) => {
           query: {
             "$find": {
               "_datastore": {
-                "$eq": "general"
+                "$eq": "vars"
               }
             }
           }
@@ -67,7 +62,7 @@ module.exports = (data, props) => {
           query: {
             "$find": {
               "_datastore": {
-                "$eq": "general"
+                "$eq": "vars"
               }
             }
           }

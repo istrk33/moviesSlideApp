@@ -22,13 +22,15 @@ module.exports = (props, event, api) => {
         response.data
     }).catch((e => { list.push(e) }));
 
-    service.createDatastore(api, "consts").then(function (response) {
-        response.data
-    }).catch((e => { list.push(e) }));
+    // service.createDatastore(api, "consts").then(function (response) {
+    //     response.data
+    // }).catch((e => { list.push(e) }));
 
+    console.log("creating vars");
     service.createDatastore(api, "vars").then(function (response) {
         response.data
     }).catch((e => { list.push(e) }));
+    console.log("created vars");
     console.log("\n\n\n\nDATASTORES CREATED\n\n\n");
     return list;
 }

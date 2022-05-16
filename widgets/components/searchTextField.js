@@ -7,16 +7,14 @@
  * @returns 
  */
 module.exports = (data, props) => {
-    if (data[0].element !== undefined || data[0].element != null) {
-        var datas = data[0].element;
-      } else {
-        var datas = data[0];
-      }
+    var datas = data[0].data;
+    console.log(datas);
+    console.log("SIUUUUUUUUUUUUU");
     return {
         type: "container",
         padding: {
             bottom: 1,
-            left:3 ,
+            left: 3,
             right: 3,
         },
         // constraints:{

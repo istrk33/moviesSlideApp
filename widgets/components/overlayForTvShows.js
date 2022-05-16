@@ -9,8 +9,8 @@
 const functions = require("../../resources/functions");
 module.exports = async (data, props) => {
   console.log("\n\n\n\n\nOVERLAY TV SHOWS\n\n\n\n\n");
-  if (data[0].element !== undefined || data[0].element != null) {
-    var datas = data[0].element;
+  if (data[0].data !== undefined || data[0].data != null) {
+    var datas = data[0].data;
   } else {
     var datas = data[0];
   }

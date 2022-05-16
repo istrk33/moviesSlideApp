@@ -6,79 +6,64 @@ const functions = require("../../resources/functions");
 module.exports = async (props, event, api) => {
     var list = [];
     console.log("ON USER FIRST JOIN");
-    //adding data into general data datastore
-    // var dict = {
-    //     navigation: "home",
-    //     menuHoverButton1Color: [black, white],
-    //     menuHoverButton2Color: [black, white],
-    //     bottomButton1Color: [bottomButtonsColors[0][0], white],
-    //     bottomButton2Color: [bottomButtonsColors[1][0], white],
-    //     bottomButton3Color: [bottomButtonsColors[2][0], white],
-    //     dropDownButton1Color: [dropDownDefaultButtonColor, white],
-    //     dropDownButton2Color: [dropDownDefaultButtonColor, white],
-    //     dropDownButton3Color: [dropDownDefaultButtonColor, white],
+    var listOfUndiscoveredMovies = {};
+    var movieInfoToSee = null;
+    var start = 0;
 
+    // boucle for pour ajouter chacune des séries films depuis l'api de films vers l'api de données lenra
+    (await functions.queryPopularMovies("941cc48f228b", start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+    // (await functions.queryPopularTvShows("941cc48f228b", start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = ["tvshows_" + element.id, element.title]);
 
-    //     movieInfoButtonColor: [0xF4212121, white],
-    //     totalWastedTime: 0,
-    //     totalSavedTime: 0,
-    //     potentialWasteTime: 0,
-    //     menuTimeLabel: "tempsPerdu",
-    //     searchValue: "",
-    //     tvShowIdToSetupSeasons: -1,
-    //     currentTvShowViewedSeasons: 1,
-    //     overlaySliderValue: 1,
-    //     start,
-    //     overlayState: false,
-    //     currentMovieInfo,
-    //     movieInfoToSee,
-    //     keys,
-    //     currentId,
-    //     listOfUndiscoveredMovies,
-    //     userInterests,
-    //     userNotViewed,
-    //     userViewed
-    // }
+    var mixedArray = Object.values(listOfUndiscoveredMovies).sort((a, b) => 0.5 - Math.random());
+    await Promise.all(mixedArray.map((element) => {
+        return service.new(api, "listOfUndiscoveredMovies", element[0], element[1]).then(function (response) {
+            response.data;
+        }).catch((e => {
+            list.push(e);
+            console.log("ERROR " + e);
+        }));
+    }
+    ));
+    start += 5;
 
-    //consts
-    var consts = {
+    var listOfUndiscoveredMoviesFromApi = (await service.getDatastore(api, "listOfUndiscoveredMovies"));
+    var currentId = listOfUndiscoveredMoviesFromApi.data.data[0].data;
+    var currentMovieInfo = (String(currentId).includes("tvshows_")) ? (await functions.getTvShowDetails("941cc48f228b", String(currentId).substring(8))) : (await functions.getMovieDetails("941cc48f228b", currentId));
+    var variables = {
         apiKey: "941cc48f228b",
+        totalWastedTime: 0,
+        totalSavedTime: 0,
+        potentialWasteTime: 0,
+        menuTimeLabel: "tempsPerdu",
+        searchValue: "",
+        tvShowIdToSetupSeasons: -1,
+        currentTvShowViewedSeasons: 1,
+        overlaySliderValue: 1,
+        start: start,
+        overlayState: false,
+        currentMovieInfo: currentMovieInfo.data,
+        movieInfoToSee: movieInfoToSee,
+        currentId: currentId,
+        movieInfoButtonColor: [0xF4212121, 0xFFFFFFFF],
         bottomButtonsColors: [[0xFF72BD28, 0xFFCEEFAE], [0xFFBD7228, 0xFFE3A482], [0xFFBD2828, 0xFFD86E6E]],
         dropDownDefaultButtonColor: 0xFF1E232C,
         white: 0xFFFFFFFF,
         black: 0xFF000000,
         darkbg: 0xFF212121,
         hoverMenuButtonColor: 0xFFB5B5B5,
-        navigation: "firstJoin"
+        menuHoverButton1Color: [0xFF000000, 0xFFFFFFFF],
+        menuHoverButton2Color: [0xFF000000, 0xFFFFFFFF],
+        bottomButton1Color: [0xFF72BD28, 0xFFFFFFFF],
+        bottomButton2Color: [0xFFBD7228, 0xFFFFFFFF],
+        bottomButton3Color: [0xFFBD2828, 0xFFFFFFFF],
+        dropDownButton1Color: [0xFF1E232C, 0xFFFFFFFF],
+        dropDownButton2Color: [0xFF1E232C, 0xFFFFFFFF],
+        dropDownButton3Color: [0xFF1E232C, 0xFFFFFFFF],
+        navigation: "home"
     }
-    service.new(api, "consts", "dict", consts).then(function (response) {
+    await service.new(api, "vars", variables).then(function (response) {
         response.data
-    }).catch((e => { list.push(e) }));
-    // datastore pour variables
-    // var listOfUndiscoveredMovies = {};
-    // var movieInfoToSee = null;
-    // var start = 0;
-
-    // console.log("BEFORE QUERIES");
-    // // boucle for pour ajouter chacune des séries films depuis l'api de films vers l'api de données lenra
-    // (await functions.queryPopularMovies(apiKey, start)).forEach((element) => service.new(api, "listOfUndiscoveredMovies", element.id, element.title).then(function (response) {
-    //     response.data
-    // }).catch((e => { list.push(e) })));
-    // console.log("AFTER 1 QUERIES");
-    // // boucle for pour ajouter chacune des séries films depuis l'api de films vers l'api de données lenra
-    // (await functions.queryPopularMovies(apiKey, start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
-    // (await functions.queryPopularTvShows(apiKey, start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
-    // start += 5;
-    // console.log("AFTER QUERIES");
-    // // getting random id from the dictionnary and let it current movie/tvshow
-    // var keys = Object.keys(listOfUndiscoveredMovies);
-    // var currentId = keys[keys.length * Math.random() << 0];
-    // var currentMovie = listOfUndiscoveredMovies[currentId];
-    // var currentMovieInfo = (currentId.includes("tvshows_")) ? (await functions.getTvShowDetails(apiKey, currentMovie[0])) : (await functions.getMovieDetails(apiKey, currentMovie[0]));
-
-    //pas de requetes sur user viewed
-    //pas de requetes sur user insterests
-    //requete du tableau de variable comme pour les constantes
+    }).catch((e => { console.log(e); }));
 
     console.log("\n\n\n\nINITIAL DATA ADDED\n\n\n");
     return list;

@@ -10,25 +10,27 @@
 const functions = require("../../resources/functions");
 const service = require("../../services/userDataService");
 module.exports = async (_props, event, api) => {
-    var obj = (await service.getGeneral(api)).data.data[0];
-    var id = obj._id;
-    if (obj.element !== undefined || obj.element != null) {
-        var datas = obj.element;
-    } else {
-        var datas = obj;
-    }
-    datas["searchValue"] = "";
-    datas["navigation"] = "movieInfo";
+    var vars = (await service.getDatastore(api, "vars")).data.data[0];
+    var id = vars._id;
+    var varsData = vars.data;
+    varsData.searchValue = "";
+    varsData.navigation = "movieInfo";
     if (_props.from == "home") {
-        datas["movieInfoToSee"] = datas["currentMovieInfo"];
+        varsData.movieInfoToSee = varsData.currentMovieInfo;
     } else {
         if (String(_props.movieId).includes("tvshows")) {
-            datas["movieInfoToSee"] = (await functions.getTvShowDetails(datas["apiKey"], String(_props.movieId).substring(8)));
+            varsData.movieInfoToSee = (await functions.getTvShowDetails(varsData.apiKey, String(_props.movieId).substring(8)));
         } else {
-            datas["movieInfoToSee"] = (await functions.getMovieDetails(datas["apiKey"], _props.movieId));
+            varsData.movieInfoToSee = (await functions.getMovieDetails(varsData.apiKey, _props.movieId));
         }
     }
-    return service.put(api, id, datas).then(function (response) {
+    // return await service.put(api, "vars", id, varsData).then(function (response) {
+    //     response.data
+    // });
+    var s = await service.put(api, "vars", id, { data: varsData }).then(function (response) {
         response.data
     });
+    var t = (await service.getDatastore(api, "vars")).data;
+    console.log(t);
+    return s;
 }

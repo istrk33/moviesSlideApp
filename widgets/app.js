@@ -5,8 +5,8 @@
  * @param {*} data 
  * @returns 
  */
-function getCurrentPage(data) {
-  switch (data.data.navigation) {
+function getCurrentPage(navigation) {
+  switch (navigation) {
     case "home":
       return {
         type: "widget",
@@ -26,15 +26,10 @@ function getCurrentPage(data) {
         query: {
           "$find": {
             "_datastore": {
-              "$eq": "general"
+              "$eq": "vars"
             }
           }
         }
-      };
-    case "firstJoin":
-      return {
-        type: "widget",
-        name: "firstJoin",
       };
     case "userViewed":
       return {
@@ -55,7 +50,7 @@ function getCurrentPage(data) {
         query: {
           "$find": {
             "_datastore": {
-              "$eq": "general"
+              "$eq": "vars"
             }
           }
         }
@@ -75,6 +70,9 @@ function getCurrentPage(data) {
  * @returns 
  */
 module.exports = async (data, _props) => {
-  var page = getCurrentPage(data[0]);
+  console.log("SIUUUUUUUUUUUUUU");
+  console.log(data);
+  var page = (data[0].data != null || data[0].data !== undefined) ? getCurrentPage(data[0].data.navigation) : getCurrentPage(data[0].navigation);
+  console.log(page);
   return page;
 }

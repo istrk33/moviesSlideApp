@@ -6,9 +6,9 @@
  * @param {*} props 
  * @returns 
  */
+const functions = require("../../resources/functions");
 module.exports = async (data, props) => {
-    const functions = require("../../resources/functions");
-    var datas = data[0];
+    var datas = data[0].data;
     if (datas.movieInfoToSee.show != null || datas.movieInfoToSee.show != undefined) {
         var show = datas.movieInfoToSee.show;
         var title = show.title;
@@ -59,7 +59,7 @@ module.exports = async (data, props) => {
                     query: {
                         "$find": {
                             "_datastore": {
-                                "$eq": "general"
+                                "$eq": "vars"
                             }
                         }
                     }

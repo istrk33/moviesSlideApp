@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * hiding overlay
+ * hiding overlay                                                                                                           
  * @param {*} data 
  * @param {*} _props 
  * @param {*} event 

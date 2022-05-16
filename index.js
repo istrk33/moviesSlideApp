@@ -10,16 +10,15 @@ module.exports = () => {
       // main
       app: require('./widgets/app'),
       main: require('./widgets/main'),
-      
+
       // uis
       home: require('./widgets/ui/homeUi'),
-      homeWithOverlay: require('./widgets/ui/overlayForTvShows'),
       userInterest: require('./widgets/ui/userInterestUi'),
       userViewed: require('./widgets/ui/userViewedUi'),
       movieInfo: require('./widgets/ui/videoInfoUi'),
-      firstJoin: require('./widgets/ui/firstJoinUi'),
-      
+
       // widgets
+      homeWithOverlay: require('./widgets/components/overlayForTvShows'),
       menu: require('./widgets/components/menu'),
       charactersGrid: require('./widgets/components/videoInfoGrid'),
       bottomButton: require('./widgets/components/bottomButton'),
@@ -28,6 +27,8 @@ module.exports = () => {
       dropdownMenuButton: require('./widgets/components/dropMenuButton'),
       listButton: require('./widgets/components/listsButton'),
       textfield: require('./widgets/components/searchTextField'),
+      viewedListWidget: require('./widgets/components/widgetOfViewedList'),
+      interestListWidget: require('./widgets/components/widgetOfInterestsList'),
     },
     listeners: {
       // init
@@ -47,8 +48,7 @@ module.exports = () => {
       showOverlaySeason: require('./listeners/clicks/viewedTvShowClick'),
       addTvShowSeason: require('./listeners/clicks/confirmTvShowSeasonClick'),
       hideOverlay: require('./listeners/clicks/hideOverlayClick'),
-      firstJoinClick: require('./listeners/clicks/firstJoinClick'),
-      
+
       // hovers
       bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHover'),
       menuButtonHoverEvent: require('./listeners/hovers/menuButtonHover'),
@@ -58,7 +58,7 @@ module.exports = () => {
 
       //slider
       sliderValueChanged: require('./listeners/slider/numberOfSeasonChanged'),
-      
+
       //textfield
       searchTextChanged: require('./listeners/textFields/searchTextChanged'),
     },

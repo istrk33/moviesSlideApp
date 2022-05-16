@@ -1,5 +1,6 @@
 'use strict'
 
+const functions = require("../../resources/functions");
 /**
  * the menu that is displayed on the top
  * @param {*} data 
@@ -7,12 +8,7 @@
  * @returns 
  */
 module.exports = (data, props) => {
-  const functions = require("../../resources/functions");
-  if (data[0].element !== undefined || data[0].element != null) {
-    var datas = data[0].element;
-  } else {
-    var datas = data[0];
-  }
+  var datas = data[0].data;
   var uiName1 = "";
   var icon1 = "";
   var uiName2 = "";

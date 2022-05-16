@@ -5,7 +5,7 @@ module.exports = function (data, props) {
         query: {
             "$find": {
                 "_datastore": {
-                    "$eq": "consts"
+                    "$eq": "vars"
                 }
             }
         }
