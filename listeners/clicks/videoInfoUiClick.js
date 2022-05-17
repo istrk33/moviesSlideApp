@@ -30,7 +30,5 @@ module.exports = async (_props, event, api) => {
     var s = await service.put(api, "vars", id, { data: varsData }).then(function (response) {
         response.data
     });
-    var t = (await service.getDatastore(api, "vars")).data;
-    console.log(t);
     return s;
 }

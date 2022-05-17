@@ -1,6 +1,7 @@
 "use strict";
 const axios = require('axios')
-
+const service = require("../services/userDataService");
+const functions = require("../resources/functions");
 /**
  * requesting popular movies from an api
  * @param {key to get value from the } apiKey 
@@ -37,7 +38,7 @@ module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, 
       }
     }
   ).catch((e => {
-    console.log( e);
+    console.log(e);
   }))).data).shows);
   return listOfTvShows;
 }
@@ -51,15 +52,18 @@ module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, 
 module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
   // https://api.betaseries.com/movies/movie
   var url = "https://api.betaseries.com/movies/movie?key=" + apiKey + "&id=" + id;
-  var movieDetail = ((await axios.get(url, { crossdomain: true },
+  console.log("GET MOVIE DETAILS");
+  console.log(url);
+  var movieDetail = (await axios.get(url, { crossdomain: true },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
       }
     }
   ).catch((e => {
-    console.log( e);
-  }))).data);
+    console.log(e);
+  }))).data;
+
   return movieDetail;
 }
 
@@ -72,7 +76,6 @@ module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
 module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
   // https://api.betaseries.com/shows/display?key=941cc48f228b&id=22592
   var url = "https://api.betaseries.com/shows/display?key=" + apiKey + "&id=" + id;
-  console.log(url);
   var tvShowDetail = ((await axios.get(url, { crossdomain: true },
     {
       headers: {
@@ -82,7 +85,7 @@ module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
   ).catch((e => {
     console.log(e);
   }))));
-  return tvShowDetail;
+  return tvShowDetail.data;
 }
 
 /**
@@ -184,15 +187,25 @@ module.exports.getStars = function getStars(video) {
  * @param {id of the video to erase from the main list} videoId
  * @returns data
  */
-module.exports.updateCurrent = async function updateCurrent(data, videoId) {
-  delete data.listOfUndiscoveredMovies[videoId];
-  data.keys = Object.keys(data.listOfUndiscoveredMovies);
-  data.currentId = data.keys[data.keys.length * Math.random() << 0];
-  var currentMovie = data.listOfUndiscoveredMovies[data.currentId][0];
-  data.currentMovieInfo = (data.currentId.includes("tvshows_")) ? (await module.exports.getTvShowDetails(data.apiKey, currentMovie)) : (await module.exports.getMovieDetails(data.apiKey, currentMovie));
-  if (data.keys.length <= 2) {
-    (await module.exports.queryPopularMovies(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
-    (await module.exports.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => data.listOfUndiscoveredMovies["tvshows_" + element.id] = [element.id, element.title]);
+module.exports.updateCurrent = async function updateCurrent(data, api) {
+  var listOfUndiscoveredMoviesFromApi = (await service.getDatastore(api, "listOfUndiscoveredMovies"));
+  var listLength = listOfUndiscoveredMoviesFromApi.data.data.length;
+  data.currentId = listOfUndiscoveredMoviesFromApi.data.data[0].data[0];
+  data.currentMovieInfo = (String(data.currentId).includes("tvshows_")) ? (await functions.getTvShowDetails(data.apiKey, String(data.currentId).substring(8))) : (await functions.getMovieDetails(data.apiKey, data.currentId));
+  if (listLength <= 2) {
+    var listOfUndiscoveredMovies = {};
+    // (await module.exports.queryPopularMovies(data.apiKey, data.start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+    (await module.exports.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = ["tvshows_" + element.id, element.title]);
+    var mixedArray = Object.values(listOfUndiscoveredMovies).sort((a, b) => 0.5 - Math.random());
+    await Promise.all(mixedArray.map((element) => {
+      return service.new(api, "listOfUndiscoveredMovies", [element[0], element[1]]).then(function (response) {
+        response.data;
+      }).catch((e => {
+        list.push(e);
+        console.log(e);
+      }));
+    }
+    ));
     data.start += 5;
   }
   return data;

@@ -8,7 +8,6 @@
  */
 const functions = require("../../resources/functions");
 module.exports = (data, props) => {
-  console.log(data);
   var datas = data[0].data;
   if (datas.currentMovieInfo.show != null) {
     datas.tvShowToSetupSeasons = datas.currentMovieInfo.show;

@@ -8,8 +8,6 @@
  */
 module.exports = (data, props) => {
     var datas = data[0].data;
-    console.log(datas);
-    console.log("SIUUUUUUUUUUUUU");
     return {
         type: "container",
         padding: {

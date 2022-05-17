@@ -7,7 +7,6 @@
  * @returns 
  */
 module.exports = (data, props) => {
-    console.log(data);
     // var arr = Object.values(datas.userInterests);
     var arr = data;
     return {

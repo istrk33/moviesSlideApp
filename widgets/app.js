@@ -70,9 +70,6 @@ function getCurrentPage(navigation) {
  * @returns 
  */
 module.exports = async (data, _props) => {
-  console.log("SIUUUUUUUUUUUUUU");
-  console.log(data);
   var page = (data[0].data != null || data[0].data !== undefined) ? getCurrentPage(data[0].data.navigation) : getCurrentPage(data[0].navigation);
-  console.log(page);
   return page;
 }

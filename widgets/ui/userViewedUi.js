@@ -7,9 +7,6 @@
  * @returns 
  */
 module.exports = (data, props) => {
-  console.log("SIUUUUUUUU VIEWED SUIIII");
-  console.log(data);
-
   var datas = data[0].data;
   return {
     type: "container",

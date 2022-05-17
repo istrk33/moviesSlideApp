@@ -10,11 +10,13 @@ module.exports = {
     // delete(api, elementId) {
     //     return axios.delete(`${api.url}/app/datastores/general/data/${elementId}`, { headers: { Authorization: `Bearer ${api.token}` } });
     // },
-    deleteFromListOfUndiscovered(api, movieId) {
-        return axios.delete(`${api.url}/app/datastores/listOfUndiscoveredMovies/data/${elementId}`, { headers: { Authorization: `Bearer ${api.token}` } });
+    deleteFromDatastore(api, elementId,datastoreName) {
+        return axios.delete(`${api.url}/app/datastores/${datastoreName}/data/${elementId}`, { headers: { Authorization: `Bearer ${api.token}` } });
     },
-    getIdOfUndiscoveredDataByMovieId(api, movieId) {
-        return axios.post(`${api.url}/app/query`, { "$find": { "_datastore": "listOfUndiscoveredMovies", "data": movieId } }, { headers: { Authorization: `Bearer ${api.token}` } }).catch((e => {
+    getIdOfMovieDataByMovieId(api, movieId,datastoreName) {
+        return axios.post(`${api.url}/app/query`, { "$find": { "_datastore": datastoreName, "data.0":  movieId } }, { headers: { Authorization: `Bearer ${api.token}` } }).then((response) => {
+            return response.data.data[0]
+        }).catch((e => {
             console.log("ERROR ");
             console.log(e);
         }));
