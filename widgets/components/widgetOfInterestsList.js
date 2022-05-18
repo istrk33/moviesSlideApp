@@ -8,7 +8,11 @@
  */
 module.exports = (data, props) => {
     // var arr = Object.values(datas.userInterests);
-    var arr = data;
+    console.log("SIUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+    console.log(data);
+    var arr = data.map(function (e) {
+        return [e.data[0], e.data[1], e.data[2], e.data[3]];
+    });
     return {
         ...arr.sort(function (a, b) {
             if (a[1] < b[1]) {
@@ -17,10 +21,12 @@ module.exports = (data, props) => {
                 return 1;
             };
         }).filter(function (element) {
-            return (element[1].toLowerCase().includes(datas.searchValue.toLowerCase()));
+            return (element[1].toLowerCase().includes(props.searchValue.toLowerCase()));
         }).map(element => {
-            if (datas.userInterests["tvshows_" + element[0]] != null || datas.userInterests["tvshows_" + element[0]] != undefined) {
+            if (element[0].includes("tvshows_")) {
+                console.log("SIOIOIOIOIOIOIIIOOI movieId");
                 var movieId = "tvshows_" + element[0];
+                console.log(movieId);
                 var btnTxt = (element[4] == undefined) ? element[1] + ", de la S1" : element[1] + ", de la S" + element[4];
                 var action = "showOverlaySeason";
             } else {
@@ -46,12 +52,11 @@ module.exports = (data, props) => {
                             movieId: movieId,
                             height: 50,
                             width: 200,
-                            arrayData: datas.userInterests,
                         },
                         query: {
                             "$find": {
                                 "_datastore": {
-                                    "$eq": "general"
+                                    "$eq": "userInterest"
                                 }
                             }
                         }

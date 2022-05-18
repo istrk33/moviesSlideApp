@@ -7,6 +7,7 @@
  * @returns 
  */
 module.exports = (data, props) => {
+    var datas=data[0].data;
     return {
         type: "flex",
         direction: "vertical",
@@ -59,19 +60,19 @@ module.exports = (data, props) => {
                             },
                             border: {
                                 top: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 },
                                 bottom: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 },
                                 left: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 },
                                 right: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 }
                             },
@@ -103,19 +104,19 @@ module.exports = (data, props) => {
                             },
                             border: {
                                 top: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 },
                                 bottom: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 },
                                 left: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 },
                                 right: {
-                                    color: data.white,
+                                    color: datas.white,
                                     width: 1
                                 }
                             },
@@ -153,19 +154,19 @@ module.exports = (data, props) => {
                                     type: "container",
                                     border: {
                                         top: {
-                                            color: data.white,
+                                            color: datas.white,
                                             width: 1
                                         },
                                         bottom: {
-                                            color: data.white,
+                                            color: datas.white,
                                             width: 1
                                         },
                                         left: {
-                                            color: data.white,
+                                            color: datas.white,
                                             width: 1
                                         },
                                         right: {
-                                            color: data.white,
+                                            color: datas.white,
                                             width: 1
                                         }
                                     },
@@ -182,11 +183,11 @@ module.exports = (data, props) => {
                                                 },
                                                 border: {
                                                     left: {
-                                                        color: data.white,
+                                                        color: datas.white,
                                                         width: 1
                                                     },
                                                     right: {
-                                                        color: data.white,
+                                                        color: datas.white,
                                                         width: 1
                                                     }
                                                 },
@@ -228,11 +229,11 @@ module.exports = (data, props) => {
                                                 },
                                                 border: {
                                                     left: {
-                                                        color: data.white,
+                                                        color: datas.white,
                                                         width: 1
                                                     },
                                                     right: {
-                                                        color: data.white,
+                                                        color: datas.white,
                                                         width: 1
                                                     }
                                                 },

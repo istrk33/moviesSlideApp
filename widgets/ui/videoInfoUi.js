@@ -286,7 +286,7 @@ module.exports = async (data, props) => {
                                 query: {
                                     "$find": {
                                         "_datastore": {
-                                            "$eq": "general"
+                                            "$eq": "vars"
                                         }
                                     }
                                 }

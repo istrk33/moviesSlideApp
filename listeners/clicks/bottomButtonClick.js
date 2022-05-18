@@ -46,7 +46,7 @@ async function actionOnVideo(data, timeInSec, api, buttonName, videoId) {
     switch (buttonName) {
         case "viewed":
             // var query = (await service.getIdOfUndiscoveredDataByMovieId(api, videoId));
-            var query = (await service.getIdOfMovieDataByMovieId(api, movieId, "listOfUndiscoveredMovies"));
+            var query = (await service.getIdOfMovieDataByMovieId(api, videoId, "listOfUndiscoveredMovies"));
             var dataId = query._id;
             var array = query.data;
             array.push(datas.darkbg);
@@ -59,12 +59,12 @@ async function actionOnVideo(data, timeInSec, api, buttonName, videoId) {
             await service.deleteFromDatastore(api, dataId, "listOfUndiscoveredMovies");
             break;
         case "notviewed":
-            var elemToRemoveId = (await service.getIdOfMovieDataByMovieId(api, movieId, "listOfUndiscoveredMovies"))._id;
+            var elemToRemoveId = (await service.getIdOfMovieDataByMovieId(api, videoId, "listOfUndiscoveredMovies"))._id;
             datas.totalSavedTime += timeInSec;
             await service.deleteFromDatastore(api, elemToRemoveId, "listOfUndiscoveredMovies");
             break;
         case "interested":
-            var query = (await service.getIdOfMovieDataByMovieId(api, movieId, "listOfUndiscoveredMovies"));
+            var query = (await service.getIdOfMovieDataByMovieId(api, videoId, "listOfUndiscoveredMovies"));
             var dataId = query._id;
             var array = query.data;
             array.push(datas.darkbg);

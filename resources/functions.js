@@ -52,8 +52,6 @@ module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, 
 module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
   // https://api.betaseries.com/movies/movie
   var url = "https://api.betaseries.com/movies/movie?key=" + apiKey + "&id=" + id;
-  console.log("GET MOVIE DETAILS");
-  console.log(url);
   var movieDetail = (await axios.get(url, { crossdomain: true },
     {
       headers: {
