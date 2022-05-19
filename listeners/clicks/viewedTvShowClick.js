@@ -12,6 +12,9 @@ const { process_params } = require("express/lib/router");
 const service = require("../../services/userDataService");
 module.exports = async (_props, event, api) => {
     var vars = (await service.getDatastore(api, "vars")).data.data[0];
+    var userViewed = (await service.getDatastore(api, "userViewed")).data.data[0];
+    console.log("////////////////////////////////////////////////////////////USER VIEWED///////////////////////////////////////////////////////////////////");
+    console.log(userViewed);
     var id = vars._id;
     var varsData = vars.data;
     varsData.overlayState = true;

@@ -31,6 +31,8 @@ module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, st
 module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, start) {
   // var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=popularity&start=" + start + "&limit=5";
   var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=followers&start=" + start + "&limit=5";
+  console.log("QUERY POPULAR MOVIIIIIIIIIIIIIIIIIIIIIIIIIIIIIE");
+  console.log(url);
   var listOfTvShows = (((await axios.get(url, { crossdomain: true },
     {
       headers: {
@@ -191,10 +193,13 @@ module.exports.updateCurrent = async function updateCurrent(data, api) {
   data.currentId = listOfUndiscoveredMoviesFromApi.data.data[0].data[0];
   data.currentMovieInfo = (String(data.currentId).includes("tvshows_")) ? (await functions.getTvShowDetails(data.apiKey, String(data.currentId).substring(8))) : (await functions.getMovieDetails(data.apiKey, data.currentId));
   if (listLength <= 2) {
+    console.log("TESSSSSSSSSSSSSSSSSSTTTTTTTTT UPDATE 111111111111111111111111111111111111111111111111");
     var listOfUndiscoveredMovies = {};
     // (await module.exports.queryPopularMovies(data.apiKey, data.start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
     (await module.exports.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = ["tvshows_" + element.id, element.title]);
+    console.log("TESSSSSSSSSSSSSSSSSSTTTTTTTTT UPDATE 222222222222222222222222222222222222222222222222222");
     var mixedArray = Object.values(listOfUndiscoveredMovies).sort((a, b) => 0.5 - Math.random());
+    console.log("TESSSSSSSSSSSSSSSSSSTTTTTTTTT UPDATE 3333333333333333333333333333333333333333333333333333");
     await Promise.all(mixedArray.map((element) => {
       return service.new(api, "listOfUndiscoveredMovies", [element[0], element[1]]).then(function (response) {
         response.data;
@@ -204,6 +209,7 @@ module.exports.updateCurrent = async function updateCurrent(data, api) {
       }));
     }
     ));
+    console.log("TESSSSSSSSSSSSSSSSSSTTTTTTTTT UPDATE 44444444444444444444444444444444444444444444444444");
     data.start += 5;
   }
   return data;

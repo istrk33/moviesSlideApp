@@ -7,14 +7,14 @@
  * @returns 
  */
 module.exports = (data, props) => {
+    console.log("////////////////////////////////////////////////////////////LIST BUTTON///////////////////////////////////////////////////////////////////");
     return {
         type: "actionable",
         onPressed: {
             action: props.action,
             props: {
                 movieId: props.movieId,
-                src: props.src,
-                tvShowUpdate: props.tvShowUpdate
+                src: props.src
             }
         },
         child: {
