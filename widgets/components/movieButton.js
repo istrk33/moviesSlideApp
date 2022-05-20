@@ -7,6 +7,7 @@
  * @returns 
  */
 module.exports = (data, props) => {
+    console.log("PLANTAGE DANS MOVIE BUTTTTTTTTTTTTTTOOOOOOOOOOOOOONNNNNNNNNNNNNN");
     if (data[0].element !== undefined || data[0].element != null) {
         var datas = data[0].element;
     } else {
@@ -85,7 +86,6 @@ module.exports = (data, props) => {
                             }
                         }
                     },
-                    // ...props.viewWidget
                 ]
             }
         }
