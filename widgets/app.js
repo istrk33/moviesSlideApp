@@ -19,6 +19,18 @@ function getCurrentPage(navigation) {
           }
         }
       };
+    case "firstUi":
+      return {
+        type: "widget",
+        name: "firstUi",
+        query: {
+          "$find": {
+            "_datastore": {
+              "$eq": "vars"
+            }
+          }
+        }
+      };
     case "userInterest":
       return {
         type: "widget",

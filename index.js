@@ -29,6 +29,7 @@ module.exports = () => {
       textfield: require('./widgets/components/searchTextField'),
       viewedListWidget: require('./widgets/components/widgetOfViewedList'),
       interestListWidget: require('./widgets/components/widgetOfInterestsList'),
+      firstUi: require('./widgets/ui/first'),
     },
     listeners: {
       // init
@@ -48,19 +49,21 @@ module.exports = () => {
       showOverlaySeason: require('./listeners/clicks/viewedTvShowClick'),
       addTvShowSeason: require('./listeners/clicks/confirmTvShowSeasonClick'),
       hideOverlay: require('./listeners/clicks/hideOverlayClick'),
-
+      
       // hovers
       bottomButtonHoverEvent: require('./listeners/hovers/bottomButtonHover'),
       menuButtonHoverEvent: require('./listeners/hovers/menuButtonHover'),
       movieInfoButtonHoverEvent: require('./listeners/hovers/videoInfoButtonHover'),
       dropdownButtonHoverEvent: require('./listeners/hovers/dropdownButtonHover'),
       movieButtonHovered: require('./listeners/hovers/movieListItemHover'),
-
+      
       //slider
       sliderValueChanged: require('./listeners/slider/numberOfSeasonChanged'),
-
+      
       //textfield
       searchTextChanged: require('./listeners/textFields/searchTextChanged'),
+      
+      loadAll: require('./listeners/clicks/loadAll'),
     },
     rootWidget: 'main'
   }
