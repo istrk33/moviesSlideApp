@@ -10,8 +10,25 @@
 const service = require("../../services/userDataService");
 const functions = require("../../resources/functions");
 module.exports = async (_props, event, api) => {
-    console.log("LOAD ALLL SIUUUUUUUUUUUUUUU");
     var list = [];
+    await service.createDatastore(api, "listOfUndiscoveredMovies").then(function (response) {
+        response.data
+    }).catch((e => { list.push(e) }));
+    await service.createDatastore(api, "userInterests").then(function (response) {
+        response.data
+    }).catch((e => { list.push(e) }));
+    await service.createDatastore(api, "userViewed").then(function (response) {
+        response.data
+    }).catch((e => { list.push(e) }));
+    // ???? pas sur de garder cette donnée
+    // service.createDatastore(api, "userNotViewed").then(function (response) {
+    //     response.data
+    // }).catch((e => { list.push(e) }));
+    await service.createDatastore(api, "vars").then(function (response) {
+        response.data
+    }).catch((e => { list.push(e) }));
+
+    console.log("LOAD ALLL SIUUUUUUUUUUUUUUU");
     var listOfUndiscoveredMovies = {};
     var movieInfoToSee = null;
     var start = 0;
@@ -75,5 +92,6 @@ module.exports = async (_props, event, api) => {
         errList.push(e);
         console.log(e);
     }));
+    console.log("finished load data SIUUUUUUUUUUUUUUUUUUUUUUUU");
     return list;
 }

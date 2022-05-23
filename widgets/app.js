@@ -23,13 +23,6 @@ function getCurrentPage(navigation) {
       return {
         type: "widget",
         name: "firstUi",
-        query: {
-          "$find": {
-            "_datastore": {
-              "$eq": "vars"
-            }
-          }
-        }
       };
     case "userInterest":
       return {
@@ -82,6 +75,13 @@ function getCurrentPage(navigation) {
  * @returns 
  */
 module.exports = async (data, _props) => {
+  console.log("siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");/*try {
+    nonExistentFunction();
+  } catch (error) {
+    console.error(error);
+    // expected output: ReferenceError: nonExistentFunction is not defined
+    // Note - error messages will vary depending on browser
+  }*/
   var nav = (data.length == 0) ? "firstUi" : (data[0].navigation === undefined) ? data[0].data.navigation : data[0].navigation;
   var page = getCurrentPage(nav);
   return page;
