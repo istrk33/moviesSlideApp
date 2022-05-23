@@ -3,7 +3,7 @@
 const service = require("../../services/userDataService");
 const functions = require("../../resources/functions");
 
-module.exports = async(props, event, api) => {
+module.exports = (props, event, api) => {
     // const bottomButtonsColors = [[0xFF72BD28, 0xFFCEEFAE], [0xFFBD7228, 0xFFE3A482], [0xFFBD2828, 0xFFD86E6E]];
     // const dropDownDefaultButtonColor = 0xFF1E232C;
     // const white = 0xFFFFFFFF;

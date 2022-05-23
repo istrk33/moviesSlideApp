@@ -84,8 +84,5 @@ function getCurrentPage(navigation) {
 module.exports = async (data, _props) => {
   var nav = (data.length == 0) ? "firstUi" : (data[0].navigation === undefined) ? data[0].data.navigation : data[0].navigation;
   var page = getCurrentPage(nav);
-  console.log("SIUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
-  console.log(nav);
-  console.log(page);
   return page;
 }

@@ -9,10 +9,15 @@
 const functions = require("../../resources/functions");
 module.exports = async (data, props) => {
     return {
-        type:"button",
-        text:"Accéder app",
-        onPressed:{
-            action:"loadAll"
-        }
+        type: "flex",
+        children: [
+            {
+                type: "button",
+                text: "Accéder app",
+                onPressed: {
+                    action: "loadAll"
+                }
+            }
+        ]
     }
 }

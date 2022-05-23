@@ -3,7 +3,7 @@
 const service = require("../../services/userDataService");
 const functions = require("../../resources/functions");
 
-module.exports = async (props, event, api) => {
+module.exports = (props, event, api) => {
 //     var list = [];
 //     var listOfUndiscoveredMovies = {};
 //     var movieInfoToSee = null;
