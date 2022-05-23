@@ -8,14 +8,16 @@
  * @returns 
  */
 const service = require("../../services/userDataService");
+const functions = require("../../resources/functions");
 module.exports = async (_props, event, api) => {
+    console.log("LOAD ALLL SIUUUUUUUUUUUUUUU");
     var list = [];
     var listOfUndiscoveredMovies = {};
     var movieInfoToSee = null;
     var start = 0;
 
     // boucle for pour ajouter chacune des séries films depuis l'api de films vers l'api de données lenra
-    // (await functions.queryPopularMovies("941cc48f228b", start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+    (await functions.queryPopularMovies("941cc48f228b", start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
     (await functions.queryPopularTvShows("941cc48f228b", start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = ["tvshows_" + element.id, element.title]);
 
     var mixedArray = Object.values(listOfUndiscoveredMovies).sort((a, b) => 0.5 - Math.random());
@@ -65,8 +67,13 @@ module.exports = async (_props, event, api) => {
         dropDownButton3Color: [0xFF1E232C, 0xFFFFFFFF],
         navigation: "home"
     }
+    // var vars = (await service.getDatastore(api, "vars")).data.data[0];
+    // var id = vars._id;
     await service.new(api, "vars", variables).then(function (response) {
         response.data
-    }).catch((e => { console.log(e); }));
+    }).catch((e => {
+        errList.push(e);
+        console.log(e);
+    }));
     return list;
 }

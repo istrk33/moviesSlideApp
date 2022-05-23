@@ -195,7 +195,7 @@ module.exports.updateCurrent = async function updateCurrent(data, api) {
   if (listLength <= 2) {
     console.log("TESSSSSSSSSSSSSSSSSSTTTTTTTTT UPDATE 111111111111111111111111111111111111111111111111");
     var listOfUndiscoveredMovies = {};
-    // (await module.exports.queryPopularMovies(data.apiKey, data.start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
+    (await module.exports.queryPopularMovies(data.apiKey, data.start)).forEach((element) => listOfUndiscoveredMovies[element.id] = [element.id, element.title]);
     (await module.exports.queryPopularTvShows(data.apiKey, data.start)).forEach((element) => listOfUndiscoveredMovies["tvshows_" + element.id] = ["tvshows_" + element.id, element.title]);
     console.log("TESSSSSSSSSSSSSSSSSSTTTTTTTTT UPDATE 222222222222222222222222222222222222222222222222222");
     var mixedArray = Object.values(listOfUndiscoveredMovies).sort((a, b) => 0.5 - Math.random());
