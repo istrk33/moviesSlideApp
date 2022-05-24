@@ -80,24 +80,7 @@ Last message: {:EXIT, #PID<0.3568.0>, {{:case_clause, {:error, "Application erro
 4. stack bar qui persiste son affichage pour la meme erreur
 5. lors d'un ctrl+c et d'un refresh du devtool, on la la vue d'erreur qui s'affiche et quand on refait un refresh sans rien modifier l'appli fonctionne sans erreur
 ![-1](c6.png)
+5. erreur incompréhensible qui survient dans le listener de la vue intermédiaire qui permet de charger et stocker les données en asynchrone (pas possible dans onUserFirstJoin.js)
+![-1](c11.png)
 
-<!-- 
-À faire :
-* nettoyage de la gestion des données avec dictionnaires propres pour chaque elements
-        * pour les consantes
-        * pour les variables qui changent
-        * pour chancun des dictionnaires
-
-
-        -> bug quand la premiere video est une serie(gere ce bug)
-*gestion des données :
--> pour les listes de films :
-            -> undiscovered => un ajout par film requetes
-            -> viewed => un ajout par film requetes
-            -> interests => un ajout par film requetes
-            -> peut etre not  viewed => un ajout par film requetes
--> pour les variables et constantes de l'appli => une requete pour récupérer toutes les valeurs
--> mettre à jour les query
--> mettre à jour les requetes dans les listeners
-
- -->
+<!---->

@@ -53,17 +53,22 @@ module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, 
  */
 module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
   // https://api.betaseries.com/movies/movie
+  console.log("DETAILS TESSSSSSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTT 1111111");
   var url = "https://api.betaseries.com/movies/movie?key=" + apiKey + "&id=" + id;
+  console.log("DETAILS TESSSSSSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTT 22222222");
+  console.log(url);
   var movieDetail = (await axios.get(url, { crossdomain: true },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
       }
     }
-  ).catch((e => {
-    console.log(e);
-  }))).data;
-
+    ).catch((e => {
+      console.log("EEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+      console.log(e);
+    }))).data;
+    console.log("DETAILS TESSSSSSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTT 3333333");
+  console.log(movieDetail);
   return movieDetail;
 }
 
@@ -75,7 +80,9 @@ module.exports.getMovieDetails = async function getMovieDetails(apiKey, id) {
  */
 module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
   // https://api.betaseries.com/shows/display?key=941cc48f228b&id=22592
+  console.log("DETAILS TESSSSSSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTT 1111111");
   var url = "https://api.betaseries.com/shows/display?key=" + apiKey + "&id=" + id;
+  console.log("DETAILS TESSSSSSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTT 2222222");
   var tvShowDetail = ((await axios.get(url, { crossdomain: true },
     {
       headers: {
@@ -85,6 +92,8 @@ module.exports.getTvShowDetails = async function getTvShowDetails(apiKey, id) {
   ).catch((e => {
     console.log(e);
   }))));
+  console.log("DETAILS TESSSSSSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTT 3333333");
+  console.log(tvShowDetail.data);
   return tvShowDetail.data;
 }
 
@@ -109,11 +118,11 @@ module.exports.getCharacters = async function getCharacters(apiKey, id) {
 }
 
 /**
- * requesting tv shows characters for the movie info ui
- * @param {api key} apiKey 
- * @param {id of the tv show} id 
- * @returns 
- */
+* requesting tv shows characters for the movie info ui
+* @param {api key} apiKey 
+* @param {id of the tv show} id 
+* @returns 
+*/
 module.exports.getTvShowsCharacters = async function getTvShowsCharacters(apiKey, id) {
   var url = "https://api.betaseries.com/shows/characters?key=" + apiKey + "&id=" + id;
   var tvShowsCharacters = ((await axios.get(url, { crossdomain: true },
