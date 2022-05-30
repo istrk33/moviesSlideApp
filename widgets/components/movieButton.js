@@ -7,18 +7,22 @@
  * @returns 
  */
 module.exports = (data, props) => {
-    console.log("PLANTAGE DANS MOVIE BUTTTTTTTTTTTTTTOOOOOOOOOOOOOONNNNNNNNNNNNNN");
-    if (data[0].element !== undefined || data[0].element != null) {
-        var datas = data[0].element;
-    } else {
-        var datas = data[0];
-    }
+    var white = 0xFFFFFFFF;
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
+    console.log("movie bUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNN");
     if (String(props.movieId).includes("tvshows_")) {
-        var color = props.arrayData[props.movieId][2];
+        var color = props.arrayData[2];
     } else {
-        var color = props.arrayData[props.movieId][2];
+        var color = props.arrayData[2];
     }
-    var textcolor = (color == datas.darkbg) ? datas.hoverMenuButtonColor : datas.darkbg;
+    var textcolor = (color == 0xFF212121) ? 0xFFB5B5B5 : 0xFF212121;
     return {
         type: "actionable",
         onPressed: {
@@ -47,19 +51,19 @@ module.exports = (data, props) => {
             border: {
                 top: {
                     width: 1,
-                    color: datas.white
+                    color: white
                 },
                 bottom: {
                     width: 1,
-                    color: datas.white
+                    color: white
                 },
                 right: {
                     width: 1,
-                    color: datas.white
+                    color: white
                 },
                 left: {
                     width: 1,
-                    color: datas.white
+                    color: white
                 }
             },
             decoration: {

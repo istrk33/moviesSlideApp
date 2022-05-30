@@ -75,14 +75,14 @@ function getCurrentPage(navigation) {
  * @returns 
  */
 module.exports = async (data, _props) => {
-  console.log("siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");/*try {
-    nonExistentFunction();
-  } catch (error) {
-    console.error(error);
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
-  }*/
-  var nav = (data.length == 0) ? "firstUi" : (data[0].navigation === undefined) ? data[0].data.navigation : data[0].navigation;
-  var page = getCurrentPage(nav);
+  if (data.length == 0) {
+    return {
+      type: "text",
+      value: "Loading"
+    }
+  }else{
+    var nav =(data[0].navigation === undefined) ? data[0].data.navigation : data[0].navigation;
+    var page = getCurrentPage(nav);
+  }
   return page;
 }
