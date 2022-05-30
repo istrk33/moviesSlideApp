@@ -68,4 +68,5 @@ module.exports = (props, event, api) => {
     // return service.new(api, dict).then(function (response) {
     //     response.data
     // });
+    return {};
 }

@@ -8,7 +8,7 @@
  */
 module.exports = (data, props) => {
     var arr = data.map(function (e) {
-        return (String(e.data[0]).includes("tvshows_"))?[e.data[0], e.data[1], e.data[2], e.data[3],e.data[4]]:[e.data[0], e.data[1], e.data[2], e.data[3]];
+        return (String(e.data[0]).includes("tvshows_")) ? [e.data[0], e.data[1], e.data[2], e.data[3], e.data[4]] : [e.data[0], e.data[1], e.data[2], e.data[3]];
     });
     console.log(arr);
     return {
@@ -54,11 +54,10 @@ module.exports = (data, props) => {
                             arrayData: element,
                             // viewWidget: [
                             // ]
-                        }, query: {
+                        },
+                        query: {
                             "$find": {
-                                "_datastore": {
-                                    "$eq": "userViewed"
-                                }
+                                "_datastore": "userViewed"
                             }
                         }
                     },

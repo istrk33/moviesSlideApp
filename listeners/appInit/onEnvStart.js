@@ -21,21 +21,22 @@ module.exports = (props, event, api) => {
     // }).catch((e => { list.push(e) }));
     // return list;
     var list = [];
-     service.createDatastore(api, "listOfUndiscoveredMovies").then(function (response) {
+    var promises = [];
+    promises.push(service.createDatastore(api, "listOfUndiscoveredMovies").then(function (response) {
         response.data
-    }).catch((e => { list.push(e) }));
-     service.createDatastore(api, "userInterests").then(function (response) {
+    }).catch((e => { list.push(e) })));
+    promises.push(service.createDatastore(api, "userInterests").then(function (response) {
         response.data
-    }).catch((e => { list.push(e) }));
-     service.createDatastore(api, "userViewed").then(function (response) {
+    }).catch((e => { list.push(e) })));
+    promises.push(service.createDatastore(api, "userViewed").then(function (response) {
         response.data
-    }).catch((e => { list.push(e) }));
+    }).catch((e => { list.push(e) })));
     // ???? pas sur de garder cette donnée
     // service.createDatastore(api, "userNotViewed").then(function (response) {
     //     response.data
     // }).catch((e => { list.push(e) }));
-     service.createDatastore(api, "vars").then(function (response) {
+    promises.push(service.createDatastore(api, "vars").then(function (response) {
         response.data
-    }).catch((e => { list.push(e) }));
-    return list;
+    }).catch((e => { list.push(e) })));
+    return Promise.all(promises);
 }
