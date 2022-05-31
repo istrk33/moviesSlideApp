@@ -1,190 +1,159 @@
-'use strict'
+const Category = require('../../classes/Category.js');
+const User = require('../../classes/User.js');
+const categoryService = require('../../services/categoryService.js');
+const userService = require('../../services/userService.js');
+const ui = require('../utils/ui.js')
 
-const functions = require("../../resources/functions");
+function menu(data, props) {
+    const children = [{
+        type: "widget",
+        name: "ariane",
+        query: {
+            "$find": {
+                "_datastore": userService.datastoreName,
+                "_id": "@me"
+            }
+        }
+    }];
+    if (props && props.mainAction) {
+        children.push({
+            ...props.mainAction,
+            type: "button"
+        });
+    }
+    return {
+        type: "container",
+        decoration: {
+            color: 0xFFFFFFFF,
+            boxShadow: {
+                blurRadius: 8,
+                color: 0x1A000000,
+                offset: {
+                    dx: 0,
+                    dy: 1
+                }
+            },
+        },
+        child: {
+            type: "flex",
+            fillParent: true,
+            mainAxisAlignment: "spaceBetween",
+            crossAxisAlignment: "center",
+            padding: ui.padding.symmetric(4, 2),
+            children
+        }
+    }
+}
+
 /**
- * the menu that is displayed on the top
- * @param {*} data 
+ * @param {User[]} users
+ * @param {*} _props 
+ * @returns 
+ */
+function ariane(users, _props) {
+    const user = users[0];
+    return {
+        type: "flex",
+        crossAxisAlignment: "center",
+        children: [
+            ...user.navigation.history.flatMap((state, i) => {
+                return [
+                    fillWidgetPageName(state, {
+                        type: "button",
+                        mainStyle: "tertiary",
+                        onPressed: {
+                            action: "popState",
+                            props: {
+                                times: user.navigation.history.length - i
+                            }
+                        }
+                    }),
+                    {
+                        type: "text",
+                        value: "/",
+                    }
+                ]
+            }),
+            fillWidgetPageName(user.navigation.state, {
+                type: "container",
+                padding: ui.padding.symmetric(2, 1),
+                child: {
+                    type: "text"
+                }
+            })
+        ]
+    };
+}
+
+/**
+ * @param {User} user 
+ * @param {*} state 
+ * @returns 
+ */
+function fillWidgetPageName(state, widget) {
+    switch (state.page) {
+        case 'home':
+            return fillWidgetText(widget, 'Troy');
+        case 'categories':
+            return fillWidgetText(widget, 'Categories');
+        case 'editCategory':
+            return {
+                type: "widget",
+                name: "arianeCategoryName",
+                props: { widget },
+                query: {
+                    "$find": {
+                        "_datastore": categoryService.datastoreName,
+                        "_id": state.category
+                    }
+                }
+            }
+        case 'createTry':
+            return fillWidgetText(widget, 'New try');
+        case 'editTry':
+            // TODO: 
+            return fillWidgetText(widget, 'New try');
+        default:
+            console.error(`Not managed page ${state.page}`);
+            return fillWidgetText(widget, state.page);
+    }
+}
+
+/**
+ * 
+ * @param {Category[]} categories 
  * @param {*} props 
  * @returns 
  */
-module.exports = (data, props) => {
-  var datas = data[0].data;
-  var uiName1 = "";
-  var icon1 = "";
-  var uiName2 = "";
-  var icon2 = "";
-  if (datas.navigation == "home") {
-    uiName1 = "switchInterestUi";
-    uiName2 = "switchViewedUi";
-    icon1 = "featured_play_list";
-    icon2 = "done_all";
-  } else if (datas.navigation == "userViewed") {
-    uiName1 = "switchInterestUi";
-    uiName2 = "switchHomeUi";
-    icon1 = "featured_play_list";
-    icon2 = "home";
-  } else {
-    uiName1 = "switchHomeUi";
-    uiName2 = "switchViewedUi";
-    icon1 = "home";
-    icon2 = "done_all";
-  }
-  var menudisp;
-  switch (datas.menuTimeLabel) {
-    case "tempsPerdu":
-      menudisp = functions.computeMenuTime(datas.totalWastedTime);
-      break;
-    case "tempsAPerdre":
-      menudisp = functions.computeMenuTime(datas.potentialWasteTime);
-      break;
-    case "tempsEconomise":
-      menudisp = functions.computeMenuTime(datas.totalSavedTime);
-      break;
-  }
-  return {
-    type: "container",
-    decoration: {
-      color: datas.black,
-      boxShadow: {
-        blurRadius: 8,
-        color: 0x1AFFFFFF,
-        offset: {
-          dx: 0,
-          dy: 1
-        }
-      },
-    },
-    child:
-    {
-      type: "flex",
-      fillParent: true,
-      mainAxisAlignment: "spaceBetween",
-      padding: {
-        left: 4,
-        right: 0,
-        top: 0,
-        bottom: 0
-      },
-      children: [
-        {
-          type: "flex",
-          fillParent: true,
-          children: [
-            {
-              type: "dropdownButton",
-              text: String(menudisp),
-              icon: {
-                type: "icon",
-                value: "movie",
-                color: 0xFF828282,
-                size: 25
-              },
-              child: {
-                type: "menu",
-                children: [
-                  {
-                    type: "flex",
-                    direction: "vertical",
-                    crossAxisAlignment: "stretch",
-                    children: [
-                      {
-                        type: "widget",
-                        name: "dropdownMenuButton",
-                        props: {
-                          srcButton: "tempsPerdu",
-                          icon: "remove_red_eye",
-                          buttonText: "Temps Perdu",
-                          color: datas.dropDownButton1Color[0],
-                          iconColor: datas.dropDownButton1Color[1]
-                        }
-                      },
-                      {
-                        type: "widget",
-                        name: "dropdownMenuButton",
-                        props: {
-                          srcButton: "tempsAPerdre",
-                          icon: "watch_later",
-                          buttonText: "Temps à Perdre",
-                          color: datas.dropDownButton2Color[0],
-                          iconColor: datas.dropDownButton2Color[1]
-                        }, query: {
-                          "$find": {
-                            "_datastore": {
-                              "$eq": "general"
-                            }
-                          }
-                        }
-                      },
-                      {
-                        type: "widget",
-                        name: "dropdownMenuButton",
-                        props: {
-                          srcButton: "tempsEconomise",
-                          icon: "close",
-                          buttonText: "Temps Economisé",
-                          color: datas.dropDownButton3Color[0],
-                          iconColor: datas.dropDownButton3Color[1]
-                        }, query: {
-                          "$find": {
-                            "_datastore": {
-                              "$eq": "general"
-                            }
-                          }
-                        }
-                      },
-                    ]
-                  }
-                ]
-              }
-            },
-          ]
-        },
-        {
-          type: "flex",
-          fillParent: true,
-          mainAxisAlignment: "spaceEvenly",
-          crossAxisAlignment: "center",
-          children: [
-            {
-              type: "widget",
-              name: "menuButton",
-              props: {
-                buttonIcon: icon1,
-                uiName: uiName1,
-                order: "first",
-                color: datas.menuHoverButton1Color[0],
-                iconColor: datas.menuHoverButton1Color[1]
-              },
-              query: {
-                "$find": {
-                  "_datastore": {
-                    "$eq": "general"
-                  }
-                }
-              }
-            },
-            {
-              type: "widget",
-              name: "menuButton",
-              props: {
-                buttonIcon: icon2,
-                uiName: uiName2,
-                order: "second",
-                color: datas.menuHoverButton2Color[0],
-                iconColor: datas.menuHoverButton2Color[1]
-              },
-              query: {
-                "$find": {
-                  "_datastore": {
-                    "$eq": "general"
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  }
+function categoryName(categories, props) {
+    const category = categories[0];
+    return fillWidgetText(props.widget, category.name);
 }
 
+/**
+ * @param {*} widget
+ * @param {string} text 
+ * @returns 
+ */
+function fillWidgetText(widget, text) {
+    switch (widget.type) {
+        case "container":
+            widget = { ...widget, child: fillWidgetText(widget.child, text) };
+            break;
+        case "text":
+            widget = { ...widget, value: text };
+            break;
+        case "button":
+            widget = { ...widget, text };
+            break;
+        default:
+            console.error(`Not managed widget type ${widget.type}`);
+    }
+    return widget;
+}
+
+module.exports = {
+    menu,
+    ariane,
+    arianeCategoryName: categoryName
+}
