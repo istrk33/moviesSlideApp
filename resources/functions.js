@@ -10,27 +10,31 @@ const functions = require("../resources/functions");
  */
 module.exports.queryPopularMovies = async function queryPopularMovies(apiKey, start) {
   var url = "https://api.betaseries.com/movies/discover?key=" + apiKey + "&type=popular&offset=" + start + "&limit=5";
+  console.log("URLLLLLLLLLLLLLLLLLLLLLLLLLL");
+  console.log(url);
   var listOfMovies = (((await axios.get(url, { crossdomain: true },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
       }
     }
-  ).catch((e => {
-    console.log(e);
-  }))).data).movies);
-  return listOfMovies;
-}
-
-/**
- * requesting popular tvshows from the api
- * @param {api key} apiKey 
- * @param {the starting point} start 
- * @returns a list of json for each tvshows
- */
-module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, start) {
-  // var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=popularity&start=" + start + "&limit=5";
-  var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=followers&start=" + start + "&limit=5";
+    ).catch((e => {
+      console.log(e);
+    }))).data).movies);
+    return listOfMovies;
+  }
+  
+  /**
+   * requesting popular tvshows from the api
+   * @param {api key} apiKey 
+   * @param {the starting point} start 
+   * @returns a list of json for each tvshows
+   */
+  module.exports.queryPopularTvShows = async function queryPopularTvShows(apiKey, start) {
+    // var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=popularity&start=" + start + "&limit=5";
+    var url = "https://api.betaseries.com/shows/list?key=" + apiKey + "&order=followers&start=" + start + "&limit=5";
+    console.log("URLLLLLLLLLLLLLLLLLLLLLLLLLL");
+    console.log(url);
   console.log("QUERY POPULAR MOVIIIIIIIIIIIIIIIIIIIIIIIIIIIIIE");
   console.log(url);
   var listOfTvShows = (((await axios.get(url, { crossdomain: true },
@@ -200,7 +204,7 @@ module.exports.updateCurrent = async function updateCurrent(data, api) {
   var listOfUndiscoveredMoviesFromApi = (await service.getDatastore(api, "listOfUndiscoveredMovies"));
   var listLength = listOfUndiscoveredMoviesFromApi.data.data.length;
   data.currentId = listOfUndiscoveredMoviesFromApi.data.data[0].data[0];
-  data.currentMovieInfo = (String(data.currentId).includes("tvshows_")) ? (await functions.getTvShowDetails(data.apiKey, String(data.currentId).substring(8))) : (await functions.getMovieDetails(data.apiKey, data.currentId));
+  data.currentMovieInfo = (String(data.currentId).includes("tvshows_")) ? (await module.exports.getTvShowDetails(data.apiKey, String(data.currentId).substring(8))) : (await module.exports.getMovieDetails(data.apiKey, data.currentId));
   if (listLength <= 2) {
     console.log("TESSSSSSSSSSSSSSSSSSTTTTTTTTT UPDATE 111111111111111111111111111111111111111111111111");
     var listOfUndiscoveredMovies = {};

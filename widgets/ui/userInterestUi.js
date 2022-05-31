@@ -70,20 +70,20 @@ module.exports = (data, props) => {
               mainAxisAlignment: "center",
               scroll: true,
               children: [
-                // {
-                //   type: "widget",
-                //   name: "interestListWidget",
-                //   query: {
-                //     "$find": {
-                //       "_datastore": {
-                //         "$eq": "userInterests"
-                //       }
-                //     }
-                //   },
-                //   props: {
-                //     searchValue: datas.searchValue
-                //   }
-                // }
+                {
+                  type: "widget",
+                  name: "interestListWidget",
+                  query: {
+                    "$find": {
+                      "_datastore": {
+                        "$eq": "userInterests"
+                      }
+                    }
+                  },
+                  props: {
+                    searchValue: datas.searchValue
+                  }
+                }
               ]
             }
           }

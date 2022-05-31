@@ -9,10 +9,9 @@
  */
 const service = require("../../services/userDataService");
 module.exports = async (_props, event, api) => {
-    var obj = (await service.getGeneral(api)).data.data[0];
-    var id = obj._id;
-    var props_id = _props.movieId;
-    var datas = obj;
+    var vars = (await service.getDatastore(api, "vars")).data.data[0];
+    var id = vars._id;
+    var varsData = vars.data;
     switch (_props.src) {
         case "viewed":
             // manageDicts(data, data.userViewed, props_id, "wasted");
@@ -21,14 +20,14 @@ module.exports = async (_props, event, api) => {
             }
             // if (srcTime == "wasted") {
             if (String(props_id).includes("tvshows_") && datas.userInterests[props_id] != null) {
-                datas.potentialWasteTime -= datas.userInterests[props_id][3];
+                varsData.potentialWasteTime -= datas.userInterests[props_id][3];
                 delete datas.userInterests[props_id];
             }
-            datas.totalWastedTime -= datas.userViewed[props_id][3];
+            varsData.totalWastedTime -= datas.userViewed[props_id][3];
             // } else {
             //     data.potentialWasteTime -= dictToEdit[props_id][3];
             // }
-            datas.totalSavedTime += datas.userViewed[props_id][3];
+            varsData.totalSavedTime += datas.userViewed[props_id][3];
             delete datas.userViewed[props_id];
             break;
         case "interests":
@@ -36,8 +35,8 @@ module.exports = async (_props, event, api) => {
             if (datas.userInterests[props_id] == null || datas.userInterests[props_id] == undefined) {
                 var props_id = "tvshows_" + props_id;
             }
-            datas.potentialWasteTime -= datas.userInterests[props_id][3];
-            datas.totalSavedTime += datas.userInterests[props_id][3];
+            varsData.potentialWasteTime -= datas.userInterests[props_id][3];
+            varsData.totalSavedTime += datas.userInterests[props_id][3];
             delete datas.userInterests[props_id];
             break;
     }

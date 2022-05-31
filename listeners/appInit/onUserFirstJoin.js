@@ -21,8 +21,9 @@ module.exports = async(props, event, api) => {
     }
     ));
     start += 5;
-    var listOfUndiscoveredMoviesFromApi = (await service.getDatastore(api, "listOfUndiscoveredMovies"));
-    var currentId = listOfUndiscoveredMoviesFromApi.data.data[0].data[0];
+    // var listOfUndiscoveredMoviesFromApi = (await service.getDatastore(api, "listOfUndiscoveredMovies"));
+    // var currentId = listOfUndiscoveredMoviesFromApi.data.data[0].data[0];
+    var currentId = mixedArray[0][0];
     var currentMovieInfo = (String(currentId).includes("tvshows_")) ? (await functions.getTvShowDetails("941cc48f228b", String(currentId).substring(8))) : (await functions.getMovieDetails("941cc48f228b", currentId));
     var variables = {
         apiKey: "941cc48f228b",

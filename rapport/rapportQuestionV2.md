@@ -82,5 +82,9 @@ Last message: {:EXIT, #PID<0.3568.0>, {{:case_clause, {:error, "Application erro
 ![-1](c6.png)
 5. erreur incompréhensible qui survient dans le listener de la vue intermédiaire qui permet de charger et stocker les données en asynchrone (pas possible dans onUserFirstJoin.js)
 ![-1](c11.png)
+6. le widget parent étant un flex, j'ai placé un widget fils qui retourne une liste de widget, mais une erreur était levé, j'ai du placer en parent de la liste un widget de type flex, l'image de gauche dans viewed ui, celle de droite qui représent le début de la liste.
+
+![-1](c12.png)
+![-1](c13.png)
 
 <!---->
