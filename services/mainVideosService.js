@@ -1,9 +1,6 @@
 'use strict'
 
 const dataService = require("./lenraDataService.js");
-const Try = require('../classes/Try.js');
-const categoryService = require('./categoryService.js');
-const Category = require('../classes/Category.js');
 const datastoreName = 'tries';
 
 module.exports = {
@@ -13,7 +10,7 @@ module.exports = {
      * @param {Try} tryData 
      * @returns {Promise<Try>}
      */
-    async createTry(api, tryData) {
+    async createVideo(api, tryData) {
         return dataService.createData(api, datastoreName, tryData);
     },
     /**

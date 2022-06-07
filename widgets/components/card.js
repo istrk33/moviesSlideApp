@@ -1,8 +1,3 @@
-const Category = require('../../classes/Category.js');
-const Try = require('../../classes/Try.js');
-const categoryService = require('../../services/categoryService.js');
-const tryService = require('../../services/tryService.js');
-
 /**
  * @param {any[]} children The card children
  * @param {any} actions Actions of the card

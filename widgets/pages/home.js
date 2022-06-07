@@ -1,7 +1,3 @@
-const Category = require('../../classes/Category.js');
-const categoryService = require('../../services/categoryService.js');
-const tryService = require('../../services/tryService.js')
-
 /**
  * @param {*} _data 
  * @param {*} props 

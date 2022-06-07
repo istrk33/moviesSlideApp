@@ -1,6 +1,4 @@
-const Category = require('../../classes/Category.js');
 const Unit = require('../../classes/Unit.js');
-const categoryService = require('../../services/categoryService.js');
 const unitList = Unit.list;
 
 function menu(_data, props) {

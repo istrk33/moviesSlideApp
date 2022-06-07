@@ -1,4 +1,3 @@
-const categoryService = require('../../services/categoryService.js');
 
 module.exports = function (categories, props) {
   return {

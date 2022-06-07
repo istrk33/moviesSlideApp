@@ -1,4 +1,4 @@
-const pages = ['home', 'categories', 'editCategory', 'createTry', 'editTry'];
+const pages = ['home'];
 const widgets = {};
 
 pages.forEach(p => {

@@ -1,7 +1,6 @@
 'use strict'
 
 const dataService = require("./lenraDataService.js");
-const Category = require("../classes/Category.js");
 const datastoreName = 'categories';
 
 module.exports = {

@@ -1,5 +1,3 @@
-const navigationService = require('../services/navigationService.js');
-
 function home(props, event, api) {
     console.log("home");
     return navigationService.home(api);

@@ -7,6 +7,15 @@ const datastoreName = '_users';
 module.exports = {
     datastoreName,
     /**
+     * 
+     * @param {*} api 
+     * @param {*} userData 
+     * @returns 
+     */
+    async initUser(api, userData) {
+        return await dataService.createData(api, userData);
+    },
+    /**
      * @param {*} api 
      * @param {User | number} userData 
      * @returns {Promise<User>}

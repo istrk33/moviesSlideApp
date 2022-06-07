@@ -4,7 +4,6 @@ const widgets = {
     app: require('./app'),
     ...require("./components/all.js"),
     ...require("./pages/all.js"),
-    ...require("./modals/all.js"),
 };
 
 module.exports = widgets;

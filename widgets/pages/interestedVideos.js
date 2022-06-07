@@ -1,6 +1,3 @@
-const categoryService = require('../../services/categoryService.js')
-const tryService = require('../../services/tryService.js')
-
 function menu(_data, props) {
     return {
         type: "widget",

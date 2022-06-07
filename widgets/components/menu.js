@@ -1,6 +1,5 @@
-const Category = require('../../classes/Category.js');
+
 const User = require('../../classes/User.js');
-const categoryService = require('../../services/categoryService.js');
 const userService = require('../../services/userService.js');
 const ui = require('../utils/ui.js')
 
