@@ -23,9 +23,9 @@ module.exports = {
     getAll(api, datastore) {
         // Not implemented yet
         // return axios.get(`${api.url}/app/datastores/${datastore}/data/`, options(api)).then(handleResponse);
-        this.executeQuery(api, {
+        return this.executeQuery(api, {
             "$find": {
-                "_datastore": datastore
+                "_datastore": { "$eq": datastore }
             }
         })
     },

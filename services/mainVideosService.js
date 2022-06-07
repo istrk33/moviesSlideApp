@@ -1,7 +1,7 @@
 'use strict'
 
 const dataService = require("./lenraDataService.js");
-const datastoreName = 'tries';
+const datastoreName = 'mainVideos';
 
 module.exports = {
     datastoreName,
