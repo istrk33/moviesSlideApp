@@ -19,13 +19,23 @@ async function onEnvStart(props, event, api) {
     // getting list of movies/tvshows
     console.log("START");
     var tmp = await lenraDataService.createData(api, mainVideosServices.datastoreName, { start: 0 });
-    // var start = (await lenraDataService.getData(api, mainVideosServices.datastoreName,tmp._id)).start;
-    var start = (await lenraDataService.getAll(api, mainVideosServices.datastoreName)).start;
-    
+    var start = (await lenraDataService.getData(api, mainVideosServices.datastoreName, tmp._id)).start;
+    // var start = (await lenraDataService.getAll(api, mainVideosServices.datastoreName)).start;
+    (await apiVideoService.queryPopularMovies(start)).forEach((element) => listOfVideos.push([element.id, element.title, false]));
+    (await apiVideoService.queryPopularTvShows(start)).forEach((element) => listOfVideos.push([element.id, element.title, true]));
+    listOfVideos = listOfVideos.sort((a, b) => 0.5 - Math.random());
+    console.log(listOfVideos);
+    listOfVideos.forEach(async e => {
+        await lenraDataService.createData(api, mainVideosServices.datastoreName, { id: e[0], title: e[1], isTvShow: e[2] });
+    });
+    var getLastData = (await lenraDataService.getData(api, mainVideosServices.datastoreName, 5));
+    console.log(getLastData);
+
     // // getting list of movies/tvshows from movies api 50 off each or 100 and do update on this datastore when finished
     // new Promise(async (accept,reject)=>{
     //     (await apiVideoService.queryPopularMovies(start)).forEach((element) => listOfVideos.push([element.id, element.title]));
-    //     (await apiVideoService.queryPopularTvShows(start)).forEach((element) => listOfVideos.push([element.id, element.title]));
+    //true for is tv show
+    //     (await apiVideoService.queryPopularTvShows(start)).forEach((element) => listOfVideos.push([element.id, element.title,true]));
     // }).then(()=>{
     // console.log("MOVIES");
     // console.log(listOfVideos);
