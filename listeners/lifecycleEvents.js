@@ -21,15 +21,15 @@ async function onEnvStart(props, event, api) {
     var tmp = await lenraDataService.createData(api, mainVideosServices.datastoreName, { start: 0 });
     var start = (await lenraDataService.getData(api, mainVideosServices.datastoreName, tmp._id)).start;
     // var start = (await lenraDataService.getAll(api, mainVideosServices.datastoreName)).start;
+    console.log("IDDDDDDDDDDDDDDDDDDDDDD START");
+    console.log(tmp._id);
+
     (await apiVideoService.queryPopularMovies(start)).forEach((element) => listOfVideos.push([element.id, element.title, false]));
-    (await apiVideoService.queryPopularTvShows(start)).forEach((element) => listOfVideos.push([element.id, element.title, true]));
+    // (await apiVideoService.queryPopularTvShows(start)).forEach((element) => listOfVideos.push([element.id, element.title, true]));
     listOfVideos = listOfVideos.sort((a, b) => 0.5 - Math.random());
-    console.log(listOfVideos);
     listOfVideos.forEach(async e => {
         await lenraDataService.createData(api, mainVideosServices.datastoreName, { id: e[0], title: e[1], isTvShow: e[2] });
     });
-    var getLastData = (await lenraDataService.getData(api, mainVideosServices.datastoreName, 5));
-    console.log(getLastData);
 
     // // getting list of movies/tvshows from movies api 50 off each or 100 and do update on this datastore when finished
     // new Promise(async (accept,reject)=>{
@@ -48,23 +48,37 @@ function onEnvStop(props, event, api) {
 }
 
 async function onUserFirstJoin(props, event, api) {
-    // var userInitialData = {
-    //     totalWastedTime: 0,
-    //     totalSavedTime: 0,
-    //     potentialWasteTime: 0,
-    //     menuTimeLabel: "tempsPerdu",
-    //     searchValue: "",
-    //     tvShowIdToSetupSeasons: -1,
-    //     currentTvShowViewedSeasons: 1,
-    //     overlaySliderValue: 1,
-    //     start: 0,
-    //     overlayState: false,
-    //     currentMovieInfo: currentMovieInfo,
-    //     movieInfoToSee: movieInfoToSee,
-    //     currentId: currentId,
-    //     navigation: "home"
-    // };
-    // return userService.initUser(api, { data: userInitialData });
+    // get first video id from the datastore
+    var allData = (await lenraDataService.getAll(api, mainVideosServices.datastoreName))[0];
+    var currentId = allData.id;
+    console.log("ONS USER FIRST JOINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+    // console.log(currentId);
+    // with the first video id get movie details from beta series api
+    var currentMovieInfo = (allData.isTvShow == true) ? await apiVideoService.getTvShowDetails(currentId) : await apiVideoService.getMovieDetails(currentId);
+    console.log(currentMovieInfo);
+    // movie info to see = currentMovieInfo
+    var movieInfoToSee = currentMovieInfo;
+    var userInitialData = {
+        totalWastedTime: 0,
+        totalSavedTime: 0,
+        potentialWasteTime: 0,
+        menuTimeLabel: "tempsPerdu",
+        searchValue: "",
+        tvShowIdToSetupSeasons: -1,
+        currentTvShowViewedSeasons: 1,
+        overlaySliderValue: 1,
+        start: 0,
+        overlayState: false,
+        currentMovieInfo: currentMovieInfo,
+        movieInfoToSee: movieInfoToSee,
+        currentId: currentId,
+        navigation: "home"
+    };
+    return userService.initUser(api, { data: userInitialData });
+    /**
+     * commencer les widgets
+     * faire attention lors de l'envoie de faire une query des userData
+     */
 }
 
 function onUserQuit(props, event, api) {
@@ -72,7 +86,9 @@ function onUserQuit(props, event, api) {
 }
 
 function onSessionStart(props, event, api) {
-    // get userdatas
+    var me=userService.getUser(api);
+    console.log(me);
+    // get userdatas to display widgets 
 }
 
 function onSessionStop(props, event, api) {
