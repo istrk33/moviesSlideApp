@@ -6,6 +6,7 @@ const consts = require("./appConstsService");
 module.exports = {
     async queryPopularMovies(start) {
         var url = "https://api.betaseries.com/movies/discover?key=" + consts.apiKey + "&type=popular&offset=" + start + "&limit=50";
+        // console.log(url);
         var listOfMovies = (((await axios.get(url, { crossdomain: true },
             {
                 headers: {
@@ -33,6 +34,8 @@ module.exports = {
     async getMovieDetails(id) {
         // https://api.betaseries.com/movies/movie
         var url = "https://api.betaseries.com/movies/movie?key=" + consts.apiKey + "&id=" + id;
+        console.log("URLLLLLLLLL MOVIE DETAILS")
+        console.log(url)
         var movieDetail = (await axios.get(url, { crossdomain: true },
             {
                 headers: {
@@ -42,7 +45,6 @@ module.exports = {
         ).catch((e => {
             console.log(e);
         }))).data;
-
         return movieDetail.movie;
     },
     async getTvShowDetails(id) {

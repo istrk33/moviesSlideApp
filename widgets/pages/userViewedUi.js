@@ -1,8 +1,3 @@
-const Category = require("../../classes/Category");
-const Try = require("../../classes/Try");
-const categoryService = require("../../services/categoryService");
-const tryService = require("../../services/tryService");
-
 function menu() {
     return {
         type: "widget",

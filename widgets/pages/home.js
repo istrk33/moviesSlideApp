@@ -1,177 +1,210 @@
-/**
- * @param {*} _data 
- * @param {*} props 
- * @returns 
- */
-function content(_data, props) {
-    let tryListFind = {
-        "_datastore": tryService.datastoreName,
-        "_refs": {
-            "$contains": "@me"
-        }
-    };
-    if (props.state.category) {
-        tryListFind["_refs"] = {
-            "$and": [
-                tryListFind["_refs"],
-                {
-                    "$contains": props.state.category
-                }
-            ]
-        }
-    }
-    return {
-        type: "flex",
-        direction: "vertical",
-        crossAxisAlignment: "center",
-        spacing: 2,
-        padding: {
-            left: 4,
-            right: 4,
-        },
-        children: [
-            {
-                type: "flex",
-                mainAxisAlignment: "spaceBetween",
-                fillParent: true,
-                children: [
-                    {
-                        type: "widget",
-                        name: "home_categoryFilter",
-                        query: {
-                            "$find": {
-                                "_datastore": categoryService.datastoreName,
-                                "_refs": {
-                                    "$contains": "@me"
-                                }
-                            }
-                        },
-                        props: {
-                            category: props.state.category
-                        }
-                    },
-                    {
-                        type: "button",
-                        text: "Manage categories",
-                        mainStyle: "secondary",
-                        onPressed: {
-                            action: "setPage",
-                            props: {
-                                page: "categories"
-                            }
-                        }
-                    }
-                ]
-            },
-            {
-                type: "container",
-                constraints: { maxWidth: 1200 },
-                child: {
-                    type: "widget",
-                    name: "tryList",
-                    query: {
-                        "$find": tryListFind
-                    },
-                    props: {
-                        direction: "vertical"
-                    }
-                }
-            }
-        ]
-    }
-}
+const consts = require("../../services/local/appConstsService");
 
-/**
- * @param {Category[]} categories 
- * @param {*} props 
- * @returns 
- */
-function categoryFilter(categories, props) {
-    console.log("categoryFilter", props);
-    const selectedCategory = categories.find(c => c._id == props.category) || { name: "All categories" };
+module.exports = (_data, props) => {
+    console.log("DATAAAAAAAAAAAAAAAAAAA");
+    console.log(_data[0].mainData.currentLenraMovieId);
+    // var datas = _data[0].data;
+    // if (datas.currentMovieInfo.show != null) {
+    //     datas.tvShowToSetupSeasons = datas.currentMovieInfo.show;
+    //     var numberOfSeason = datas.currentMovieInfo.show.seasons;
+    //     var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
+    //     var img = "https://api.betaseries.com/pictures/shows?key=" + datas.apiKey + "&id=" + datas.currentMovieInfo.show.id + "&width=627&height=933";
+    //     var director = (datas.currentMovieInfo.show.showrunner == null) ? "Inconnu" : datas.currentMovieInfo.show.showrunner.name;
+    //     var videoType = "tvshow";
+    //     var title = datas.currentMovieInfo.show.title;
+    //     var year = datas.currentMovieInfo.show.creation;
+    //     var videoInfo = datas.currentMovieInfo.show;
+    //     var action = "showOverlaySeason";
+    // } else {
+    //     var img = "https://api.betaseries.com/pictures/movies?key=" + datas.apiKey + "&id=" + datas.currentMovieInfo.movie.id + "&width=627&height=933";
+    //     var currentFilmDurationStr = functions.computeMovieDuration(datas.currentMovieInfo.movie.length);
+    //     var director = datas.currentMovieInfo.movie.director;
+    //     var videoType = "movie";
+    //     var title = datas.currentMovieInfo.movie.title;
+    //     var year = datas.currentMovieInfo.movie.production_year;
+    //     var videoInfo = datas.currentMovieInfo.movie;
+    //     var action = "bottomButtonClick";
+    // }
     return {
-        type: "dropdownButton",
-        text: selectedCategory.name,
-        mainStyle: "tertiary",
-        disabled: categories.length == 0,
-        icon: {
-            type: "icon",
-            value: "expand_more",
+        type: "container",
+        decoration: {
+            color: consts.darkbg
         },
         child: {
-            type: "menu",
+            type: "flex",
+            direction: "vertical",
+            fillParent: true,
+            crossAxisAlignment: "center",
             children: [
                 {
-                    type: "menuItem",
-                    text: "All categories",
-                    isSelected: !props.category,
-                    onPressed: {
-                        action: "setStateProperty",
-                        props: {
-                            property: "category"
+                    type: "widget",
+                    name: "homeWithOverlay",
+                    query: {
+                        "$find": {
+                            "_datastore": {
+                                "$eq": "vars"
+                            }
                         }
                     }
                 },
-                ...categories.map(c => ({
-                    type: "menuItem",
-                    text: c.name,
-                    isSelected: c._id == props.category,
-                    onPressed: {
-                        action: "setStateProperty",
-                        props: {
-                            property: "category",
-                            value: c._id
-                        }
-                    }
-                }))
-            ]
-        }
-    };
-}
-
-/**
- * @param {*} _data 
- * @param {*} props 
- * @returns 
- */
-function menu(_data, props) {
-    return {
-        type: "widget",
-        name: "home_menuWithCategories",
-        query: {
-            "$find": {
-                "_datastore": categoryService.datastoreName,
-                "_refs": {
-                    "$contains": "@me"
-                },
-                // ready: true
-            }
-        }
-    }
-}
-
-function menuWithCategories(categories, props) {
-    return {
-        type: "widget",
-        name: "menu",
-        props: {
-            mainAction: {
-                text: "New Try",
-                disabled: !categories.find(c => c.ready),
-                onPressed: {
-                    action: "setPage",
+                {
+                    type: "widget",
+                    name: "menu",
                     props: {
-                        page: "createTry"
+                        page: "Main Page"
+                    },
+                    query: {
+                        "$find": {
+                            "_datastore": {
+                                "$eq": "vars"
+                            }
+                        }
+                    }
+                },
+                {
+                    type: "flexible",
+                    child:
+                    {
+                        type: "stack",
+                        alignment: "topRight",
+                        children: [
+                            {
+                                type: "image",
+                                fit: "cover",
+                                src: img
+                            },
+                            {
+                                type: "actionable",
+                                onPressed: {
+                                    action: "switchMovieInfoUi",
+                                    props: {
+                                        from: "home",
+                                        type: videoType,
+                                        movieData: videoInfo
+                                    }
+                                },
+                                child: {
+                                    type: "container",
+                                    decoration: {
+                                        color: consts.movieInfoButtonColor[0],
+                                    },
+                                    child: {
+                                        type: "flex",
+                                        children: [
+                                            {
+                                                type: "icon",
+                                                value: "info",
+                                                color: consts.movieInfoButtonColor[1],
+                                                size: 35
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    type: "container",
+                    padding: {
+                        bottom: 5,
+                        top: 5,
+                    },
+                    child: {
+                        type: "flex",
+                        direction: "vertical",
+                        crossAxisAlignment: "center",
+                        mainAxisAlignment: "center",
+                        spacing: 1,
+                        children: [
+                            {
+                                type: "wrap",
+                                children: [
+                                    {
+                                        type: "text",
+                                        value: title,
+                                        textAlign: "center",
+                                        style: {
+                                            color: 0xFFFFFFFF,
+                                            fontSize: 30
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                type: "text",
+                                value: String(currentFilmDurationStr + " | " + year),
+                                style: {
+                                    color: 0xFFFFFFFF,
+                                    fontSize: 20
+                                }
+                            },
+                            {
+                                type: "text",
+                                value: String(director),
+                                style: {
+                                    color: 0xFFFFFFFF,
+                                    fontSize: 20
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    type: "container",
+                    child:
+                    {
+                        type: "flex",
+                        mainAxisAlignment: "spaceBetween",
+                        crossAxisAlignment: "center",
+                        fillParent: true,
+                        children: [
+                            {
+                                type: "widget",
+                                name: "bottomButton",
+                                props: {
+                                    videoType: videoType,
+                                    buttonIcon: "close",
+                                    buttonStr: "Pas vu",
+                                    color: consts.bottomButton3Color[0],
+                                    iconColor: consts.bottomButton3Color[1],
+                                    action: "bottomButtonClick",
+                                    movieDict: datas.currentMovie,
+                                    buttonName: "notviewed"
+                                }
+                            },
+                            {
+                                type: "widget",
+                                name: "bottomButton",
+                                props: {
+                                    videoType: videoType,
+                                    buttonIcon: "add",
+                                    buttonStr: "Intéressé",
+                                    color: consts.bottomButton2Color[0],
+                                    iconColor: consts.bottomButton2Color[1],
+                                    action: "bottomButtonClick",
+                                    movieDict: datas.currentMovie,
+                                    buttonName: "interested"
+                                }
+                            },
+                            {
+                                type: "widget",
+                                name: "bottomButton",
+                                props: {
+                                    videoType: videoType,
+                                    buttonIcon: "done",
+                                    buttonStr: "Vu",
+                                    color: consts.bottomButton1Color[0],
+                                    iconColor: consts.bottomButton1Color[1],
+                                    movie: datas.currentMovieInfo,
+                                    action: action,
+                                    buttonName: "viewed"
+                                }
+                            },
+                        ]
                     }
                 }
-            }
+            ]
         }
     }
-}
-
-module.exports = {
-    content,
-    categoryFilter,
-    menu,
-    menuWithCategories
 }
