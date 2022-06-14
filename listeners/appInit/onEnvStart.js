@@ -16,7 +16,7 @@ module.exports = async (props, event, api) => {
     // creating datastores
     const promises = datastores.map(ds => lenraDataService.createDatastore(api, ds).catch((e => { })));
     await Promise.all(promises);
-
+    // METTRE ICI DANS FONCTION !!!!!!!!!!
     // getting list of movies/tvshows
     var tmp = await lenraDataService.createData(api, mainVideosServices.datastoreName, { start: 0 });
     var start = (await lenraDataService.getData(api, mainVideosServices.datastoreName, tmp._id));

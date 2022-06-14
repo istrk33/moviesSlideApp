@@ -1,4 +1,13 @@
-module.exports = async (_data, props) => {
+'use strict'
+
+/**
+ * view that display informations on the movie or the tv show
+ * @param {*} data 
+ * @param {*} props 
+ * @returns 
+ */
+const functions = require("../../resources/functions");
+module.exports = async (data, props) => {
     var datas = data[0].data;
     if (datas.movieInfoToSee.show != null || datas.movieInfoToSee.show != undefined) {
         var show = datas.movieInfoToSee.show;

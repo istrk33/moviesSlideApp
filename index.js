@@ -13,6 +13,12 @@ module.exports = async () => {
       userViewedUi: require('./widgets/pages/userInterestsUi'),
       videoInfoUi: require('./widgets/pages/videoInfoUi'),
       // components
+      menu: require('./widgets/components/menu'),
+      menuButton: require('./widgets/components/menuButton'),
+      bottomButton: require('./widgets/components/bottomButton'),
+      movieInfoButton: require('./widgets/components/movieInfoButton'),
+      listButton: require('./widgets/components/listButton'),
+      movieSearchTextField: require('./widgets/components/movieSearchTextField'),
     },
     // listeners: require('./listeners/all.js'),
     listeners: {
