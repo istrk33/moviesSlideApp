@@ -6,7 +6,7 @@
  * @param {*} props 
  * @returns 
  */
-const functions = require("../../resources/functions");
+// const functions = require("../../resources/functions");
 module.exports = async (data, props) => {
     var datas = data[0].data;
     if (datas.movieInfoToSee.show != null || datas.movieInfoToSee.show != undefined) {

@@ -5,7 +5,7 @@ const consts = require("./appConstsService");
 
 module.exports = {
     async queryPopularMovies(start) {
-        var url = "https://api.betaseries.com/movies/discover?key=" + consts.apiKey + "&type=popular&offset=" + start + "&limit=50";
+        var url = "https://api.betaseries.com/movies/discover?key=" + consts.apiKey + "&type=popular&offset=" + start + "&limit=5";
         // console.log(url);
         var listOfMovies = (((await axios.get(url, { crossdomain: true },
             {
@@ -19,7 +19,7 @@ module.exports = {
         return listOfMovies;
     },
     async queryPopularTvShows(start) {
-        var url = "https://api.betaseries.com/shows/list?key=" + consts.apiKey + "&order=followers&start=" + start + "&limit=50";
+        var url = "https://api.betaseries.com/shows/list?key=" + consts.apiKey + "&order=followers&start=" + start + "&limit=5";
         var listOfTvShows = (((await axios.get(url, { crossdomain: true },
             {
                 headers: {
