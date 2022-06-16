@@ -25,7 +25,6 @@ module.exports = (users, _props) => {
 function getUi(nav) {
   switch (nav) {
     case "home":
-      console.log("APP.JS GET UI FOR HOME !!!!!!!!!!!!!!!!!!!!!!!!!!");
       return {
         type: "widget",
         name: "home",

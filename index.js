@@ -13,22 +13,31 @@ module.exports = async () => {
       userViewedUi: require('./widgets/pages/userInterestsUi'),
       videoInfoUi: require('./widgets/pages/videoInfoUi'),
       // components
+      // menu
       menu: require('./widgets/components/menu'),
       menuButton: require('./widgets/components/menuButton'),
+      dropMenuAll: require('./widgets/components/dropMenuAll'),
+      dropMenuButton: require('./widgets/components/dropMenuButton'),
+      // home
       bottomButton: require('./widgets/components/bottomButton'),
       homeVideoInfo: require('./widgets/components/homeVideoInfo'),
-      listMovieButton: require('./widgets/components/listMovieButton'),
+      homeVideoInfoButton: require('./widgets/components/homeVideoInfoButton'),
+      overlayForTvShows: require('./widgets/components/overlayForTvShows'),
+      // videoInfo
+      homeBottomButtons: require('./widgets/components/homeBottomButtons'),
+      videoActorGrid: require('./widgets/components/videoActorGrid'),
+      // interests
+      // viewed
       movieSearchTextField: require('./widgets/components/movieSearchTextField'),
-      videoActorGrid: require('./widgets/components/movieSearchTextField'),
-      listOfVideo: require('./widgets/components/movieSearchTextField'),
-      dropMenuButton: require('./widgets/components/movieSearchTextField'),
-      overlayForTvShows: require('./widgets/components/movieSearchTextField'),
+      // listMovieButton: require('./widgets/components/listMovieButton'),
+      listOfVideo: require('./widgets/components/listOfVideo'),
     },
     // listeners: require('./listeners/all.js'),
     listeners: {
       onEnvStart: require('./listeners/appInit/onEnvStart'),
       onUserFirstJoin: require('./listeners/appInit/onUserFirstJoin'),
       onSessionStart: require('./listeners/appInit/onSessionStart'),
+      onSessionStop: require('./listeners/appInit/onSessionStop'),
     },
     rootWidget: 'main'
   }
