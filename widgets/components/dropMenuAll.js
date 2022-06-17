@@ -1,6 +1,20 @@
 const consts = require("../../services/local/appConstsService");
+const functions = require("../../services/local/videoAPIService");
 
 module.exports = (_data, props) => {
+    var data = props.data;
+    var menudisp;
+    switch (data.menuTimeLabel) {
+        case "tempsPerdu":
+            menudisp = functions.computeMenuTime(data.totalWastedTime);
+            break;
+        case "tempsAPerdre":
+            menudisp = functions.computeMenuTime(data.potentialWasteTime);
+            break;
+        case "tempsEconomise":
+            menudisp = functions.computeMenuTime(data.totalSavedTime);
+            break;
+    }
     return {
         type: "dropdownButton",
         text: String(menudisp),
@@ -20,48 +34,50 @@ module.exports = (_data, props) => {
                     children: [
                         {
                             type: "widget",
-                            name: "dropdownMenuButton",
+                            name: "dropMenuButton",
                             props: {
                                 srcButton: "tempsPerdu",
                                 icon: "remove_red_eye",
                                 buttonText: "Temps Perdu",
-                                color: datas.dropDownButton1Color[0],
-                                iconColor: datas.dropDownButton1Color[1]
+                                color: consts.dropDownButton1Color[0],
+                                iconColor: consts.dropDownButton1Color[1]
                             }
                         },
                         {
                             type: "widget",
-                            name: "dropdownMenuButton",
+                            name: "dropMenuButton",
                             props: {
                                 srcButton: "tempsAPerdre",
                                 icon: "watch_later",
                                 buttonText: "Temps à Perdre",
-                                color: datas.dropDownButton2Color[0],
-                                iconColor: datas.dropDownButton2Color[1]
-                            }, query: {
-                                "$find": {
-                                    "_datastore": {
-                                        "$eq": "general"
-                                    }
-                                }
-                            }
+                                color: consts.dropDownButton2Color[0],
+                                iconColor: consts.dropDownButton2Color[1]
+                            }, 
+                            // query: {
+                            //     "$find": {
+                            //         "_datastore": {
+                            //             "$eq": "general"
+                            //         }
+                            //     }
+                            // }
                         },
                         {
                             type: "widget",
-                            name: "dropdownMenuButton",
+                            name: "dropMenuButton",
                             props: {
                                 srcButton: "tempsEconomise",
                                 icon: "close",
                                 buttonText: "Temps Economisé",
-                                color: datas.dropDownButton3Color[0],
-                                iconColor: datas.dropDownButton3Color[1]
-                            }, query: {
-                                "$find": {
-                                    "_datastore": {
-                                        "$eq": "general"
-                                    }
-                                }
-                            }
+                                color: consts.dropDownButton3Color[0],
+                                iconColor: consts.dropDownButton3Color[1]
+                            }, 
+                            // query: {
+                            //     "$find": {
+                            //         "_datastore": {
+                            //             "$eq": "general"
+                            //         }
+                            //     }
+                            // }
                         },
                     ]
                 }

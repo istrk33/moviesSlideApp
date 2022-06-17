@@ -1,9 +1,11 @@
 const consts = require("../../services/local/appConstsService");
 const userService = require("../../services/userService");
+const mainVideosService = require("../../services/mainVideosService");
 
 module.exports = (_data, props) => {
-    console.log("DATAAAAAAAAAAAAAAAAAAA");
-    console.log(_data);
+    var data = _data[0];
+    var currentVideoId = data.mainData.lenraCurrentVideoId;
+    console.log("IDDDDDDDDDDDDDDDDDDDDDDDDD : " + currentVideoId);
     return {
         type: "container",
         decoration: {
@@ -15,52 +17,44 @@ module.exports = (_data, props) => {
             fillParent: true,
             crossAxisAlignment: "center",
             children: [
-                {
-                    type: "widget",
-                    name: "overlayForTvShows",
-                    query: {
-                        "$find": {
-                            "_datastore": userService.datastoreName,
-                            "_id": "@me"
-                        }
-                    }
-                },
+                // {
+                //     type: "widget",
+                //     name: "overlayForTvShows",
+                //     query: {
+                //         "$find": {
+                //             "_datastore": userService.datastoreName,
+                //             "_id": "@me"
+                //         }
+                //     }
+                // },
                 {
                     type: "widget",
                     name: "menu",
                     props: {
-                        page: "Main Page"
+                        page: "Main Page",
+                        data: data.mainData
                     },
-                    query: {
-                        "$find": {
-                            "_datastore": userService.datastoreName,
-                            "_id": "@me"
-                        }
-                    }
                 },
                 {
                     type: "widget",
                     name: "homeVideoInfo",
                     query: {
                         "$find": {
-                            "_datastore": userService.datastoreName,
-                            "_id": "@me"
+                            "_datastore": mainVideosService.datastoreName,
+                            "_id": currentVideoId
                         }
-                    },
-                    props:{
-                        lenraMovieId:"",
                     }
                 },
-                {
-                    type: "widget",
-                    name: "homeBottomButtons",
-                    query: {
-                        "$find": {
-                            "_datastore": userService.datastoreName,
-                            "_id": "@me"
-                        }
-                    }
-                }
+                // {
+                //     type: "widget",
+                //     name: "homeBottomButtons",
+                //     query: {
+                //         "$find": {
+                //             "_datastore": userService.datastoreName,
+                //             "_id": "@me"
+                //         }
+                //     }
+                // }
             ]
         }
     }

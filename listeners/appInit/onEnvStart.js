@@ -8,9 +8,8 @@ const userService = require('../../services/userService');
 const apiVideoService = require('../../services/local/videoAPIService');
 const consts = require('../../services/local/appConstsService');
 const mainAppVars = "mainAppVars";
-const userToVideo = "userToVideo";
 //placer tous les datastores a utiliser
-const datastores = [mainAppVars, mainVideosServices.datastoreName, userViewedVideosService.datastoreName, userInterestsVideosService.datastoreName, userToVideo];
+const datastores = [mainAppVars, mainVideosServices.datastoreName, userViewedVideosService.datastoreName, userInterestsVideosService.datastoreName];
 
 module.exports = async (props, event, api) => {
     var errors = [];

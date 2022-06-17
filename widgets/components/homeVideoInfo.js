@@ -1,22 +1,30 @@
-module.exports = (data, props) => {
-    if (datas.currentMovieInfo.show != null) {
-        var numberOfSeason = datas.currentMovieInfo.show.seasons;
+const functions = require("../../services/local/videoAPIService");
+
+module.exports = (_data, props) => {
+    console.log("HOME VIDEO INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\nHOME VIDEO INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\nHOME VIDEO INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
+    console.log(_data);
+    console.log(props);
+    var data = _data[0];
+    console.log(data);
+    var isTvShow = data.isTvShow;
+    var videoInfo = data.videoDetails;
+    if (isTvShow) {
+        var numberOfSeason = videoInfo.seasons;
         var currentFilmDurationStr = (numberOfSeason == 1) ? numberOfSeason + " saison" : numberOfSeason + " saisons";
-        var img = "https://api.betaseries.com/pictures/shows?key=" + datas.apiKey + "&id=" + datas.currentMovieInfo.show.id + "&width=627&height=933";
-        var director = (datas.currentMovieInfo.show.showrunner == null) ? "Inconnu" : datas.currentMovieInfo.show.showrunner.name;
+        var img = videoInfo.img;
+        var director = (videoInfo.showrunner == null) ? "Inconnu" : videoInfo.showrunner.name;
         var videoType = "tvshow";
-        var title = datas.currentMovieInfo.show.title;
-        var year = datas.currentMovieInfo.show.creation;
-        var videoInfo = datas.currentMovieInfo.show;
+        var title = videoInfo.title;
+        var year = videoInfo.creation;
         var action = "showOverlaySeason";
     } else {
-        var img = "https://api.betaseries.com/pictures/movies?key=" + datas.apiKey + "&id=" + datas.currentMovieInfo.movie.id + "&width=627&height=933";
-        var currentFilmDurationStr = functions.computeMovieDuration(datas.currentMovieInfo.movie.length);
-        var director = datas.currentMovieInfo.movie.director;
+        var img = videoInfo.img;
+        var currentFilmDurationStr = functions.computeMovieDuration(videoInfo.length);
+        var director = videoInfo.director;
         var videoType = "movie";
-        var title = datas.currentMovieInfo.movie.title;
-        var year = datas.currentMovieInfo.movie.production_year;
-        var videoInfo = datas.currentMovieInfo.movie;
+        var title = videoInfo.title;
+        var year = videoInfo.production_year;
+        var videoInfo = videoInfo.movie;
         var action = "bottomButtonClick";
     }
     return {
