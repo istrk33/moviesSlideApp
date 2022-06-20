@@ -14,7 +14,8 @@ module.exports = (data, props) => {
                     action: props.action,
                     props: {
                         buttonName: props.buttonName,
-                        videoType: props.videoType
+                        videoType: props.videoType,
+                        videoId: props.videoId
                     }
                 },
                 // onHovered: {

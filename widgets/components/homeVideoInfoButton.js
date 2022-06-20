@@ -1,3 +1,4 @@
+const consts = require("../../services/local/appConstsService");
 module.exports = (data, props) => {
     return {
         type: "actionable",
@@ -5,8 +6,8 @@ module.exports = (data, props) => {
             action: "switchMovieInfoUi",
             props: {
                 from: "home",
-                type: videoType,
-                movieData: videoInfo
+                type: props.videoType,
+                movieData: data.videoInfo
             }
         },
         child: {
@@ -15,15 +16,10 @@ module.exports = (data, props) => {
                 color: consts.movieInfoButtonColor[0],
             },
             child: {
-                type: "flex",
-                children: [
-                    {
-                        type: "icon",
-                        value: "info",
-                        color: consts.movieInfoButtonColor[1],
-                        size: 35
-                    }
-                ]
+                type: "icon",
+                value: "info",
+                color: consts.movieInfoButtonColor[1],
+                size: 35
             }
         }
     }

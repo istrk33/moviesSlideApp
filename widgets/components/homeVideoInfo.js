@@ -1,11 +1,11 @@
 const functions = require("../../services/local/videoAPIService");
 
 module.exports = (_data, props) => {
-    console.log("HOME VIDEO INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\nHOME VIDEO INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\nHOME VIDEO INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
-    console.log(_data);
-    console.log(props);
+    console.log("HOME VIDEO INFO");
     var data = _data[0];
+    console.log(_data);
     console.log(data);
+    var lenraDataId = data._id;
     var isTvShow = data.isTvShow;
     var videoInfo = data.videoDetails;
     if (isTvShow) {
@@ -47,7 +47,11 @@ module.exports = (_data, props) => {
                         },
                         {
                             type: "widget",
-                            name: "homeVideoInfo"
+                            name: "homeVideoInfoButton",
+                            props: {
+                                videoType: videoType,
+                                videoInfo: videoInfo
+                            }
                         }
                     ]
                 }
@@ -97,6 +101,21 @@ module.exports = (_data, props) => {
                         }
                     ]
                 }
+            },
+            {
+                type: "widget",
+                name: "homeBottomButtons",
+                props: {
+                    videoType: videoType,
+                    videoId: lenraDataId,
+                    action: action
+                }
+                // query: {
+                //     "$find": {
+                //         "_datastore": userService.datastoreName,
+                //         "_id": "@me"
+                //     }
+                // }
             }
         ]
     }

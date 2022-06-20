@@ -10,7 +10,6 @@ const userService = require('../services/userService');
  */
 module.exports = (users, _props) => {
   const user = users[0];
-  // console.log(user);
   var userData = user.mainData;
   if (!userData) {
     return {

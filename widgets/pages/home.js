@@ -5,7 +5,6 @@ const mainVideosService = require("../../services/mainVideosService");
 module.exports = (_data, props) => {
     var data = _data[0];
     var currentVideoId = data.mainData.lenraCurrentVideoId;
-    console.log("IDDDDDDDDDDDDDDDDDDDDDDDDD : " + currentVideoId);
     return {
         type: "container",
         decoration: {
@@ -36,25 +35,18 @@ module.exports = (_data, props) => {
                     },
                 },
                 {
-                    type: "widget",
-                    name: "homeVideoInfo",
-                    query: {
-                        "$find": {
-                            "_datastore": mainVideosService.datastoreName,
-                            "_id": currentVideoId
+                    type: "flexible",
+                    child: {
+                        type: "widget",
+                        name: "homeVideoInfo",
+                        query: {
+                            "$find": {
+                                "_datastore": mainVideosService.datastoreName,
+                                "_id": currentVideoId
+                            }
                         }
                     }
-                },
-                // {
-                //     type: "widget",
-                //     name: "homeBottomButtons",
-                //     query: {
-                //         "$find": {
-                //             "_datastore": userService.datastoreName,
-                //             "_id": "@me"
-                //         }
-                //     }
-                // }
+                }
             ]
         }
     }

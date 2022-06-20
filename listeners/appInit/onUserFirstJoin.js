@@ -5,12 +5,7 @@ const apiVideoService = require('../../services/local/videoAPIService');
 
 module.exports = async (props, event, api) => {
     // get first video id from the datastore
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    // get first lenra movie
-    var allData = await lenraDataService.getAll(api, mainVideosServices.datastoreName);
-    var first = allData[0];
-    // console.log("FIRST MOVIEEEEEE");
-    // console.log(first);
+    await new Promise(resolve => setTimeout(resolve, 5000));
     // getUser Id
     var userData = await userService.getUser(api, userData);
     var userId = userData._id;
@@ -25,7 +20,7 @@ module.exports = async (props, event, api) => {
         currentTvShowViewedSeasons: 1,
         overlaySliderValue: 1,
         overlayState: false,
-        lenraCurrentVideoId: first._id,
+        lenraCurrentVideoId: 1,
         navigation: "home"
     };
     userData.mainData = userInitialData;

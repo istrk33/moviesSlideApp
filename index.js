@@ -38,6 +38,8 @@ module.exports = async () => {
       onUserFirstJoin: require('./listeners/appInit/onUserFirstJoin'),
       onSessionStart: require('./listeners/appInit/onSessionStart'),
       onSessionStop: require('./listeners/appInit/onSessionStop'),
+      
+      bottomButtonClick: require('./listeners/event/bottomButtonClick'),
     },
     rootWidget: 'main'
   }

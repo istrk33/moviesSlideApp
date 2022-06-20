@@ -84,7 +84,6 @@ function handleResponse(response) {
         return response.data.data;
     }
     else {
-        console.error(response.data);
         throw new Error("There were errors while calling the API");
     }
 }

@@ -2,11 +2,12 @@
 
 const axios = require("axios");
 const consts = require("./appConstsService");
+const lenraDataService = require("../lenraDataService");
+const mainVideosServices = require("../mainVideosService");
 
 module.exports = {
     async queryPopularMovies(start) {
         var url = "https://api.betaseries.com/movies/discover?key=" + consts.apiKey + "&type=popular&offset=" + start + "&limit=" + consts.numberOfResults;
-        // console.log(url);
         var listOfMovies = (((await axios.get(url, { crossdomain: true },
             {
                 headers: {
@@ -14,7 +15,6 @@ module.exports = {
                 }
             }
         ).catch((e => {
-            console.log(e);
         }))).data).movies);
         return listOfMovies;
     },
@@ -27,7 +27,6 @@ module.exports = {
                 }
             }
         ).catch((e => {
-            console.log(e);
         }))).data).shows);
         return listOfTvShows;
     },
@@ -41,7 +40,6 @@ module.exports = {
                 }
             }
         ).catch((e => {
-            console.log(e);
         }))).data;
         return movieDetail.movie;
     },
@@ -55,7 +53,6 @@ module.exports = {
                 }
             }
         ).catch((e => {
-            console.log(e);
         }))));
         return tvShowDetail.data.show;
     },
@@ -93,5 +90,20 @@ module.exports = {
             arr.splice(arr.length, 0, "star_border_outlined");
         }
         return arr;
+    },
+    async addNewVideosToLenra(api, start) {
+        var listOfVideos = [];
+        // getting list of movies/tvshows
+        (await this.queryPopularMovies(start.start)).forEach((element) => listOfVideos.push([element.id, false]));
+        (await this.queryPopularTvShows(start.start)).forEach((element) => listOfVideos.push([element.id, true]));
+        start.start += consts.numberOfResults;
+
+        listOfVideos = listOfVideos.sort((a, b) => 0.5 - Math.random());
+        listOfVideos.forEach(async e => {
+            var videoDetails = (e[1]) ? await this.getTvShowDetails(e[0]) : await this.getMovieDetails(e[0]);
+            videoDetails.img = (e[1]) ? "https://api.betaseries.com/pictures/shows?key=" + consts.apiKey + "&id=" + videoDetails.id + "&width=627&height=933" : "https://api.betaseries.com/pictures/movies?key=" + consts.apiKey + "&id=" + videoDetails.id + "&width=627&height=933";
+            await mainVideosServices.createVideo(api, { id: e[0], isTvShow: e[1], videoDetails });
+        });
+        (await lenraDataService.updateData(api, "mainAppVars", start));
     }
 }

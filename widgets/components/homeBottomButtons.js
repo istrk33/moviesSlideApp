@@ -1,3 +1,5 @@
+const consts= require("../../services/local/appConstsService");
+
 module.exports = (data, props) => {
     return {
         type: "container",
@@ -12,13 +14,13 @@ module.exports = (data, props) => {
                     type: "widget",
                     name: "bottomButton",
                     props: {
-                        videoType: videoType,
+                        videoType: props.videoType,
                         buttonIcon: "close",
                         buttonStr: "Pas vu",
                         color: consts.bottomButton3Color[0],
                         iconColor: consts.bottomButton3Color[1],
                         action: "bottomButtonClick",
-                        movieDict: datas.currentMovie,
+                        videoId: props.videoId,
                         buttonName: "notviewed"
                     }
                 },
@@ -26,13 +28,13 @@ module.exports = (data, props) => {
                     type: "widget",
                     name: "bottomButton",
                     props: {
-                        videoType: videoType,
+                        videoType: props.videoType,
                         buttonIcon: "add",
                         buttonStr: "Intéressé",
                         color: consts.bottomButton2Color[0],
                         iconColor: consts.bottomButton2Color[1],
                         action: "bottomButtonClick",
-                        movieDict: datas.currentMovie,
+                        videoId: props.videoId,
                         buttonName: "interested"
                     }
                 },
@@ -40,13 +42,13 @@ module.exports = (data, props) => {
                     type: "widget",
                     name: "bottomButton",
                     props: {
-                        videoType: videoType,
+                        videoType: props.videoType,
                         buttonIcon: "done",
                         buttonStr: "Vu",
                         color: consts.bottomButton1Color[0],
                         iconColor: consts.bottomButton1Color[1],
-                        movie: datas.currentMovieInfo,
-                        action: action,
+                        videoId: props.videoId,
+                        action: props.action,
                         buttonName: "viewed"
                     }
                 },

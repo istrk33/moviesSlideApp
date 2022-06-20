@@ -6,27 +6,18 @@ const datastoreName = 'usersInterests';
 
 module.exports = {
     datastoreName,
-    /**
-     * @param {*} api 
-     * @param {Category} category The category 
-     * @returns {Promise<Category>}
-     */
-    async createCategory(api, category) {
-        return dataService.createData(api, datastoreName, category);
+    async createNewInterest(api, userId, videoId, startSeason) {
+        return dataService.createData(api, datastoreName, { userId: userId, videoId: videoId, startSeason: startSeason });
     },
-    /**
-     * @param {*} api 
-     * @param {number} categoryId The category id
-     * @returns {Promise<Category>}
-     */
-    async getCategory(api, categoryId) {
-        return dataService.getData(api, datastoreName, categoryId);
+    async getUserInterests(api) {
+        return await dataService.executeQuery(api, {
+            "$find": {
+                "_datastore": datastoreName,
+                "userId": "@me"
+            }
+        });
     },
-    /**
-     * @param {*} api 
-     * @returns {Promise<Category[]>}
-     */
-    async getUserCategories(api) {
+    async updateUserInterest(api) {
         return await dataService.executeQuery(api, {
             "$find": {
                 "_datastore": datastoreName,
@@ -36,12 +27,7 @@ module.exports = {
             }
         });
     },
-    /**
-     * @param {*} api 
-     * @param {Category} category 
-     * @returns {Promise<Category>}
-     */
-    async updateCategory(api, category) {
+    async deleteUserInterest(api, category) {
         return await dataService.updateData(api, datastoreName, category);
     }
 }
