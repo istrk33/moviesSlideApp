@@ -1,5 +1,4 @@
 const consts = require("../../services/local/appConstsService");
-const userService = require("../../services/userService");
 const mainVideosService = require("../../services/mainVideosService");
 
 module.exports = (_data, props) => {

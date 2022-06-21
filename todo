@@ -1,3 +1,7 @@
-recup video by lenra id from user current
-home ui
-speak about doing multiple query to api into onenvstart
+* fix the datalength
+* management of videos defilment error
+* user interest and user viewed ui design
+* management of tv shows with ids
+* search value to setup in viewed and interests list
+* setup a datastore of movie with only apiid, title, and related details id from an other datastore 
+* setup a datastore of videoDetails to avoid the length of datas which are passed in argument

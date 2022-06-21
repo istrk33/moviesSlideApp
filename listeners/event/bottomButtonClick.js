@@ -76,15 +76,8 @@ async function actionOnVideo(api, videoId, userData, timeInSec, buttonName, star
     // get 2 or 5 new video from betaseries api
     // update video in userData
     userData.mainData.lenraCurrentVideoIndex++;
-    console.log("ERRRRRR5")
     await userService.updateUser(api, userData, userId);
-    console.log("ERRRRRR6")
-    var tmp = await userService.getUser(api, userData);
-    console.log(tmp);
-    // BUG
+    // BUG -> planter l'appli car charge trop de données et récupère beaucoup de données (tout le datastore)
     var start = (await lenraDataService.getAll(api, "mainAppVars"))[0];
-    console.log("ERRRRRR7")
-    console.log(start)
     await videoAPIService.addNewVideosToLenra(api, start);
-    // console.log("ERRRRRR8")
 }

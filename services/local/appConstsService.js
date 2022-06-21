@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-    numberOfResults:5,
+    numberOfResults: 5,
     apiKey: "941cc48f228b",
     movieInfoButtonColor: [0xF4212121, 0xFFFFFFFF],
     bottomButtonsColors: [[0xFF72BD28, 0xFFCEEFAE], [0xFFBD7228, 0xFFE3A482], [0xFFBD2828, 0xFFD86E6E]],

@@ -7,7 +7,7 @@ module.exports = (_data, props) => {
         return b._id - a._id;
     }).reverse();
     var data = allFilms[props.currentIndex];
-    
+
     var lenraDataId = data._id;
     var isTvShow = data.isTvShow;
     var videoInfo = data.videoDetails;
@@ -112,12 +112,6 @@ module.exports = (_data, props) => {
                     videoId: lenraDataId,
                     action: action
                 }
-                // query: {
-                //     "$find": {
-                //         "_datastore": userService.datastoreName,
-                //         "_id": "@me"
-                //     }
-                // }
             }
         ]
     }

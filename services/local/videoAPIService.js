@@ -31,7 +31,6 @@ module.exports = {
         return listOfTvShows;
     },
     async getMovieDetails(id) {
-        // https://api.betaseries.com/movies/movie
         var url = "https://api.betaseries.com/movies/movie?key=" + consts.apiKey + "&id=" + id;
         var movieDetail = (await axios.get(url, { crossdomain: true },
             {
@@ -44,7 +43,6 @@ module.exports = {
         return movieDetail.movie;
     },
     async getTvShowDetails(id) {
-        // https://api.betaseries.com/shows/display?key=941cc48f228b&id=22592
         var url = "https://api.betaseries.com/shows/display?key=" + consts.apiKey + "&id=" + id;
         var tvShowDetail = ((await axios.get(url, { crossdomain: true },
             {
@@ -93,47 +91,46 @@ module.exports = {
     },
     async addNewVideosToLenra(api, start) {
         var listOfVideos = [];
-        // getting list of movies/tvshows
         (await this.queryPopularMovies(start.start)).forEach((element) => listOfVideos.push([element.id, false]));
         (await this.queryPopularTvShows(start.start)).forEach((element) => listOfVideos.push([element.id, true]));
         start.start += consts.numberOfResults;
         console.log("SIUUUU");
         console.log(start);
-        
+
         listOfVideos = listOfVideos.sort((a, b) => 0.5 - Math.random());
         listOfVideos.forEach(async e => {
             var videoDetails = (e[1]) ? await this.getTvShowDetails(e[0]) : await this.getMovieDetails(e[0]);
             videoDetails.img = (e[1]) ? "https://api.betaseries.com/pictures/shows?key=" + consts.apiKey + "&id=" + videoDetails.id + "&width=627&height=933" : "https://api.betaseries.com/pictures/movies?key=" + consts.apiKey + "&id=" + videoDetails.id + "&width=627&height=933";
             await mainVideosServices.createVideo(api, { id: e[0], isTvShow: e[1], videoDetails });
         });
-        var tmp=(await lenraDataService.updateData(api, "mainAppVars", start));
+        var tmp = (await lenraDataService.updateData(api, "mainAppVars", start));
         console.log("SIUUUU222");
         console.log(tmp);
     },
-    async getCharacters( id) {
+    async getCharacters(id) {
         var url = "https://api.betaseries.com/movies/characters?key=" + consts.apiKey + "&id=" + id;
         var movieCharacters = ((await axios.get(url, { crossdomain: true },
-          {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
+            {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
             }
-          }
         ).catch((e => {
-          console.log("ERROR " + e);
+            console.log("ERROR " + e);
         }))).data);
         return movieCharacters.characters;
-      },
-      async getTvShowsCharacters(id) {
+    },
+    async getTvShowsCharacters(id) {
         var url = "https://api.betaseries.com/shows/characters?key=" + consts.apiKey + "&id=" + id;
         var tvShowsCharacters = ((await axios.get(url, { crossdomain: true },
-          {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
+            {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
             }
-          }
         ).catch((e => {
-          console.log("ERROR " + e);
+            console.log("ERROR " + e);
         }))).data)
         return tvShowsCharacters.characters;
-      }
+    }
 }

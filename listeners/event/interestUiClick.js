@@ -8,11 +8,6 @@
  * @returns 
  */
 const userService = require("../../services/userService");
-const lenraDataService = require("../../services/lenraDataService");
-const mainVideosServices = require('../../services/mainVideosService');
-const userInterestsVideosService = require('../../services/userInterestedVideosService');
-const userViewedVideosService = require('../../services/userViewedVideosService');
-const videoAPIService = require("../../services/local/videoAPIService");
 
 module.exports = async (_props, event, api) => {
     var userData = (await userService.getUser(api));
@@ -20,5 +15,4 @@ module.exports = async (_props, event, api) => {
     var mainData = userData.mainData;
     mainData.navigation = "interests";
     await userService.updateUser(api, userData, userId);
-    //change navigation
 }

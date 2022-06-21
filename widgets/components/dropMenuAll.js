@@ -52,14 +52,7 @@ module.exports = (_data, props) => {
                                 buttonText: "Temps à Perdre",
                                 color: consts.dropDownButton2Color[0],
                                 iconColor: consts.dropDownButton2Color[1]
-                            }, 
-                            // query: {
-                            //     "$find": {
-                            //         "_datastore": {
-                            //             "$eq": "general"
-                            //         }
-                            //     }
-                            // }
+                            },
                         },
                         {
                             type: "widget",
@@ -70,14 +63,14 @@ module.exports = (_data, props) => {
                                 buttonText: "Temps Economisé",
                                 color: consts.dropDownButton3Color[0],
                                 iconColor: consts.dropDownButton3Color[1]
-                            }, 
-                            // query: {
-                            //     "$find": {
-                            //         "_datastore": {
-                            //             "$eq": "general"
-                            //         }
-                            //     }
-                            // }
+                            },
+                        },
+                        {
+                            type: "text",
+                            value: "Data from www.betaseries.com",
+                            style: {
+                                color: consts.white
+                            }
                         },
                     ]
                 }

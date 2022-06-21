@@ -51,7 +51,7 @@ module.exports = (data, props) => {
                         action: props.action,
                         buttonName: "viewed"
                     }
-                },
+                }
             ]
         }
     }

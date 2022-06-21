@@ -44,6 +44,7 @@ module.exports = async () => {
       goToHomeUi: require('./listeners/event/homeUiClick'),
       goToInterestUi: require('./listeners/event/interestUiClick'),
       goToViewedUi: require('./listeners/event/vieweduiClick'),
+      changeMenuLabel: require('./listeners/event/changeMenuLabel'),
     },
     rootWidget: 'main'
   }

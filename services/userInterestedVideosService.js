@@ -3,7 +3,6 @@
 const dataService = require("./lenraDataService.js");
 const datastoreName = 'usersInterests';
 
-
 module.exports = {
     datastoreName,
     async createNewInterest(api, userId, videoId, startSeason) {
