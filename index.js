@@ -38,8 +38,12 @@ module.exports = async () => {
       onUserFirstJoin: require('./listeners/appInit/onUserFirstJoin'),
       onSessionStart: require('./listeners/appInit/onSessionStart'),
       onSessionStop: require('./listeners/appInit/onSessionStop'),
-      
+
       bottomButtonClick: require('./listeners/event/bottomButtonClick'),
+      switchMovieInfoUi: require('./listeners/event/videoInfoButtonClick'),
+      goToHomeUi: require('./listeners/event/homeUiClick'),
+      goToInterestUi: require('./listeners/event/interestUiClick'),
+      goToViewedUi: require('./listeners/event/vieweduiClick'),
     },
     rootWidget: 'main'
   }

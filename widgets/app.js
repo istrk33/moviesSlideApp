@@ -1,6 +1,7 @@
 'use strict'
 
 const User = require('../classes/User.js');
+const mainVideosService = require('../services/mainVideosService.js');
 const userService = require('../services/userService');
 
 /**
@@ -17,11 +18,11 @@ module.exports = (users, _props) => {
       value: "Loading"
     }
   } else {
-    return getUi(userData.navigation);
+    return getUi(userData.navigation, user);
   }
 }
 
-function getUi(nav) {
+function getUi(nav, user) {
   switch (nav) {
     case "home":
       return {
@@ -37,7 +38,15 @@ function getUi(nav) {
     case "videoInfoUi":
       return {
         type: "widget",
-        name: "videoInfoUi"
+        name: "videoInfoUi",
+        query: {
+          "$find": {
+            "_datastore": mainVideosService.datastoreName
+          }
+        },
+        props: {
+          userData: user
+        }
       };
     case "userInterestsUi":
       return {

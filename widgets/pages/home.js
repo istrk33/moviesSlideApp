@@ -42,8 +42,11 @@ module.exports = (_data, props) => {
                         query: {
                             "$find": {
                                 "_datastore": mainVideosService.datastoreName,
-                                "_id": currentVideoId
+                                // "_id": currentVideoId
                             }
+                        },
+                        props: {
+                            currentIndex: data.mainData.lenraCurrentVideoIndex
                         }
                     }
                 }

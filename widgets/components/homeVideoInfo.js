@@ -2,9 +2,12 @@ const functions = require("../../services/local/videoAPIService");
 
 module.exports = (_data, props) => {
     console.log("HOME VIDEO INFO");
-    var data = _data[0];
-    console.log(_data);
-    console.log(data);
+
+    var allFilms = _data.sort(function (a, b) {
+        return b._id - a._id;
+    }).reverse();
+    var data = allFilms[props.currentIndex];
+    
     var lenraDataId = data._id;
     var isTvShow = data.isTvShow;
     var videoInfo = data.videoDetails;
@@ -50,7 +53,6 @@ module.exports = (_data, props) => {
                             name: "homeVideoInfoButton",
                             props: {
                                 videoType: videoType,
-                                videoInfo: videoInfo
                             }
                         }
                     ]

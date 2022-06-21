@@ -9,6 +9,10 @@ module.exports = async (props, event, api) => {
     // getUser Id
     var userData = await userService.getUser(api, userData);
     var userId = userData._id;
+    var allFIlms = await lenraDataService.getAll(api, mainVideosServices.datastoreName);
+    allFIlms.sort(function (a, b) {
+        return b._id - a._id;
+    }).reverse();
 
     var userInitialData = {
         totalWastedTime: 0,
@@ -20,9 +24,9 @@ module.exports = async (props, event, api) => {
         currentTvShowViewedSeasons: 1,
         overlaySliderValue: 1,
         overlayState: false,
-        lenraCurrentVideoId: 1,
+        lenraCurrentVideoIndex: 0,
         navigation: "home"
     };
     userData.mainData = userInitialData;
-    return await userService.updateUser(api, userData, userId);
+    await userService.updateUser(api, userData, userId);
 }

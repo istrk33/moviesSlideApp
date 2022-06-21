@@ -19,8 +19,5 @@ module.exports = async (props, event, api) => {
     var tmp = await lenraDataService.createData(api, mainAppVars, { start: 0 });
     var start = (await lenraDataService.getData(api, mainAppVars, tmp._id));
     await apiVideoService.addNewVideosToLenra(api, start);
-    var allFIlms = await lenraDataService.getAll(api, mainVideosServices.datastoreName);
-    console.log("ALLLLLLLLLLLLLLLLLL DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(allFIlms);
     return errors;
 }

@@ -17,14 +17,19 @@ const videoAPIService = require("../../services/local/videoAPIService");
 module.exports = async (_props, event, api) => {
     var userData = (await userService.getUser(api));
     var mainData = userData.mainData;
-    var videoId = mainData.lenraCurrentVideoId;
+    var videoIndex = mainData.lenraCurrentVideoIndex;
+
+    var allFilms = await lenraDataService.getAll(api, mainVideosServices.datastoreName);
+    allFilms.sort(function (a, b) {
+        return b._id - a._id;
+    }).reverse();
+    var data = allFilms[videoIndex];
 
     // GET MOVIE FROM LENRA API
-    var returnedData = await lenraDataService.getData(api, mainVideosServices.datastoreName, videoId);
-    var video = returnedData.videoDetails;
-    if (!returnedData.isTvShow) {
+    var video = data.videoDetails;
+    if (!data.isTvShow) {
         var timeInSec = video.length;
-        await actionOnVideo(api, videoId, userData, timeInSec, _props.buttonName, -1);
+        await actionOnVideo(api, data._id, userData, timeInSec, _props.buttonName, -1);
         // if it's a video of type of type tvShow
     } else {
         // computing the total length of the tv show by using the number of seasons, episodes and the average length of one episode
@@ -32,7 +37,7 @@ module.exports = async (_props, event, api) => {
         video.seasons_details.forEach(element => {
             timeInSec += element.episodes * video.length * 60;
         });
-        await actionOnVideo(api, videoId, userData, timeInSec, _props.buttonName, 1);
+        await actionOnVideo(api, data._id, userData, timeInSec, _props.buttonName, 1);
     }
 }
 
@@ -70,13 +75,16 @@ async function actionOnVideo(api, videoId, userData, timeInSec, buttonName, star
     }
     // get 2 or 5 new video from betaseries api
     // update video in userData
-    userData.mainData.lenraCurrentVideoCustomId += 1;
-
-    var ss = await mainVideosServices.getVideoByCustomId(api, userData.mainData.lenraCurrentVideoCustomId);
-    var newVideo = await lenraDataService.getAll(api, mainVideosServices.datastoreName);
-    userData.mainData.lenraCurrentVideoId = newVideo[0]._id;
+    userData.mainData.lenraCurrentVideoIndex++;
+    console.log("ERRRRRR5")
     await userService.updateUser(api, userData, userId);
+    console.log("ERRRRRR6")
+    var tmp = await userService.getUser(api, userData);
+    console.log(tmp);
     // BUG
     var start = (await lenraDataService.getAll(api, "mainAppVars"))[0];
+    console.log("ERRRRRR7")
+    console.log(start)
     await videoAPIService.addNewVideosToLenra(api, start);
+    // console.log("ERRRRRR8")
 }

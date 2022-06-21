@@ -6,13 +6,21 @@
  * @param {*} props 
  * @returns 
  */
-// const functions = require("../../resources/functions");
+
+const functions = require("../../services/local/videoAPIService");
+const consts = require("../../services/local/appConstsService");
 module.exports = async (data, props) => {
-    var datas = data[0].data;
-    if (datas.movieInfoToSee.show != null || datas.movieInfoToSee.show != undefined) {
-        var show = datas.movieInfoToSee.show;
+    console.log("DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    console.log(props);
+    var index = props.userData.mainData.lenraCurrentVideoIndex;
+    var allFIlms = data.sort(function (a, b) {
+        return b._id - a._id;
+    }).reverse();
+    var currentVideo = allFIlms[index];
+    if (currentVideo.isTvShow) {
+        var show = currentVideo.videoDetails;
         var title = show.title;
-        var img = "https://api.betaseries.com/pictures/shows?key=" + datas.apiKey + "&id=" + datas.movieInfoToSee.show.id + "&height=300";
+        var img = show.img
         var year = show.creation;
         var platforms = (show.platforms == null) ? [] : show.platforms.svods;
         var director = (show.showrunner == null) ? "Inconnu" : show.showrunner.name;
@@ -20,7 +28,7 @@ module.exports = async (data, props) => {
         var genresArray = Object.values(show.genres);
         var genresArrayStr = genresArray.join('\n');
         var synopsis = show.description;
-        var charactersArray = await functions.getTvShowsCharacters(datas.apiKey, show.id);
+        var charactersArray = await functions.getTvShowsCharacters(show.id);
         var episodesBySeasons = show.seasons_details.map(x => [x.number, x.episodes * (show.length * 60)]);
         var strArray = [episodesBySeasons.length + " saisons"]
         episodesBySeasons.forEach(element => {
@@ -28,9 +36,9 @@ module.exports = async (data, props) => {
         });
         var currentFilmDurationStr = strArray.join("\n");
     } else {
-        var movie = datas.movieInfoToSee.movie;
+        var movie = currentVideo.videoDetails;
         var title = movie.title;
-        var img = "https://api.betaseries.com/pictures/movies?key=" + datas.apiKey + "&id=" + movie.id + "&height=300";
+        var img =  movie.img;
         var year = movie.production_year;
         var platforms = movie.platform_links;
         var synopsis = movie.synopsis;
@@ -38,7 +46,7 @@ module.exports = async (data, props) => {
         var director = movie.director;
         var currentFilmDurationStr = functions.computeMovieDuration(movie.length);
         var genresArrayStr = movie.genres.join('\n');
-        var charactersArray = await functions.getCharacters(datas.apiKey, movie.id);
+        var charactersArray = await functions.getCharacters(movie.id);
     }
     return {
         type: "container",
@@ -54,15 +62,9 @@ module.exports = async (data, props) => {
                     type: "widget",
                     name: "menu",
                     props: {
-                        page: "User Viewed"
+                        page: "Main Page",
+                        data: props.userData.mainData
                     },
-                    query: {
-                        "$find": {
-                            "_datastore": {
-                                "$eq": "vars"
-                            }
-                        }
-                    }
                 },
                 {
                     type: "flexible",
@@ -140,7 +142,7 @@ module.exports = async (data, props) => {
                                     ...platforms.map(x => {
                                         return {
                                             type: "image",
-                                            src: "https://api.betaseries.com/pictures/platforms?key=" + datas.apiKey + "&id=" + x.id + "&height=40&width=40"
+                                            src: "https://api.betaseries.com/pictures/platforms?key=" + consts.apiKey+ "&id=" + x.id + "&height=40&width=40"
                                         }
                                     })
                                 ]
@@ -279,17 +281,10 @@ module.exports = async (data, props) => {
                             },
                             {
                                 type: "widget",
-                                name: "charactersGrid",
+                                name: "videoActorGrid",
                                 props: {
                                     charactersArray: charactersArray
                                 },
-                                query: {
-                                    "$find": {
-                                        "_datastore": {
-                                            "$eq": "vars"
-                                        }
-                                    }
-                                }
                             }
                         ]
                     }
