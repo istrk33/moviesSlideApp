@@ -2,6 +2,9 @@ const consts = require("../../services/local/appConstsService");
 const mainVideosService = require("../../services/mainVideosService");
 
 module.exports = (_data, props) => {
+    console.log("--------------------------HOME CONSOLE.LOGS--------------------------");
+    console.log(props);
+    console.log(_data);
     var data = _data[0];
     var currentVideoId = data.mainData.lenraCurrentVideoId;
     return {

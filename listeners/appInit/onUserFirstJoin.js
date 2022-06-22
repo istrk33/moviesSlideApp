@@ -9,10 +9,6 @@ module.exports = async (props, event, api) => {
     // getUser Id
     var userData = await userService.getUser(api, userData);
     var userId = userData._id;
-    var allFIlms = await lenraDataService.getAll(api, mainVideosServices.datastoreName);
-    allFIlms.sort(function (a, b) {
-        return b._id - a._id;
-    }).reverse();
 
     var userInitialData = {
         totalWastedTime: 0,

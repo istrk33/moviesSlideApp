@@ -89,23 +89,26 @@ module.exports = {
         }
         return arr;
     },
-    async addNewVideosToLenra(api, start) {
+    async addNewVideosToLenra(api, start, datastoreName) {
         var listOfVideos = [];
         (await this.queryPopularMovies(start.start)).forEach((element) => listOfVideos.push([element.id, false]));
         (await this.queryPopularTvShows(start.start)).forEach((element) => listOfVideos.push([element.id, true]));
         start.start += consts.numberOfResults;
-        console.log("SIUUUU");
-        console.log(start);
+        var videoNum = start.numberOfVideos;
 
         listOfVideos = listOfVideos.sort((a, b) => 0.5 - Math.random());
         listOfVideos.forEach(async e => {
             var videoDetails = (e[1]) ? await this.getTvShowDetails(e[0]) : await this.getMovieDetails(e[0]);
             videoDetails.img = (e[1]) ? "https://api.betaseries.com/pictures/shows?key=" + consts.apiKey + "&id=" + videoDetails.id + "&width=627&height=933" : "https://api.betaseries.com/pictures/movies?key=" + consts.apiKey + "&id=" + videoDetails.id + "&width=627&height=933";
-            await mainVideosServices.createVideo(api, { id: e[0], isTvShow: e[1], videoDetails });
+            var newMovie = await mainVideosServices.createVideo(api, { id: e[0], isTvShow: e[1], videoDetails });
+            start.videos.push({
+                videoNum: videoNum,
+                videoLenraId: newMovie._id
+            });
+            videoNum += 1;
+
         });
-        var tmp = (await lenraDataService.updateData(api, "mainAppVars", start));
-        console.log("SIUUUU222");
-        console.log(tmp);
+        (await lenraDataService.updateData(api, "mainAppVars", start));
     },
     async getCharacters(id) {
         var url = "https://api.betaseries.com/movies/characters?key=" + consts.apiKey + "&id=" + id;

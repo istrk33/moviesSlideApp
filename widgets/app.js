@@ -3,7 +3,7 @@
 const User = require('../classes/User.js');
 const mainVideosService = require('../services/mainVideosService.js');
 const userService = require('../services/userService');
-
+const mainAppVars = "mainAppVars";
 /**
  * @param {User} user 
  * @param {*} _props 
@@ -30,9 +30,11 @@ function getUi(nav, user) {
         name: "home",
         query: {
           "$find": {
-            "_datastore": userService.datastoreName,
-            "_id": "@me"
+            "_datastore": mainAppVars,
           }
+        },
+        props: {
+          userData: user
         }
       };
     case "videoInfoUi":

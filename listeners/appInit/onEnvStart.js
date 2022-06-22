@@ -16,8 +16,8 @@ module.exports = async (props, event, api) => {
     // creating datastores
     const promises = datastores.map(ds => lenraDataService.createDatastore(api, ds).catch((e => { })));
     await Promise.all(promises);
-    var tmp = await lenraDataService.createData(api, mainAppVars, { start: 0 });
+    var tmp = await lenraDataService.createData(api, mainAppVars, { start: 0, numberOfVideos: 0, videos: [] });
     var start = (await lenraDataService.getData(api, mainAppVars, tmp._id));
-    await apiVideoService.addNewVideosToLenra(api, start);
+    await apiVideoService.addNewVideosToLenra(api, start, mainAppVars);
     return errors;
 }
